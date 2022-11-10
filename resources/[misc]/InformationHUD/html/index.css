@@ -1,0 +1,48 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: 'Work Sans', 'Segoe UI';
+    font-weight: 100;
+}
+
+.bars-container {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: fit-content;
+    width: 250px;
+    top: 5%;
+    right: 0;
+}
+
+h2 {
+    font-size: 0.8vw;
+    
+    color: rgb(255, 255, 255);
+}
+
+h3 { font-weight: 500; }
+
+.bars-container > .wallet-bar, .bars-container > .bank-bar, .bars-container > .dirtymoney-bar, .identity-bar {
+    display: flex;
+    background-color: rgba(153, 136, 59, 0.7);
+    
+	border: 2px solid black;
+    width: 98.5%;
+    height: fit-content;
+    margin-bottom: 1.5%;
+    border-radius: 18px 0 0 18px;
+}
+
+.bars-container > .wallet-bar > h3, .bars-container > .bank-bar > h3, .identity-bar > h3, .dirtymoney-bar > h3 {
+    font-size: 0.9vw;
+    margin: 1.5%;
+}
+.bars-container > .dirtymoney-bar > h3 { color: rgb(255, 255, 255); }
+
+.bars-container > * > img {
+    margin: auto 2%;
+}

@@ -1,0 +1,157 @@
+@font-face {
+  font-family: justsignature;
+  src: url('../fonts/justsignature/JustSignature.woff');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+#blindfold {
+  display: none;
+  height: 100vh;
+  background: url("../images/blindfold.png") no-repeat center center fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+p {
+  padding: 0;
+  margin: 0;
+  text-transform: uppercase;
+  color: #FFF;
+  font-size: 12px;
+}
+#id-card {
+  position: relative;
+  display: none;
+  margin: 230px 50px 0 0;
+  float: right;
+  width: 457px;
+  height: 272px;
+  padding: 54px 17px 10px 144px;
+  background: url("../images/idcard.png");
+}
+img {
+  position: absolute;
+  left:7px;
+  top:5px;
+}
+#name {
+  font-weight: bolder;
+  font-size: 18px;
+  color: #FFF !important;
+}
+#inline {
+  position: absolute;
+  top: 109px;
+}
+#dob {
+  position: absolute;
+  left: 0;
+  width: 100px;
+  color: #FFF;
+}
+#sex {
+  position: absolute;
+  left: 90px;
+  color: #FFF;
+}
+#height {
+  position: absolute;
+  left: 150px;
+  width: 60px;
+  color: #FFF;
+}
+#signature {
+  position: absolute;
+  bottom: 76px;
+  left: 152px;
+  color: #FFF;
+  font-size: 19px;
+  text-transform:capitalize;
+  font-family: justsignature;
+}
+#licenses {
+  position: absolute;
+  top: 109px;
+  right: 33px;
+  width: 50px;
+}
+
+#timedisplay {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#logoer .logo {
+  display: none;
+}
+
+#timedisplay .logo {
+  width: 150px;
+  height: 30px;
+}
+
+#horario h3, #players h3 {
+  text-shadow: 2px 2px 4px #000000;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  font-weight: 500 !important;
+  color: white;
+  margin: 0 !important;
+  padding: 0 !important;
+  margin-top: 8px !important;
+}
+
+#logoer span {
+  color: #ff0000 !important;
+  font-weight: 700 !important;
+}
+
+#logoer h1 {
+  text-shadow: 2px 2px 4px #000000;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 26px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400 !important;
+  color: white !important;
+  text-align: center;
+}
+
+#logoer img {
+  position: relative;
+  max-width: 150px;
+  top: 0;
+  left: 0;
+}
+
+#logoer .active {
+  background-color: #717171;
+}
+
+#logoer .fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 2.0s;
+  animation-name: fade;
+  animation-duration: 2.0s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
