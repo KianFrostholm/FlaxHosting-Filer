@@ -28,7 +28,7 @@ AddEventHandler('veh_SR:CheckMoneyForVeh', function(vehicle, price ,veh_type)
                             if price > 5000 then
                                 if vRP.tryFullPayment({user_id,price}) then
                                     vRP.getUserIdentity({user_id, function(identity)
-                                        MySQL.Async.execute("INSERT IGNORE INTO vrp_user_vehicles(user_id,vehicle,vehicle_name,vehicle_plate,veh_type) VALUES(@user_id,@vehicle,@vehicle_name,@vehicle_plate,@veh_type)", {user_id = user_id, vehicle = vehicle, vehicle_name = vehicle, vehicle_plate = "P "..identity.registration, veh_type = veh_type})
+                                        MySQL.Async.execute("INSERT IGNORE INTO vrp_user_vehicles(user_id,vehicle,vehicle_plate,veh_type) VALUES(@user_id,@vehicle,@vehicle_plate,@veh_type)", {user_id = user_id, vehicle = vehicle, vehicle_plate = "P "..identity.registration, veh_type = veh_type})
                                     end})
 
                                     TriggerClientEvent('veh_SR:CloseMenu', player, vehicle, veh_type)
