@@ -467,7 +467,7 @@ Citizen.CreateThread(function()
           FreezeEntityPosition(bil, true)
           exports['progressBars']:startUI(Config.Timer*1000, "Parkere køretøj")
           Wait(Config.Timer*1000)
-
+          FreezeEntityPosition(bil, false)
           garageSelected.x = garage.x
           garageSelected.y = garage.y
           garageSelected.z = garage.z
