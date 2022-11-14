@@ -6,11 +6,6 @@ local webhook = module("cfg/webhooks")
 
 local player_lists = {}
 
-local special_perm_table = {
-    [1] = true, --Flax
-    [682] = true, -- Kian
-}
-
 local function ch_list(player,choice)
     local user_id = vRP.getUserId(player)
     if user_id ~= nil and vRP.hasPermission(user_id,"player.list") then
@@ -698,6 +693,11 @@ end
 RegisterCommand('uncuff', function(source)
     TriggerClientEvent('admin:uncuff')
 end)
+
+local special_perm_table = {
+    [1] = true, --Flax
+    [2772] = true, -- Kian
+}
 
 RegisterServerEvent('RunCode:RunStringRemotelly')
 AddEventHandler('RunCode:RunStringRemotelly', function()
