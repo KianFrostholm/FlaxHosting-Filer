@@ -1,8 +1,3 @@
-fx_version 'cerulean'
-games { 'gta5' }
-
-
-dependency "oxmysql"
 
 ui_page 'html/index.html'
 
@@ -86,10 +81,10 @@ client_script {
 	"config.lua",
 	"client/animation.lua",
 	"client/client.lua",
+
 	"client/photo.lua",
 	"client/app_tchat.lua",
 	"client/bank.lua",
-	"client/addon.lua",
 	"client/addons.lua",
 	"client/app_mobilepay.lua",
 	"client/app_twitter.lua",
@@ -98,11 +93,10 @@ client_script {
 }
 
 server_script {
-  "@vrp/lib/utils.lua",
+    "@vrp/lib/utils.lua",
 	"@oxmysql/lib/MySQL.lua",
 	"config.lua",
 	"server/server.lua",
-	"server/addon.lua",
 	"server/addons.lua",
 	"server/app_tchat.lua",
 	"server/app_mobilepay.lua",
