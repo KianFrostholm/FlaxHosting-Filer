@@ -65,7 +65,65 @@ function tvRP.spawnspikes()
   TriggerEvent('c_setSpike')
 end
 
--- (experimental, based on experimental getNearestVehicle)
+other = nil
+drag = false
+playerStillDragged = false
+drag1 = false
+drag2 = false
+dragversion = 1
+
+RegisterNetEvent("dr:drag")
+AddEventHandler('dr:drag', function(pl)
+	other = pl
+	drag = not drag
+	dragversion = 1
+end)
+
+RegisterNetEvent("dr:drag2")
+AddEventHandler('dr:drag2', function(pl)
+	other = pl
+	drag = not drag
+	dragversion = 2
+end)
+
+RegisterNetEvent("dr:undrag")
+AddEventHandler('dr:undrag', function(pl)
+	drag2 = false
+	drag1 = false
+	drag = false
+end)
+
+RegisterNetEvent("dr:undrag2")
+AddEventHandler('dr:undrag2', function(pl)
+	drag2 = false
+	drag1 = false
+	drag = false
+	ClearPedTasksImmediately(GetPlayerPed(-1))
+end)
+
+
+Citizen.CreateThread(function()
+	while true do
+		if drag and other ~= nil then
+			local ped = GetPlayerPed(GetPlayerFromServerId(other))
+			local myped = GetPlayerPed(-1)
+			if dragversion == 1 then 
+			AttachEntityToEntity(myped, ped, 9816, 0.015, 0.38, 0.11, 0.9, 0.30, 90.0, false, false, false, false, 2, false)
+			else
+			AttachEntityToEntity(myped, ped, 0, 0.27, 0.15, 0.63, 0.5, 0.5, 0.0, false, false, false, false, 2, false)
+			end
+			playerStillDragged = true
+		else
+			if(playerStillDragged) then
+				DetachEntity(GetPlayerPed(-1), true, false)
+				playerStillDragged = false
+			end
+		end
+		Citizen.Wait(0)
+	end
+end)
+
+
 function tvRP.putInNearestVehicleAsPassenger(radius)
   local veh = tvRP.getNearestVehicle(radius)
 
