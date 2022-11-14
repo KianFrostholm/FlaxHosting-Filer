@@ -264,36 +264,28 @@ local function pc_leave(source,area)
   vRP.closeMenu(source)
 end
 
--- main menu choices
-
----- handcuff
---[[local choice_handcuff = {function(player,choice)
-  vRPclient.getNearestPlayer(player,{10},function(nplayer)
-    local nuser_id = vRP.getUserId(nplayer)
-    if nuser_id ~= nil then
-      vRPclient.toggleHandcuff(nplayer,{})
-    TriggerClientEvent("pNotify:SendNotification", source,{text = {lang.police.cuffs()}, type = "success", queue = "global", timeout = 3000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-    else
-  TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.common.no_player_near()}, type = "error", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-    end
-  end)
-end,lang.police.menu.handcuff.description()}]]
-
 local choice_putinveh = {function(player,choice)
-  vRPclient.getNearestPlayer(player,{10},function(nplayer)
-    local nuser_id = vRP.getUserId(nplayer)
-    if nuser_id ~= nil then
-      vRPclient.isHandcuffed(nplayer,{}, function(handcuffed)  -- check handcuffed
-        if handcuffed then
-          vRPclient.putInNearestVehicleAsPassenger(nplayer, {5})
-      TriggerClientEvent("dr:undrag", nplayer)
-        else
-    TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.police.not_handcuffed()}, type = "error", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-        end
-      end)
-    else
-    TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.common.no_player_near()}, type = "error", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-    end
+    vRPclient.getNearestPlayer(player,{10},function(nplayer)
+      local nuser_id = vRP.getUserId(nplayer)
+      if nuser_id ~= nil then
+	      vRPclient.isHandcuffed(nplayer,{}, function(handcuffed)
+	      vRPclient.isInComa(nplayer,{}, function(in_coma)
+	          if in_coma then
+	              vRPclient.putInNearestVehicleAsPassenger(nplayer, {5})
+                TriggerClientEvent("dr:undrag", nplayer)
+	              TriggerClientEvent("dr:undrag2", player)
+	          elseif handcuffed then
+	              vRPclient.putInNearestVehicleAsPassenger(nplayer, {5})
+                TriggerClientEvent("dr:undrag", nplayer)
+	              TriggerClientEvent("dr:undrag2", player)
+            else
+                TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.police.not_handcuffed()}, type = "error", queue = "global", timeout = 4000, layout = "centerLeft",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+            end
+          end)
+	      end)
+      else
+          TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.common.no_player_near()}, type = "error", queue = "global", timeout = 4000, layout = "centerLeft",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+      end
   end)
 end,lang.police.menu.putinveh.description()}
 
