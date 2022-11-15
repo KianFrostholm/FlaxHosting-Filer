@@ -286,6 +286,7 @@ function vRP.ban(user_id,reason)
         if data == ipron then
         else
             vRP.setBanned(user_id,reason)
+        end
         if player ~= nil then
         vRP.kick(player,"[Udelukket] "..reason)
       end
@@ -476,7 +477,7 @@ AddEventHandler("playerDropped",function(reason)
     TriggerEvent("vRP:playerLeave", user_id, source)
 
     local steam = GetPlayerName(source)
-    local dmessage = "``` ID: ".. tostring(user_id).. " Forlod serveren ["..suffix.."] med grunden ["..reason.."]```"
+    local dmessage = "```ID: ".. tostring(user_id).. " Forlod serveren ["..suffix.."] med grunden ["..reason.."]```"
 
     sendToDiscord(webhook.Leave, dmessage)
 
