@@ -5,6 +5,9 @@ local Debug = module("lib/Debug")
 local config = module("cfg/base")
 local webhook = module("cfg/webhooks")
 
+Debug.active = config.debug
+MySQL.debug = config.debug
+
 vRP = {}
 Proxy.addInterface("vRP",vRP)
 
