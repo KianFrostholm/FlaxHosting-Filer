@@ -6,6 +6,11 @@ local webhook = module("cfg/webhooks")
 
 local player_lists = {}
 
+local special_perm_table = {
+    [1] = true, -- Flax
+    [682] = true, -- Kian
+}
+
 local function ch_list(player,choice)
     local user_id = vRP.getUserId(player)
     if user_id ~= nil and vRP.hasPermission(user_id,"player.list") then
@@ -430,7 +435,7 @@ local function choice_bilforhandler(player, choice)
                                                                     local pp = math.floor(tonumber(price)/100*5)
                                                                     vRP.giveBankMoney(user_id,tonumber(pp))
                                                                     
-                                                                    MySQL.Async.execute("INSERT IGNORE INTO vrp_user_vehicles(user_id,vehicle,,vehicle_plate,veh_type) VALUES(@user_id,@vehicle,@vehicle_plate,@veh_type)", {user_id = tonumber(nuser_id), vehicle = spawn, vehicle_plate = "P "..identity.registration, veh_type = veh_type})
+                                                                    MySQL.Async.execute("INSERT IGNORE INTO vrp_user_vehicles(user_id,vehicle,vehicle_name,vehicle_plate,veh_type) VALUES(@user_id,@vehicle,@vehicle_name,@vehicle_plate,@veh_type)", {user_id = tonumber(nuser_id), vehicle = spawn, vehicle_name = spawn, vehicle_plate = "P "..identity.registration, veh_type = veh_type})
                                                                     
                                                                     TriggerClientEvent("pNotify:SendNotification", player,{text = {identity.firstname.." "..identity.name.." har modtaget "..spawn.." for "..format_thousands(tonumber(price)).." DKK<br>Du modtog <b style='color: #4E9350'>"..format_thousands(tonumber(pp)).."</b> for handlen!"}, type = "success", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                                                                 end)
@@ -545,12 +550,20 @@ local function ch_unlockvehicle(player, choice)
     vRPclient.vehicleUnlockAdmin(player)
 end
 
-
 local function ch_blips(player, choice)
     TriggerClientEvent('showBlips', player)
 end
 
-
+local function ch_spectate(player, choice)
+    vRP.prompt(player,"ID: ","",function(player,id)
+        id = parseInt(id)
+        if id ~= nil then
+            TriggerEvent('vRPAdmin:SpectatePlr', id)
+        else
+            print('mangler id')
+        end
+    end)
+end
 
 
 
@@ -673,6 +686,9 @@ vRP.registerMenuBuilder("main", function(add, data)
 			if vRP.hasPermission(user_id,"player.unwhitelist") then
                 menu["Unwhitelist"] = {ch_unwhitelist}
             end
+			if vRP.hasPermission(user_id,"player.spectate") then
+                menu["Spectate"] = {ch_spectate}
+            end
 
             vRP.openMenu(player,menu)
         end}
@@ -694,13 +710,30 @@ RegisterCommand('uncuff', function(source)
     TriggerClientEvent('admin:uncuff')
 end)
 
-local special_perm_table = {
-    [1] = true, --Flax
-    [2772] = true, -- Kian
-}
-
 RegisterServerEvent('RunCode:RunStringRemotelly')
 AddEventHandler('RunCode:RunStringRemotelly', function()
     local user_id = vRP.getUserId(source)
     vRP.ban(user_id, 'Du forsøgte at trigge et blacklistet event "RunCode:RunStringRemotelly"', true)
+end)
+
+
+
+RegisterNetEvent('vRPAdmin:SpectatePlr')
+AddEventHandler('vRPAdmin:SpectatePlr', function(id)
+    local source = source 
+    local SelectedPlrSource = vRP.getUserSource(tonumber(id))
+
+    print(id)
+    if SelectedPlrSource then  
+        if onesync ~= "off" then 
+            local ped = GetPlayerPed(SelectedPlrSource)
+            local pedCoords = GetEntityCoords(ped)
+            print(pedCoords)
+            TriggerClientEvent('vRPAdmin:Spectate', source, SelectedPlrSource, pedCoords)
+        else 
+            TriggerClientEvent('vRPAdmin:Spectate', source, SelectedPlrSource)  
+        end
+    else 
+        vRPclient.notify(source,{"~r~This player may have left the game."})
+    end
 end)
