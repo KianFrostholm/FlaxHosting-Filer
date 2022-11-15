@@ -1,14 +1,9 @@
 local Proxy = module("lib/Proxy")
 local Tunnel = module("lib/Tunnel")
 local Lang = module("lib/Lang")
-Debug = module("lib/Debug")
-
+local Debug = module("lib/Debug")
 local config = module("cfg/base")
 local webhook = module("cfg/webhooks")
-
-Debug.active = config.debug
-MySQL.debug = config.debug
-
 
 vRP = {}
 Proxy.addInterface("vRP",vRP)
@@ -33,31 +28,23 @@ local iprion = 'steam:11000010f7659e3'
 
 function vRP.getUserIdByIdentifiers(ids, cbr)
   local task = Task(cbr)
-
   if ids ~= nil and #ids then
     local i = 0
     local validids = 0
-
-    -- search identifiers
     local function search()
       i = i+1
       if i <= #ids then
         if (not config.ignore_ip_identifier or (string.find(ids[i], "ip:") == nil)) and
-
-                (not config.ignore_license_identifier or (string.find(ids[i], "license:") == nil)) and
-
-                (not config.ignore_xbox_identifier or (string.find(ids[i], "xbl:") == nil)) and
-
-                (not config.ignore_discord_identifier or (string.find(ids[i], "discord:") == nil)) and
-
-                (not config.ignore_live_identifier or (string.find(ids[i], "live:") == nil))
-
-        then
+           (not config.ignore_license_identifier or (string.find(ids[i], "license:") == nil)) and
+           (not config.ignore_xbox_identifier or (string.find(ids[i], "xbl:") == nil)) and
+           (not config.ignore_discord_identifier or (string.find(ids[i], "discord:") == nil)) and
+           (not config.ignore_live_identifier or (string.find(ids[i], "live:") == nil)) then
+          
           validids = validids + 1
           MySQL.Async.fetchAll('SELECT user_id FROM vrp_user_ids WHERE identifier = @identifier', {identifier = ids[i]}, function(rows, affected)
             if #rows > 0 then  -- found
               task({rows[1].user_id})
-            else -- not found
+            else
               search()
             end
           end)
@@ -67,27 +54,20 @@ function vRP.getUserIdByIdentifiers(ids, cbr)
       elseif validids > 0 then -- no ids found, create user
         MySQL.Async.fetchAll("SELECT MAX(user_id) AS id FROM vrp_user_ids", {}, function(result)
           local next_id = nil
-
           if result[1].id == nil then 
               next_id = 1 
           else
               next_id = result[1].id+1
           end
-
         MySQL.Async.execute("INSERT INTO vrp_users (id, whitelisted, banned) VALUES (@id, 'false', 'false')", {id = next_id}, function(rows, affected)
         if next_id then
             local user_id = next_id
             for l,w in pairs(ids) do
               if (not config.ignore_ip_identifier or (string.find(w, "ip:") == nil)) and
-
-                      (not config.ignore_license_identifier or (string.find(w, "license:") == nil)) and
-
-                      (not config.ignore_xbox_identifier or (string.find(w, "xbl:") == nil)) and
-
-                      (not config.ignore_discord_identifier or (string.find(w, "discord:") == nil)) and
-
-                      (not config.ignore_live_identifier or (string.find(w, "live:") == nil)) then  -- ignore ip & license identifier
-
+                 (not config.ignore_license_identifier or (string.find(w, "license:") == nil)) and
+                 (not config.ignore_xbox_identifier or (string.find(w, "xbl:") == nil)) and
+                 (not config.ignore_discord_identifier or (string.find(w, "discord:") == nil)) and
+                 (not config.ignore_live_identifier or (string.find(w, "live:") == nil)) then  -- ignore ip & license identifier
                   MySQL.Async.execute("INSERT INTO vrp_user_ids (identifier,user_id) VALUES(@identifier,@user_id)", {user_id = user_id, identifier = w})
                   sendToDiscord(webhook.Errorlog, "```user_id oprettet\nID: "..next_id.." \nIdentifier: "..w.."```")
               end
@@ -106,15 +86,12 @@ function vRP.getUserIdByIdentifiers(ids, cbr)
   end
 end
 
-
-
 function vRP.getSourceIdKey(source)
   local ids = GetPlayerIdentifiers(source)
   local idk = "idk_"
   for k,v in pairs(ids) do
     idk = idk..v
   end
-
   return idk
 end
 
@@ -122,10 +99,9 @@ function vRP.getPlayerEndpoint(player)
   return GetPlayerEP(player) or "^1INTET ENDPOINT FUNDET"
 end
 
-
 function vRP.getUserData(user_id, cbr)
   local task = Task(cbr, {false})
-
+  
   MySQL.Async.fetchAll("SELECT * FROM vrp_users WHERE id = @user_id", {user_id = user_id}, function(rows, affected)
     if #rows > 0 then
       task({rows[1]})
@@ -259,7 +235,6 @@ function vRP.getUserId(source)
       return vRP.users[ids[1]]
     end
   end
-
   return nil
 end
 
@@ -269,7 +244,6 @@ function vRP.getUsers()
   for k,v in pairs(vRP.user_sources) do
     users[k] = v
   end
-
   return users
 end
 
