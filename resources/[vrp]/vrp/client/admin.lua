@@ -172,3 +172,39 @@ local function teleportToWaypoint()
 end
 RegisterNetEvent("TpToWaypoint")
 AddEventHandler("TpToWaypoint", teleportToWaypoint)
+
+
+
+RegisterNetEvent('vRPAdmin:Spectate')
+AddEventHandler('vRPAdmin:Spectate', function(plr,tpcoords)
+    local playerPed = PlayerPedId()
+    local targetPed = GetPlayerPed(GetPlayerFromServerId(plr))
+    if not Spectating then
+        LastCoords = GetEntityCoords(playerPed) 
+        if tpcoords then 
+            SetEntityCoords(playerPed, tpcoords - 10.0)
+        end
+        Wait(300)
+        targetPed = GetPlayerPed(GetPlayerFromServerId(plr))
+        if targetPed == playerPed then 
+            tvRP.notify('~r~I mean you cannot spectate yourself...') 
+            return 
+        end
+		NetworkSetInSpectatorMode(true, targetPed)
+        SetEntityCollision(playerPed, false, false)
+        SetEntityVisible(playerPed, false, 0)
+		SetEveryoneIgnorePlayer(playerPed, true)	
+		SetEntityInvincible(playerPed, true) 
+        Spectating = true
+        tvRP.notify('~g~Spectating Player.')
+    else 
+        NetworkSetInSpectatorMode(false, targetPed)
+        SetEntityVisible(playerPed, true, 0)
+		SetEveryoneIgnorePlayer(playerPed, false)
+		SetEntityInvincible(playerPed, false)
+		SetEntityCollision(playerPed, true, true)
+        Spectating = false;
+        SetEntityCoords(playerPed, LastCoords)
+        tvRP.notify('~r~Stopped Spectating Player.')
+    end 
+end)
