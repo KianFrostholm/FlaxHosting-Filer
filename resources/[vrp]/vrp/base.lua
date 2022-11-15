@@ -1,7 +1,7 @@
 local Proxy = module("lib/Proxy")
 local Tunnel = module("lib/Tunnel")
 local Lang = module("lib/Lang")
-local Debug = module("lib/Debug")
+Debug = module("lib/Debug")
 local config = module("cfg/base")
 local webhook = module("cfg/webhooks")
 
