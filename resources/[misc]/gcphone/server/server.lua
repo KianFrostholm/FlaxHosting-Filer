@@ -147,11 +147,17 @@ end)
 
 function _internalAddMessage(transmitter, receiver, message, owner, cbr)
     local task = Task(cbr)
-    MySQL.Async.execute("INSERT INTO phone_messages (transmitter, receiver, message, isRead,owner) VALUES(@transmitter, @receiver, @message, @isRead, @owner); SELECT * from phone_messages WHERE id = (SELECT LAST_INSERT_ID());", {transmitter = transmitter,receiver = receiver, message = message, isRead = owner, owner = owner}, function(rows, affected)
-        if #rows > 0 then
-            task({rows[1]})
-        end
-    end)
+    local Query = "INSERT INTO phone_messages (`transmitter`, `receiver`,`message`, `isRead`,`owner`) VALUES(@transmitter, @receiver, @message, @isRead, @owner);"
+    local Query2 = 'SELECT * from phone_messages WHERE `id` = @id;'
+	local Parameters = {
+        ['@transmitter'] = transmitter,
+        ['@receiver'] = receiver,
+        ['@message'] = message,
+        ['@isRead'] = owner,
+        ['@owner'] = owner
+    }
+    local id = MySQL.Sync.insert(Query, Parameters)
+    task({MySQL.Sync.fetchAll(Query2, {['@id'] = id})[1]})
 end
 
 function addMessage(source, identifier, phone_number, message)
