@@ -11,10 +11,6 @@ local tweets = {}
 --====================================================================================
 --  Utils
 --====================================================================================
-MySQL.Async.execute("DELETE FROM phone_messages WHERE (DATEDIFF(CURRENT_DATE,time) > 20)") -- Wipe beskeder der er ældre end 31 dage
-MySQL.Async.execute("DELETE FROM phone_calls WHERE (DATEDIFF(CURRENT_DATE,time) > 20)") -- Wipe beskeder der er ældre end 31 dage
-MySQL.Async.execute("DELETE FROM phone_messages WHERE (`transmitter` like '%-Job' or `transmitter` = 'Taxi') AND (DATEDIFF(CURRENT_DATE,time) > 1)") -- Wipe beskeder der er ældre end 31 dage
-
 RegisterServerEvent('gcphone:addtweet')
 AddEventHandler('gcphone:addtweet', function(name,message,time)
     local tweet = {name=name,message=message,time=time }
