@@ -90,7 +90,7 @@ Citizen.CreateThread(function()
 
 		if not InBlacklistedVehicle then
 			if Timer then
-				DisplayHud()
+				--DisplayHud()
 			end
 
 			if nearPump and IsCloseToLastVehicle then
