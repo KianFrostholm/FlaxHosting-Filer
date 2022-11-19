@@ -3,7 +3,7 @@ local cfg = {}
 -- mysql credentials
 cfg.db = {
   host = "127.0.0.1", -- database ip (default is local)
-  database = "devo",   -- name of database
+  database = "database",   -- name of database
   user = "root",    --  database username
   password = ""   -- password of your database
 }
