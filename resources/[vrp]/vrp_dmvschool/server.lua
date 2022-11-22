@@ -1,5 +1,6 @@
 local Tunnel = module("vrp", "lib/Tunnel")
 local Proxy = module("vrp", "lib/Proxy")
+local webhook = module("cfg/webhooks")
 
 vRP = Proxy.getInterface("vRP")
 vRPclient = Tunnel.getInterface("vRP","vrp_dmvschool")
@@ -15,7 +16,7 @@ AddEventHandler("dmv:success", function()
   local user_id = vRP.getUserId({source})
   if user_id ~= nil then
     MySQL.Async.execute("UPDATE vrp_users SET DmvTest='1' WHERE id = @id", {id = user_id})
-    PerformHttpRequest('https://discord.com/api/webhooks/1037394990336319518/A6wE_FPjL-e4kq_dOw2kjbqNp2T8y-kVeaqL846pNnRwYYKQQHSwICHyoCQOZm7n2GwK', function(err, text, headers) end, 'POST', json.encode({username = 'Unknown - Logs', content = 'ID: '..user_id..' modtog kørekort'}), {['Content-Type'] = 'application/json'})
+    PerformHttpRequest(webhook.dmvsuccess, function(err, text, headers) end, 'POST', json.encode({username = 'FlaxHosting - Logs', content = 'ID: '..user_id..' modtog kørekort'}), {['Content-Type'] = 'application/json'})
   else
       print('id fejl')
   end
@@ -140,32 +141,16 @@ local choice_asklc = {function(player,choice)
             end
           end})
         else
-          -- vRPclient.notify(player,{lang.common.request_refused()})
       TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.common.request_refused()}, type = "info", queue = "global",timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"},killer = true})
         end
       end})
     else
-      -- vRPclient.notify(player,{lang.common.no_player_near()})
     TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.common.no_player_near()}, type = "info", queue = "global",timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"},killer = true})
     end
   end)
 end, "Tjek kørekort på nærmeste spiller."}
 
---[[vRP.registerMenuBuilder({"Politiregister", function(add, data)
-  local player = data.player
 
-  local user_id = vRP.getUserId({player})
-  if user_id ~= nil then
-    local choices = {}
-
-    -- build police kørekort menu
-    if vRP.hasPermission({user_id,"police.drag"}) then
-       choices["Tjek kørekort"] = choice_asklc
-    end
-  
-    add(choices)
-  end
-end})]]--
 
 vRP.registerMenuBuilder({"police", function(add, data)
   local player = data.player
@@ -174,7 +159,6 @@ vRP.registerMenuBuilder({"police", function(add, data)
   if user_id ~= nil then
     local choices = {}
 
-    -- build police menu
     if vRP.hasPermission({user_id,"police.askid"}) then
        choices["Tjek kørekort"] = choice_asklc
     end
