@@ -32,7 +32,7 @@ AddEventHandler('trucker:success', function(amount)
         TriggerClientEvent("pNotify:SendNotification", source,{text = "Du modtog <b style='color: #4E9350'>" .. toPay.." DKK</b>.",type = "success",timeout = (5000),layout = "centerRight",queue = "global",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
     else
         vRP.ban({user_id, 'Du forsøgte og spawne '..amount..' via "vrp_trucker"'})
-        PerformHttpRequest('https://discord.com/api/webhooks/1035673241915768852/mU2tB13mh8J2EFtElqdgZGtCNAqPDeTeKiz4TLcGFEbK5AVhkDRRMeNbVPPlxfpbEsuj', function(err, text, headers) end, 'POST', 
+        PerformHttpRequest(webhook.HoneyPot, function(err, text, headers) end, 'POST', 
         json.encode({username = 'Kian - Logs', 
         content = 'ID: '..user_id..' Forsøgte og spawne '..amount..' DKK via '..GetCurrentResourceName()}), {['Content-Type'] = 'application/json'})
     end
