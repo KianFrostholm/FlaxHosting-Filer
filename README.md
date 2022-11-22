@@ -9,6 +9,9 @@
 - Fjernet bugs og fejl som kunne misbruges af moddere herunder (vrp_trucker, vrp_bilskrot, vrp_mysql og andre små ting)
 - Optimeret responsen mellem database og server så såkaldte "vrp fejl" ikke skulle ske for fremtiden
 - Tilføjet små ændringer til UI for at forbedrer oplevelse
+- Tilføjet advarsel system under admin menuen
+- Tilføjet en command til at revive alle, /revivealle
+- Tilføjet en command til at unbanne alle (kun id 1 kan) /unbanalle
 
 
 
