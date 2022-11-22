@@ -18,13 +18,6 @@ function tvRP.toggleNoclip()
     return {coords={coords["x"],coords["y"],coords["z"]},noclip=noclip}
 end
 
-
-RegisterNetEvent('admin:uncuff', function()
-    local user_id = vRP.getUserId(source)
-    vRP.toggleHandcuff(user_id,{})
-end)
-
-
 function tvRP.isNoclip()
     return noclip
 end
