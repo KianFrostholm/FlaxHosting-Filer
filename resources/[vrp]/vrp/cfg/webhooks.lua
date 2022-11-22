@@ -6,91 +6,97 @@ webhook = {}
 --------------------
 
 -- Whitelist
-webhook.Whitelist = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
-webhook.Unwhitelist = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
+webhook.Whitelist = ''
+webhook.Unwhitelist = ''
 
 -- Rank
-webhook.AddGroup = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
-webhook.RemoveGroup = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
+webhook.AddGroup = ''
+webhook.RemoveGroup = ''
 
 -- Basic
-webhook.Kick = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
+webhook.Kick = ''
 
 -- Ban
-webhook.Ban = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
-webhook.Unban = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
+webhook.Ban = ''
+webhook.Unban = ''
+webhook.UnbanAlle = ''
+
+--Advarsel
+webhook.Warn = ''
+webhook.ClearWarn = ''
 
 -- Revive andre spillere
-webhook.Revive = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
+webhook.Revive = ''
+webhook.ReviveAlle = ''
 
 -- Reperation af køretøj
-webhook.Repair = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
+webhook.Repair = ''
 
 -- Teleport
-webhook.TpToMe = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
-webhook.TpTo = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
+webhook.TpToMe = ''
+webhook.TpTo = ''
 
 -- Spawn ting
-webhook.SpawnMoney = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
-webhook.SpawnItem = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
+webhook.SpawnMoney = ''
+webhook.SpawnItem = ''
 
 -- Admin call
-webhook.AdminCall = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
+webhook.AdminCall = ''
 
 -- Salg af køretøj
-webhook.SellCar = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
+webhook.SellCar = ''
 
 -- Noclip
-webhook.Noclip = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
+webhook.Noclip = ''
 
 -- Spawn køretøj
-webhook.SpawnVehicle = 'https://discordapp.com/api/webhooks/1035921579974082630/cI8IRzGqWrTQcD84UVXw0u_GcyYCAIJWNdiv5MYFwCeZ3Dh8MWAvm1QnBNPAEH-o2HoA'
+webhook.SpawnVehicle = ''
 
 -----------------------
 -- Bussines Webhooks --
 -----------------------
 
 -- Virksomhed oprettelse
-webhook.CreateBussines = 'https://discordapp.com/api/webhooks/1039291244188287137/nPZjSYnkut2dSh0gaPTEUkavaVojESvnXXwb86-OsfPtVQNkVXdOILm78myTNXKtUIL9'
+webhook.CreateBussines = ''
 
 ------------------
 -- Item Webhook --
 ------------------
 
 -- Item logs
-webhook.GiveItem = 'https://discordapp.com/api/webhooks/1039291105046442055/wmsgjsLBxwBXd0amSBKuswspNTKgXlaMBBJXXyVoc3sSDqYsJ4L65nKqCyAWRupkGr4m'
-webhook.DestroyItem = 'https://discordapp.com/api/webhooks/1039291105046442055/wmsgjsLBxwBXd0amSBKuswspNTKgXlaMBBJXXyVoc3sSDqYsJ4L65nKqCyAWRupkGr4m'
+webhook.GiveItem = ''
+webhook.DestroyItem = ''
 
 --------------------
 -- Penge Webhooks --
 --------------------
 
 -- Money logs
-webhook.SetMoney = 'https://discordapp.com/api/webhooks/1039291168132960256/o7QSsO5JCYJbKMRHLNEnNlNUus46k25lZrJhIDr91s7UroxDPWHHCcA68ELSqNuulyOA'
-webhook.GiveMoney = 'https://discordapp.com/api/webhooks/1039291168132960256/o7QSsO5JCYJbKMRHLNEnNlNUus46k25lZrJhIDr91s7UroxDPWHHCcA68ELSqNuulyOA'
+webhook.SetMoney = ''
+webhook.GiveMoney = ''
 
 ---------------------
 -- System Webhooks --
 ---------------------
 
 -- Base logs
-webhook.Join = 'https://discordapp.com/api/webhooks/1035671700400001055/v1xQ_4ySxJT-UvWLNIkXpPaWGQ84uZvylBwhMGJtPTPb9TN0_3bg3QZQfZmIcfCNWfPU'
-webhook.Leave = 'https://discordapp.com/api/webhooks/1035671213340627045/7NohNStNWFIQoaiYNAZ-3HZdZUkED7CpRe4ip5K9C3WSU1D2FjpOaDP-jC2oShIa-PUc'
+webhook.Join = ''
+webhook.Leave = ''
 
-webhook.Errorlog = 'https://discord.com/api/webhooks/1039893059166556202/bsjPCXrw08kMlG8CRFR6OrYOmt4B1lfiXiYY1w4eLbZi_S0yKrqP3Lx0ZblwQVY8m_3y'
+webhook.Errorlog = ''
 -------------------
 -- Bilforhandler --
 -------------------
 
 -- Køb af køretøj
-webhook.BuyCar = 'https://discordapp.com/api/webhooks/1039291344432144444/yc2F64BEYGoLD_YhzAIq8netyfIjJld-k9xewsWS4shEiUxMsJ5Um-WQIj0W2_7JIGLy'
+webhook.BuyCar = ''
 
 ---------------------
 -- Røveri Webhooks --
 ---------------------
 
 -- Bankrøveri
-webhook.Robbery = 'https://discordapp.com/api/webhooks/1039291407560609844/2MPSdQN5UnCrBbiwhbkGayRKtsCFRO4kb_riiI_GageA9k2kztpgafAjTwZAYqVh1Is4'
+webhook.Robbery = ''
 
 ---------------------
 -- Market Webhooks --
@@ -103,14 +109,14 @@ webhook.BuyWeapon = ''
 -- Anticheat Webhooks --
 ------------------------
 
-webhook.HoneyPot = 'https://discordapp.com/api/webhooks/1035673241915768852/mU2tB13mh8J2EFtElqdgZGtCNAqPDeTeKiz4TLcGFEbK5AVhkDRRMeNbVPPlxfpbEsuj'
+webhook.HoneyPot = ''
 
 
 ------------------------
 -- Politi Webhooks --
 ------------------------
 
-webhook.Panik = 'https://discordapp.com/api/webhooks/1035673241915768852/mU2tB13mh8J2EFtElqdgZGtCNAqPDeTeKiz4TLcGFEbK5AVhkDRRMeNbVPPlxfpbEsuj'
-webhook.Gps = 'https://discordapp.com/api/webhooks/1035673241915768852/mU2tB13mh8J2EFtElqdgZGtCNAqPDeTeKiz4TLcGFEbK5AVhkDRRMeNbVPPlxfpbEsuj'
+webhook.Panik = ''
+webhook.Gps = ''
 
 return webhook
