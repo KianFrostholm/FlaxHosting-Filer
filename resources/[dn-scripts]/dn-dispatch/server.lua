@@ -22,7 +22,7 @@ AddEventHandler('ec-dispatch:panicbutton', function(type, street, playerStreetsL
     for k,v in pairs(allPlayers) do
         local user_id = vRP.getUserId({v})
         vRP.getUserIdentity({user_id, function(identity)
-            if vRP.hasGroup({user_id, "Politi"}) then
+            if vRP.hasGroup({user_id, "Politi-Job"}) then
                 data = {["code"] = 'DISPATCH', ["name"] = 'Panikknap udløst af ' ..identity.firstname..' ' ..identity.name.. '', ["loc"] = street}
                 length = 5000
                 TriggerClientEvent('wf_alerts:SendAlert', v, type, data, length)
@@ -37,7 +37,7 @@ AddEventHandler('ec-dispatch:robberydecleined', function(type, street, playerStr
     local allPlayers = vRP.getUsers({})
     for k,v in pairs(allPlayers) do
         local user_id = vRP.getUserId({v})
-        if vRP.hasGroup({user_id, "Politi"}) then
+        if vRP.hasGroup({user_id, "Politi-Job"}) then
             data = {["code"] = '10-90', ["name"] = 'Røveri afbrudt', ["loc"] = street}
             length = 5000
             TriggerClientEvent('wf_alerts:SendAlert', v, type, data, length)
@@ -50,7 +50,7 @@ AddEventHandler('ec-dispatch:carsteal', function(type, street, playerStreetsLoca
     local allPlayers = vRP.getUsers({})
     for k,v in pairs(allPlayers) do
         local user_id = vRP.getUserId({v})
-        if vRP.hasGroup({user_id, "Politi"}) then
+        if vRP.hasGroup({user_id, "Politi-Job"}) then
             data = { ["code"] = '10-15', ["name"] = 'Biltyveri på en ' ..display.. '',  ["loc"] = street}
             length = 5000
             TriggerClientEvent('wf_alerts:SendAlert', v, type, data, length)
@@ -64,7 +64,7 @@ AddEventHandler('ec-dispatch:shooting', function(type, street, playerStreetsLoca
     local allPlayers = vRP.getUsers({})
     for k,v in pairs(allPlayers) do
         local user_id = vRP.getUserId({v})
-        if vRP.hasGroup({user_id, "Politi"}) then
+        if vRP.hasGroup({user_id, "Politi-Job"}) then
             data = { ["code"] = '10-13', ["name"] = 'Skud affyret',  ["loc"] = street}
             length = 5000
             TriggerClientEvent('wf_alerts:SendAlert', v, type, data, length)
@@ -78,7 +78,7 @@ AddEventHandler('ec-dispatch:combat', function(type, street, playerStreetsLocati
     local allPlayers = vRP.getUsers({})
     for k,v in pairs(allPlayers) do
         local user_id = vRP.getUserId({v})
-        if vRP.hasGroup({user_id, "Politi"}) then
+        if vRP.hasGroup({user_id, "Politi-Job"}) then
             data = {["code"] = '10-10', ["name"] = 'Vold',  ["loc"] = street}
             length = 5000
             TriggerClientEvent('wf_alerts:SendAlert', v, type, data, length)
@@ -92,7 +92,7 @@ AddEventHandler('ec-dispatch:death', function(type, street, playerStreetsLocatio
     local allPlayers = vRP.getUsers({})
     for k,v in pairs(allPlayers) do
         local user_id = vRP.getUserId({v})
-        if vRP.hasGroup({user_id, "Politi"}) then
+        if vRP.hasGroup({user_id, "Politi-Job"}) then
             data = {["code"] = '10-28', ["name"] = 'Bevidstløs person', ["loc"] = street}
             length = 5000
             TriggerClientEvent('wf_alerts:SendAlert', v, type, data, length)
@@ -106,7 +106,7 @@ AddEventHandler('ec-dispatch:hash', function(type, street, playerStreetsLocation
     local allPlayers = vRP.getUsers({})
     for k,v in pairs(allPlayers) do
         local user_id = vRP.getUserId({v})
-        if vRP.hasGroup({user_id, "Politi"}) then
+        if vRP.hasGroup({user_id, "Politi-Job"}) then
             data = {["code"] = '10-33', ["name"] = 'Mistænkeligt salg', ["loc"] = street}
             length = 5000
             TriggerClientEvent('wf_alerts:SendAlert', v, type, data, length)
@@ -120,7 +120,7 @@ AddEventHandler('ec-dispatch:atmrobbery', function(type, street, playerStreetsLo
     local allPlayers = vRP.getUsers({})
     for k,v in pairs(allPlayers) do
         local user_id = vRP.getUserId({v})
-        if vRP.hasGroup({user_id, "Politi"}) then
+        if vRP.hasGroup({user_id, "Politi-Job"}) then
             data = {["code"] = '10-58', ["name"] = 'Røveri på hæveautomat', ["loc"] = street}
             length = 5000
             TriggerClientEvent('wf_alerts:SendAlert', v, type, data, length)
@@ -134,7 +134,7 @@ AddEventHandler("ec-dispatch:hospital", function(type, street, playerStreetsLoca
     local allPlayers = vRP.getUsers({})
     for k,v in pairs(allPlayers) do
         local user_id = vRP.getUserId({v})
-        if vRP.hasGroup({user_id, "Politi"}) then
+        if vRP.hasGroup({user_id, "Politi-Job"}) then
             data = {["code"] = 'DISPATCH', ["name"] = 'Person mangler hjælp', ["loc"] = street}
             length = 5000
             TriggerClientEvent('wf_alerts:SendAlert', v, type, data, length)
@@ -148,7 +148,7 @@ AddEventHandler('ec-dispatch:detector', function(type, street, playerStreetsLoca
     local allPlayers = vRP.getUsers({})
     for k,v in pairs(allPlayers) do
         local user_id = vRP.getUserId({v})
-        if vRP.hasGroup({user_id, "Politi"}) then
+        if vRP.hasGroup({user_id, "Politi-Job"}) then
             data = {["code"] = '10-12', ["name"] = 'Person udløste en alarm', ["loc"] = street}
             length = 5000
             TriggerClientEvent('wf_alerts:SendAlert', v, type, data, length)
@@ -164,7 +164,7 @@ AddEventHandler('ec-dispatch:truckrobbery', function(type, street, playerStreets
     local allPlayers = vRP.getUsers({})
     for k,v in pairs(allPlayers) do
         local user_id = vRP.getUserId({v})
-        if vRP.hasGroup({user_id, "Politi"}) then
+        if vRP.hasGroup({user_id, "Politi-Job"}) then
             data = {["code"] = '10-12', ["name"] = 'En person er igang med at røve en pengetransporter', ["loc"] = street}
             length = 5000
             TriggerClientEvent('wf_alerts:SendAlert', v, type, data, length)
