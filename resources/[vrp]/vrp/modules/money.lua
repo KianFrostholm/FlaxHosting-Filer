@@ -47,7 +47,7 @@ function vRP.setMoney(user_id,value)
                 table.insert(fields, { name = "Bannet:", value = banned })
                 PerformHttpRequest(webhook.SetMoney, function(err, text, headers) end, 'POST', json.encode(
                     {
-                        username = "FlaxHosting - Logs",
+                        username = "BurgerKingRP - Logs",
                         content = "Mistænkt for spawn af penge "..(newwallet-twallet > 34000000 and "@everyone" or ""),
                         embeds = {
                             {
@@ -311,35 +311,15 @@ local function ch_give(player,choice)
                     vRP.prompt(player,lang.money.give.prompt(),"",function(player,amount)
                         local amount = parseInt(amount)
                         if amount > 0 and vRP.tryPayment(user_id,amount) then
-                            if amount > 34000000
-                                vRP.ban(user_id,"Mistænkte for spawn af penge ("..tostring(amount)..")", true)
-                                local fields = {}
-                                table.insert(fields, { name = "ID:", value = user_id })
-                                table.insert(fields, { name = "Penge fået:", value = amount })
-                                table.insert(fields, { name = "Bannet:", value = "Ja" })
-                                PerformHttpRequest(webhook.SetMoney, function(err, text, headers) end, 'POST', json.encode(
-                                    {
-                                        username = "FlaxHosting - Logs",
-                                        content = "Mistænkt for spawn af penge "..(newwallet-twallet > 34000000 and "@everyone" or ""),
-                                        embeds = {
-                                            {
-                                                color = 11871532,
-                                                fields = fields
-                                            }
-                                        }
-                                    }), { ['Content-Type'] = 'application/json' })
-                                end
-                            else
-                                vRP.giveMoney(nuser_id,amount)
-                                vRPclient.playAnim(player,{true,{{"mp_common","givetake1_a",1}},false})
-                                vRPclient.playAnim(nplayer,{true,{{"mp_common","givetake2_a",1}},false})
-                                TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.money.given({amount})}, type = "success", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-                                TriggerClientEvent("pNotify:SendNotification", nplayer,{text = {lang.money.received({amount})}, type = "success", queue = "global", timeout = 3000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-
-
-                                local dmessage = "```ID ".. tostring(user_id).. " gav lige ".. tostring(nuser_id).. " ".. tostring(amount).. " DKK```"
-                                PerformHttpRequest(webhook.GiveMoney, function(err, text, headers) end, 'POST', json.encode({username = 'FlaxHosting - Logs', content = dmessage}), { ['Content-Type'] = 'application/json' })
-                             end
+                            vRP.giveMoney(nuser_id,amount)
+                            vRPclient.playAnim(player,{true,{{"mp_common","givetake1_a",1}},false})
+                            vRPclient.playAnim(nplayer,{true,{{"mp_common","givetake2_a",1}},false})
+                            TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.money.given({amount})}, type = "success", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                            TriggerClientEvent("pNotify:SendNotification", nplayer,{text = {lang.money.received({amount})}, type = "success", queue = "global", timeout = 3000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                            
+                            
+                            local dmessage = "```ID ".. tostring(user_id).. " gav lige ".. tostring(nuser_id).. " ".. tostring(amount).. " DKK```"
+                            PerformHttpRequest(webhook.GiveMoney, function(err, text, headers) end, 'POST', json.encode({username = 'BurgerKingRP - Logs', content = dmessage}), { ['Content-Type'] = 'application/json' })
                         else
                             TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.money.not_enough()}, type = "error", queue = "global", timeout = 4000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                         end
