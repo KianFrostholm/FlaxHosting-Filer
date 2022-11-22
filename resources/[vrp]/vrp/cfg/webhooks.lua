@@ -119,4 +119,10 @@ webhook.HoneyPot = ''
 webhook.Panik = ''
 webhook.Gps = ''
 
+-----------------------
+-- Kørekort Webhooks --
+-----------------------
+
+webhook.dmvsuccess = ''
+
 return webhook
