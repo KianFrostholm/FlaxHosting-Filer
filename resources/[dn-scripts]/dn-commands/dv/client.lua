@@ -1,5 +1,4 @@
---Made by Skovsbøll#3650
-
+vRP = Proxy.getInterface("vRP")
 -- Register a network event 
 RegisterNetEvent( 'wk:deleteVehicle' )
 
@@ -129,3 +128,17 @@ function GetVehicleInDirection( coordFrom, coordTo )
     local _, _, _, _, vehicle = GetRaycastResult( rayHandle )
     return vehicle
 end
+
+
+
+
+RegisterNetEvent('admin:uncuff', function()
+	local user_id = vRP.getUserId(source)
+
+	if vRP.isHandcuffed(user_id) then
+		vRP.toggleHandcuff(user_id,{})
+		TriggerEvent("pNotify:SendNotification",{text = "Du har fået dirket dine håndjern op!",type = "info",timeout = (2000),layout = "bottomCenter",queue = "global",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+	else
+		TriggerEvent("pNotify:SendNotification",{text = "Du er ikke i håndjern!",type = "info",timeout = (2000),layout = "bottomCenter",queue = "global",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+	end
+end)
