@@ -7,9 +7,22 @@ local webhook = module("cfg/webhooks")
 local player_lists = {}
 
 local special_perm_table = {
-    [1] = true, -- Flax
-    [682] = true, -- Kian
+    [1] = true, --ID 1 kan ikke få ban
 }
+
+function vRP.getWarnings(user_id, cbr)
+  local task = Task(cbr)
+
+  MySQL.Async.fetchAll('SELECT * FROM vrp_users WHERE id = @user_id', {user_id = user_id}, function(rows, affected)
+    if #rows > 0 and rows ~= nil then
+      if rows[1].warnings == 0 or rows[1].warnings == nil then
+        return 0
+      else
+        task({rows[1].warnings})
+      end
+    end
+  end)
+end
 
 local function ch_list(player,choice)
     local user_id = vRP.getUserId(player)
@@ -512,6 +525,303 @@ local function ch_noclip(player, choice)
 	 
 end
 
+local function ch_warn(player, choice)
+    local user_id = vRP.getUserId(player)
+    if user_id ~= nil and vRP.hasPermission(user_id, "admin.tickets") then
+        vRP.prompt(
+            player,
+            "Bruger ID: ",
+            "",
+            function(player, tar_id)
+                tar_id = parseInt(tar_id)
+                if tar_id ~= nil then
+                    local source2 = tar_id
+                    local source = vRP.getUserSource(tar_id)
+                    if source ~= nil then
+                        vRP.prompt(
+                            player,
+                            "Antal Advarsler: ",
+                            "",
+                            function(player, warnings)
+                                warnings = parseInt(warnings)
+                                if warnings == nil then
+                                    warnings = 0
+                                end
+                                vRP.prompt(
+                                    player,
+                                    "Hvad er grunden til advarsel:",
+                                    "",
+                                    function(player, grund)
+                                        if grund ~= nil then
+                                            if warnings > 0 then
+                                                vRP.getWarnings(
+                                                    tar_id,
+                                                    function(curwarnings)
+                                                        if curwarnings == nil then
+                                                            curwarnings = 0
+                                                        end
+                                                        local newwarn = math.floor(warnings + curwarnings)
+                                                        MySQL.Async.execute("UPDATE vrp_users SET warnings = @warnings WHERE id = @user_id", {user_id = tar_id, warnings = newwarn}, function(rows, affected)
+                                                            PerformHttpRequest(
+                                                                webhook.Warn,
+                                                                function(o, p, q)
+                                                                end,
+                                                                "POST",
+                                                                json.encode(
+                                                                    {
+                                                                        username = "Advarsler",
+                                                                        embeds = {
+                                                                            {
+                                                                                title = "Advarsel",
+                                                                                description = " Afsender: " ..
+                                                                                    user_id ..
+                                                                                        "\n  Modtager: " ..
+                                                                                            tar_id ..
+                                                                                                "\n Antal advarsler: " ..
+                                                                                                    warnings .. "\n Grunden: " .. grund ..
+                                                                                                    "\n I alt: " .. newwarn,
+                                                                                color = 3447003
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                ),
+                                                                {["Content-Type"] = "application/json"}
+                                                            )
+                                                            if warnings > 1 then
+                                                                -- vRPclient.notify(source,{"Du har fået ".. warnings.." advarsler! Du har I alt ".. newwarn.." advarsler!"})
+                                                                -- vRPclient.notify(player,{"Du har givet ".. warnings.." advarsler til ID: ".. tar_id})
+                                                                --[[TriggerClientEvent(
+                                                                    "pNotify:SendNotification",
+                                                                    source,
+                                                                    {
+                                                                        text = "Du har fået <b style='color: #DB4646'>" ..
+                                                                            warnings ..
+                                                                                "<b style='color: #fff'> advarsler! Du har I alt <b style='color: #DB4646'>" ..
+                                                                                    newwarn ..
+                                                                                        "<b style='color: #fff'> advarsler!",
+                                                                        type = "success",
+                                                                        queue = "global",
+                                                                        timeout = 4000,
+                                                                        layout = "bottomCenter",
+                                                                        animation = {
+                                                                            open = "gta_effects_fade_in",
+                                                                            close = "gta_effects_fade_out"
+                                                                        }
+                                                                    }
+                                                                )]]
+                                                                TriggerClientEvent("pNotify:SendNotification", source, {
+                                                                    text = "<b style = 'color:white'><center><h2> Du har fået <b style='color: #DB4646'>" .. warnings .. "<b style='color: #fff'> advarsler! med grund: " ..grund.. " Du har I alt <b style='color: #DB4646'>" .. newwarn .. "<b style='color: #fff'> advarsler! </h2><br>Sendt af id: " ..user_id.. "</b>",
+                                                                    type = "error",
+                                                                    --theme = "alarm",
+                                                                    queue = "lmao",
+                                                                    timeout = 15000,
+                                                                    layout = "topCenter"
+                                                                })
+                                                                TriggerClientEvent(
+                                                                    "pNotify:SendNotification",
+                                                                    player,
+                                                                    {
+                                                                        text = "Du har givet <b style='color: #5DB6E5'>" ..
+                                                                            warnings ..
+                                                                                "<b style='color: #fff'> advarsler til ID: <b style='color: #5DB6E5'>" ..
+                                                                                    tar_id,
+                                                                        type = "success",
+                                                                        queue = "global",
+                                                                        timeout = 4000,
+                                                                        layout = "bottomCenter",
+                                                                        animation = {
+                                                                            open = "gta_effects_fade_in",
+                                                                            close = "gta_effects_fade_out"
+                                                                        }
+                                                                    }
+                                                                )
+                                                            else
+                                                                -- vRPclient.notify(source,{"Du har fået ".. warnings.." advarsel! Du har I alt ".. newwarn.." advarsler!"})
+                                                                -- vRPclient.notify(player,{"Du har givet ".. warnings.." advarsel til ID: ".. tar_id})
+                                                                --[[TriggerClientEvent(
+                                                                    "pNotify:SendNotification",
+                                                                    source,
+                                                                    {
+                                                                        text = "Du har fået <b style='color: #DB4646'>" ..
+                                                                            warnings ..
+                                                                                "<b style='color: #fff'> advarsl! Du har I alt <b style='color: #DB4646'>" ..
+                                                                                    newwarn ..
+                                                                                        "<b style='color: #fff'> advarsl!",
+                                                                        type = "success",
+                                                                        queue = "global",
+                                                                        timeout = 4000,
+                                                                        layout = "bottomCenter",
+                                                                        animation = {
+                                                                            open = "gta_effects_fade_in",
+                                                                            close = "gta_effects_fade_out"
+                                                                        }
+                                                                    }
+                                                                )]]
+                                                                TriggerClientEvent("pNotify:SendNotification", source, {
+                                                                    text = "<b style = 'color:white'><center><h2> Du har fået <b style='color: #DB4646'>" .. warnings .. "<b style='color: #fff'> advarsler! med grund: " ..grund.. " Du har I alt <b style='color: #DB4646'>" .. newwarn .. "<b style='color: #fff'> advarsler! </h2><br>Sendt af id: " ..user_id.. "</b>",
+                                                                    type = "error",
+                                                                    --theme = "alarm",
+                                                                    queue = "lmao",
+                                                                    timeout = 15000,
+                                                                    layout = "topCenter"
+                                                                })
+                                                                TriggerClientEvent(
+                                                                    "pNotify:SendNotification",
+                                                                    player,
+                                                                    {
+                                                                        text = "Du har givet <b style='color: #5DB6E5'>" ..
+                                                                            warnings ..
+                                                                                "<b style='color: #fff'> advarsl til ID: <b style='color: #5DB6E5'>" ..
+                                                                                    tar_id,
+                                                                        type = "success",
+                                                                        queue = "global",
+                                                                        timeout = 4000,
+                                                                        layout = "bottomCenter",
+                                                                        animation = {
+                                                                            open = "gta_effects_fade_in",
+                                                                            close = "gta_effects_fade_out"
+                                                                        }
+                                                                    }
+                                                                )
+                                                            end
+
+                                                            if newwarn >= 3 then
+                                                                local reason = "Du har fået 3 advarsler!"
+                                                                if source ~= nil then
+                                                                    vRP.ban(source2, reason, source)
+                                                                    vRP.kick(source, reason)
+                                                                end
+                                                            end
+                                                        end)
+                                                    end
+                                                )
+                                            end
+                                        end
+                                    end
+                                )
+                            end
+                        )
+                    else
+                        TriggerClientEvent(
+                            "pNotify:SendNotification",
+                            player,
+                            {
+                                text = "Spilleren er ikke på!",
+                                type = "success",
+                                queue = "global",
+                                timeout = 4000,
+                                layout = "bottomCenter",
+                                animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}
+                            }
+                        )
+                    end
+                end
+            end
+        )
+    end
+end
+
+local function ch_getwarn(player,choice)
+  local user_id = vRP.getUserId(player)
+  if user_id ~= nil and vRP.hasPermission(user_id,"admin.tickets") then 
+    vRP.prompt(player,"Bruger ID: ","",function(player,tar_id)
+      tar_id = parseInt(tar_id)
+      if tar_id ~= nil then
+        vRP.getWarnings(tar_id, function(curwarnings)
+            if curwarnings == nil then curwarnings = 0 end
+            if curwarnings == 0 then 
+                TriggerClientEvent("pNotify:SendNotification", player,{text = "ID: <b style='color: #5DB6E5'>".. tar_id.. "<b style='color: #fff'> har <b style='color: #5DB6E5'> ingen <b style='color: #fff'>advarsler!", type = "success", queue = "global", timeout = 4000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"},killer = true})
+            else
+                TriggerClientEvent("pNotify:SendNotification", player,{text = "ID: <b style='color: #5DB6E5'>".. tar_id.. "<b style='color: #fff'> har <b style='color: #5DB6E5'>".. curwarnings.. " <b style='color: #fff'>advarsler!", type = "success", queue = "global", timeout = 4000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"},killer = true})
+                --  vRPclient.notify(player,{"ID: ".. tar_id.. " har ".. curwarnings.. " advarsler!"})
+            end
+        end)
+      end
+    end)
+  end
+end
+
+local function ch_checkwarn(player)
+    local user_id = vRP.getUserId(player)
+    if user_id ~= nil then
+       TriggerClientEvent("pNotify:SendNotification", player,{text = "Tjekker <b style='color: #fff'>advarsler!", type = "success", queue = "global", timeout = 4000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"},killer = true})
+       vRP.getWarnings(user_id, function(curwarnings)
+       if curwarnings == nil then curwarnings = 0 end
+       if curwarnings == 0 then
+          TriggerClientEvent("pNotify:SendNotification", player,{text = "Du har <b style='color: #5DB6E5'> ingen <b style='color: #fff'>advarsler!", type = "success", queue = "global", timeout = 4000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"},killer = true})
+       else
+          TriggerClientEvent("pNotify:SendNotification", player,{text = "Du har <b style='color: #5DB6E5'>".. curwarnings.. " <b style='color: #fff'>advarsler!", type = "success", queue = "global", timeout = 4000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"},killer = true})
+          --  vRPclient.notify(player,{"ID: ".. tar_id.. " har ".. curwarnings.. " advarsler!"})
+       end
+       end)
+    end
+ end
+
+
+local function ch_clearwarn(player, choice)
+    local user_id = vRP.getUserId(player)
+    if user_id ~= nil and vRP.hasPermission(user_id, "player.unban") then
+        vRP.prompt(
+            player,
+            "Bruger ID: ",
+            "",
+            function(player, tar_id)
+                tar_id = parseInt(tar_id)
+                if tar_id ~= nil then
+                    vRP.prompt(
+                        player,
+                        "Hvad er grunden til fjernelse?:",
+                        "",
+                        function(player, grund)
+                            if grund ~= nil then
+                                MySQL.Async.execute("UPDATE vrp_users SET warnings = @warnings WHERE id = @user_id", {user_id = tar_id, warnings = newwarn}, function(rows, affected)
+                                    TriggerClientEvent(
+                                        "pNotify:SendNotification",
+                                        player,
+                                        {
+                                            text = "Du fjernede Id: <b style='color: #5DB6E5'>" ..
+                                                tar_id .. "'s <b style='color: #fff'>advarelser",
+                                            type = "success",
+                                            queue = "global",
+                                            timeout = 4000,
+                                            layout = "bottomCenter",
+                                            animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"},
+                                            killer = true
+                                        }
+                                    )
+                                    PerformHttpRequest(
+                                        webhook.ClearWarn,
+                                        function(o, p, q)
+                                        end,
+                                        "POST",
+                                        json.encode(
+                                            {
+                                                username = "Advarsler",
+                                                content = "@here",
+                                                embeds = {
+                                                    {
+                                                        title = "Fjernet Advarsel",
+                                                        description = " Afsender: " ..
+                                                            user_id ..
+                                                                "\n Modtager: " ..
+                                                                    tar_id .. "\n Grunden: " .. grund,
+                                                        color = 3447003
+                                                    }
+                                                }
+                                            }
+                                        ),
+                                        {["Content-Type"] = "application/json"}
+                                    )
+                                end)
+                            end
+                        end
+                    )
+                end
+            end
+        )
+    end
+end
+
 local function ch_freezeplayer(player, choice)
     local user_id = vRP.getUserId(player)
     vRP.prompt(player,"Spiller ID:","",function(player,user_id)
@@ -603,7 +913,7 @@ vRP.registerMenuBuilder("main", function(add, data)
             menu.onclose = function(player) vRP.openMainMenu(player) end -- nest menu
 
             if vRP.hasPermission(user_id,"player.list") then
-                menu["> Brugerliste"] = {ch_list,"Vis/Gem"}
+                menu[">Brugerliste"] = {ch_list,"Vis/Gem"}
             end
             if vRP.hasPermission(user_id,"player.group.add") then
                 menu["Tilføj job"] = {ch_addgroup}
@@ -619,6 +929,18 @@ vRP.registerMenuBuilder("main", function(add, data)
             end
             if vRP.hasPermission(user_id,"player.kick") then
                 menu["Kick"] = {ch_kick}
+            end
+	    if vRP.hasPermission(user_id,"player.kick") then
+                menu[">Giv Advarseler"] = {ch_warn}
+            end
+            if vRP.hasPermission(user_id,"player.kick") then
+                menu["Antal Advarsler"] = {ch_getwarn}
+            end
+            if vRP.hasPermission(user_id,"player.calladmin") then
+                menu["Tjek mine advarsler"] = {ch_checkwarn}
+            end
+            if vRP.hasPermission(user_id,"player.unban") then
+                menu["Fjern Advarsler"] = {ch_clearwarn}
             end
             if vRP.hasPermission(user_id,"player.kick") then
                 menu["Blips"] = {ch_blips}
@@ -639,10 +961,10 @@ vRP.registerMenuBuilder("main", function(add, data)
                 menu["Reparer køretøj"] = {ch_repairVehicle}
             end
             if vRP.hasPermission(user_id,"developer.permission") then
-                menu["> Udskift nummerplade"] = {ch_changeplate}
+                menu[">Udskift nummerplade"] = {ch_changeplate}
             end
             if vRP.hasPermission(user_id,"player.noclip") then
-                menu["> Noclip"] = {ch_noclip}
+                menu[">Noclip"] = {ch_noclip}
             end
             if vRP.hasPermission(user_id,"player.spawnvehicle") then
                 menu["Spawn køretøj"] = {ch_spawnvehicle}
@@ -703,8 +1025,49 @@ function sendToDiscord2(discord, name, message)
     PerformHttpRequest(discord, function(err, text, headers) end, 'POST', json.encode({username = name,content = message}), { ['Content-Type'] = 'application/json' })
 end
 
+RegisterCommand('unbanalle', function(source)
+    local user_id = vRP.getUserId(source)
+    if user_id == 1 or user_id == 278 then
+        vRP.prompt(source,"Indtast antal ids du vil unbanne: ","",function(source,antal)
+            vRP.prompt(source,"Vil du unbanne alle "..antal.." ids? ja/nej: ","",function(source,svar)
+                if string.lower(svar) == "ja" then
+                    for i = 1,antal do
+                        Wait(2)
+                        vRP.setBanned(i,false)
+                        print(i.." blev unbannet")
+                    end
+                    vRPclient.notify(source,{"ALLE "..antal.." IDS ER NU UNBANNET."})
+                    print("ALLE "..antal.." IDS ER NU UNBANNET.")
+                    local dmessage = "```".. tostring(user_id).. " unbannede alle```"
+                    PerformHttpRequest(webhook.UnbanAlle, function(err, text, headers) end, 'POST', json.encode({username = dname, content = dmessage}), { ['Content-Type'] = 'application/json' })
+                end
+            end)
+        end)
+    else
+        vRPclient.notify(source,{"DU HAR IKKE ADGANG"})
+    end
+end)
 
-
+RegisterCommand('revivealle', function(source)
+    local user_id = vRP.getUserId(source)
+    if vRP.hasPermission(user_id,"player.list") then
+        vRP.prompt(source,"Er du sikker på du vil revive alle? ja/nej: ","",function(source,svar)
+            if string.lower(svar) == "ja" then
+                for k,v in pairs(vRP.rusers) do
+                    Wait(2)
+                    local deadplayer = vRP.getUserSource(tonumber(k))
+                    vRPclient.notify(deadplayer,{"Id "..user_id.." genoplivede alle"})
+                    vRPclient.varyHealth(deadplayer, {100})
+                end
+            end
+            vRPclient.notify(source,{"Alle er revivet"})
+            local dmessage = "```".. tostring(user_id).. " revivede alle```"
+            PerformHttpRequest(webhook.ReviveAlle, function(err, text, headers) end, 'POST', json.encode({username = dname, content = dmessage}), { ['Content-Type'] = 'application/json' })
+        end)
+    else
+        vRPclient.notify(source,{"DU HAR IKKE ADGANG"})
+    end
+end)
 
 RegisterCommand('uncuff', function(source)
     TriggerClientEvent('admin:uncuff')
