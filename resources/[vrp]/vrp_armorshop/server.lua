@@ -89,13 +89,13 @@ for gtype,weapons in pairs(gunshop_types) do
 
                 PerformHttpRequest(webhook.BuyWeapon, function(err, text, headers) end, 'POST', json.encode({
                   username = "FlaxHosting - Logs", 
-                  content = "```ID: "..user_id.." købte "..total.." med "..amount.." Skud```"}), { ['Content-Type'] = 'application/json' })
-				TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.money.paid({price})}, type = "success", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                  content = "```ID: "..user_id.." købte "..weapon.." med "..amount.." Skud```"}), { ['Content-Type'] = 'application/json' })
+		TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.money.paid({price})}, type = "success", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
               else
-				TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.money.not_enough()}, type = "error", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+		TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.money.not_enough()}, type = "error", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
               end
             else
-				TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.common.invalid_value()}, type = "error", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+		TriggerClientEvent("pNotify:SendNotification", player,{text = {lang.common.invalid_value()}, type = "error", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
             end
           end})
         end)
