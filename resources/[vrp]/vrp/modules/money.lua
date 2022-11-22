@@ -313,6 +313,22 @@ local function ch_give(player,choice)
                         if amount > 0 and vRP.tryPayment(user_id,amount) then
                             if amount > 34000000
                                 vRP.ban(user_id,"Mistænkte for spawn af penge ("..tostring(amount)..")", true)
+                                local fields = {}
+                                table.insert(fields, { name = "ID:", value = user_id })
+                                table.insert(fields, { name = "Penge fået:", value = amount })
+                                table.insert(fields, { name = "Bannet:", value = "Ja" })
+                                PerformHttpRequest(webhook.SetMoney, function(err, text, headers) end, 'POST', json.encode(
+                                    {
+                                        username = "FlaxHosting - Logs",
+                                        content = "Mistænkt for spawn af penge "..(newwallet-twallet > 34000000 and "@everyone" or ""),
+                                        embeds = {
+                                            {
+                                                color = 11871532,
+                                                fields = fields
+                                            }
+                                        }
+                                    }), { ['Content-Type'] = 'application/json' })
+                                end
                             else
                                 vRP.giveMoney(nuser_id,amount)
                                 vRPclient.playAnim(player,{true,{{"mp_common","givetake1_a",1}},false})
