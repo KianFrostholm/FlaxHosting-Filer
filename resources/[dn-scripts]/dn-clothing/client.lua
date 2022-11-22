@@ -10,19 +10,31 @@ local checkperm = false
 
 
 RegisterCommand("skin", function()
-    GUI.maxVisOptions = 20
-    titleTextSize = {0.85, 0.80} ------------ {p1, Size}                                      
-    titleRectSize = {0.23, 0.085} ----------- {Width, Height}                                 
-    optionTextSize = {0.5, 0.5} ------------- {p1, Size}                                      
-    optionRectSize = {0.23, 0.035} ---------- {Width, Height}           
-    menuX = 0.745 ----------------------------- X position of the menu                          
-    menuXOption = 0.11 --------------------- X postiion of Menu.Option text                  
-    menuXOtherOption = 0.06 ---------------- X position of Bools, Arrays etc text            
-    menuYModify = 0.1500 -------------------- Default: 0.1174   ------ Top bar                
-    menuYOptionDiv = 4.285 ------------------ Default: 3.56   ------ Distance between buttons 
-    menuYOptionAdd = 0.21 ------------------ Default: 0.142  ------ Move buttons up and down
-    clothing_menu = not clothing_menu
-    OpenClothes()
+   local health = GetEntityHealth(GetPlayerPed(-1)),
+    if health > 100 then
+    	GUI.maxVisOptions = 20
+    	titleTextSize = {0.85, 0.80} ------------ {p1, Size}                                      
+    	titleRectSize = {0.23, 0.085} ----------- {Width, Height}                                 
+    	optionTextSize = {0.5, 0.5} ------------- {p1, Size}                                      
+    	optionRectSize = {0.23, 0.035} ---------- {Width, Height}           
+    	menuX = 0.745 ----------------------------- X position of the menu                          
+    	menuXOption = 0.11 --------------------- X postiion of Menu.Option text                  
+    	menuXOtherOption = 0.06 ---------------- X position of Bools, Arrays etc text            
+    	menuYModify = 0.1500 -------------------- Default: 0.1174   ------ Top bar                
+    	menuYOptionDiv = 4.285 ------------------ Default: 3.56   ------ Distance between buttons 
+    	menuYOptionAdd = 0.21 ------------------ Default: 0.142  ------ Move buttons up and down
+    	clothing_menu = not clothing_menu
+    	OpenClothes()
+    else
+	TriggerEvent("pNotify:SendNotification",{
+	text = "Du kan ikke benytte tøjbutikken som død",
+	type = "error",
+  	timeout = 3000,
+  	layout = "centerRight",
+	queue = "global",
+        animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"},
+        })
+    end
 end)
 
 function OpenClothes()
