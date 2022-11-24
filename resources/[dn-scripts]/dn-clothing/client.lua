@@ -11,7 +11,7 @@ local checkperm = false
 
 RegisterCommand("skin", function()
    local health = GetEntityHealth(GetPlayerPed(-1)),
-    if health > 100 then
+    if health > 5 then
     	GUI.maxVisOptions = 20
     	titleTextSize = {0.85, 0.80} ------------ {p1, Size}                                      
     	titleRectSize = {0.23, 0.085} ----------- {Width, Height}                                 
