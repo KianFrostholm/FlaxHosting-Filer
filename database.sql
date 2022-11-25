@@ -216,6 +216,7 @@ CREATE TABLE `vrp_user_vehicles` (
   `vehicle` varchar(100) NOT NULL,
   `veh_type` varchar(255) NOT NULL DEFAULT 'default',
   `vehicle_plate` varchar(255) NOT NULL,
+  `impound` int(11) DEFAULT '0',
   `vehicle_colorprimary` varchar(255) DEFAULT '0',
   `vehicle_colorsecondary` varchar(255) DEFAULT '0',
   `vehicle_pearlescentcolor` varchar(255) DEFAULT '0',
