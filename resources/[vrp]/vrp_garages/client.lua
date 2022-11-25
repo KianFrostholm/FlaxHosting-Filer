@@ -497,6 +497,19 @@ Citizen.CreateThread(function()
   end)
 
 Citizen.CreateThread(function()
+  for _, item in pairs(Config.Impound) do
+    item.blip = AddBlipForCoord(item.x, item.y, item.z)
+    SetBlipSprite(item.blip, item.id)
+    SetBlipAsShortRange(item.blip, true)
+    SetBlipColour(item.blip, item.colour)
+	SetBlipScale(item.blip,0.6)
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString(item.name)
+    EndTextCommandSetBlipName(item.blip)
+  end
+end)
+
+Citizen.CreateThread(function()
   for _, item in pairs(Config.Garages) do
     item.blip = AddBlipForCoord(item.x, item.y, item.z)
     SetBlipSprite(item.blip, item.id)
@@ -544,12 +557,13 @@ end)
 CreateThread(function()
     while true do
       Wait(0)
-          for k,v in pairs(Config.Impound) do
-        local distance = GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), v[1], v[2], v[3], true )
+      --for _, garage in pairs(Config.Garages) do
+          for k,Impound in pairs(Config.Impound) do
+        local distance = GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), Impound.x, Impound.y, Impound.z, true )
         if distance <= 10.0 and distance >= 2.0 then
-          DrawMarker(20,v[1], v[2], v[3],0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.7, 0.7, 0.7, 52, 103, 235, 100, false, true, 2, false, false, false, false)
+          DrawMarker(20,Impound.x, Impound.y, Impound.z,0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.7, 0.7, 0.7, 52, 103, 235, 100, false, true, 2, false, false, false, false)
           elseif distance <= 2.0 then
-            DrawText3Ds(v[1], v[2], v[3]+0.2, "~g~[E]~w~ - Køb køretøjer tilbage", 3.0, 7)
+            DrawText3Ds(Impound.x, Impound.y, Impound.z+0.2, "~g~[E]~w~ - Køb køretøjer tilbage", 3.0, 7)
           if IsControlJustPressed(1, 38) then
             TriggerServerEvent('Kian_impond:buycarsback')
           end
