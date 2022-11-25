@@ -12,6 +12,7 @@
 - Tilføjet advarsel system under admin menuen
 - Tilføjet en command til at revive alle, /revivealle
 - Tilføjet en command til at unbanne alle (kun id 1 kan) /unbanalle
+- Tilføjet impound system, så politiet kan impounde andres køretøjer
 
 
 
