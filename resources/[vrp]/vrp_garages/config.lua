@@ -2,6 +2,14 @@ Config = {
 
 Timer = 3, -- Antal sekunder det tager at parkere og hive ud
 
+Fee = 250000,
+
+Impound = { -- Impound lokationer
+  {409.5103,-1623.1654,29.2919},
+  {1696.1711,3594.8869,35.6209},
+  {131.7892,6638.6240,31.8408},
+},
+
 Garages = {
   {name="Garage", colour=3, id=357, x=1703.01, y=3597.39, z=34.488, h=0.0},
   {name="Garage", colour=3, id=357, x=-334.685, y=289.773, z=84.890, h=0.0},
@@ -39,5 +47,8 @@ Garages = {
   {name="Garage", x=986.02728271484, y=-1819.8468017578, z=30.151231765747, h=0.0}, -- Auto Genbrug
   {name="Garage", x=143.76870727539, y=-1331.1066894531, z=29.202289581299, h=0.0}, -- Stripklub
   {name="Garage", x=-976.17486572266, y=-1472.8972167969, z=4.0202493667603, h=0.0}, -- Yakuza
+  {name="Garage", x=407.36877441406, y=-1646.3614501953, z=29.291975021362-0.5, h=0.0}, -- Impound
 },
+
+
 }
