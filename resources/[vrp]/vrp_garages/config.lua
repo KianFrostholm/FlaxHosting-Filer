@@ -5,9 +5,9 @@ Timer = 3, -- Antal sekunder det tager at parkere og hive ud
 Fee = 250000,
 
 Impound = { -- Impound lokationer
-  {409.5103,-1623.1654,29.2919},
-  {1696.1711,3594.8869,35.6209},
-  {131.7892,6638.6240,31.8408},
+  {name="Impound", colour=1, id=50, x=409.5103,y=-1623.1654,z=29.2919},
+  {name="Impound", colour=1, id=50, x=1697.2330,y=3595.5280,z=35.6120},
+  {name="Impound", colour=1, id=50, x=131.7892,y=6638.6240,z=31.8408},
 },
 
 Garages = {
