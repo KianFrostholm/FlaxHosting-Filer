@@ -257,7 +257,7 @@ function vRPgt.despawnGarageVehicle(vtype,max_range)
       SetVehicleAsNoLongerNeeded(Citizen.PointerValueIntInitialized(vehicle[3]))
       Citizen.InvokeNative(0xEA386986E786A54F, Citizen.PointerValueIntInitialized(vehicle[3]))
       TriggerEvent("vrp_garages:setVehicle", vtype, nil)
-        --vRP.tryFullPayment({user_id,pris})
+  
         TriggerEvent("pNotify:SendNotification",{
         text = "køretøjet er gemt!",
          -- text = "Køretøjet er gemt",
@@ -436,9 +436,9 @@ Citizen.CreateThread(function()
     Wait(0)
     for _, garage in pairs(Config.Garages) do
       if notgenerating then
-      DrawMarker(27, garage.x, garage.y, garage.z, 0, 0, 0, 0, 0, 0, 3.001, 3.0001, 0.5001, 153, 136, 59, 200, 0, 1, 0, 50)
+      DrawMarker(27, garage.x, garage.y, garage.z, 0, 0, 0, 0, 0, 0, 3.001, 3.0001, 0.5001, 0, 110, 0, 200, 0, 1, 0, 50)
       if GetDistanceBetweenCoords(garage.x, garage.y, garage.z, GetEntityCoords(LocalPed())) < 3 and IsPedInAnyVehicle(LocalPed(), true) == false then
-        DrawText3Ds(garage.x, garage.y, garage.z + 1, "~b~[E]~w~ - Benyt garage")
+        DrawText3Ds(garage.x, garage.y, garage.z + 1, "~g~[E]~w~ - Benyt garage")
         if IsControlJustPressed(1, 38) then
           garageSelected.x = garage.x
           garageSelected.y = garage.y
@@ -458,9 +458,9 @@ Citizen.CreateThread(function()
   while notparking do
     Wait(0)
     for _, garage in pairs(Config.Garages) do
-      DrawMarker(27, garage.x, garage.y, garage.z, 0, 0, 0, 0, 0, 0, 3.001, 3.0001, 0.5001, 153, 136, 59, 200, 0, 1, 0, 50)
+      DrawMarker(27, garage.x, garage.y, garage.z, 0, 0, 0, 0, 0, 0, 3.001, 3.0001, 0.5001, 0, 110, 0, 200, 0, 1, 0, 50)
       if GetDistanceBetweenCoords(garage.x, garage.y, garage.z, GetEntityCoords(LocalPed())) < 3 and IsPedSittingInAnyVehicle(GetPlayerPed(-1)) then
-        DrawText3Ds(garage.x, garage.y, garage.z + 1, "~b~[E]~w~ - Parker køretøj")
+        DrawText3Ds(garage.x, garage.y, garage.z + 1, "~g~[E]~w~ - Parker køretøj")
         if IsControlJustPressed(1, 38) then
           notparking = false
           local bil = GetVehiclePedIsIn(GetPlayerPed(-1), false)
@@ -534,3 +534,46 @@ end)
   GVEHICLES = {}
   GVEHICLES = THEVEHICLES
   end)
+
+
+
+
+
+
+
+CreateThread(function()
+    while true do
+      Wait(0)
+          for k,v in pairs(Config.Impound) do
+        local distance = GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), v[1], v[2], v[3], true )
+        if distance <= 10.0 and distance >= 2.0 then
+          DrawMarker(20,v[1], v[2], v[3],0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.7, 0.7, 0.7, 52, 103, 235, 100, false, true, 2, false, false, false, false)
+          elseif distance <= 2.0 then
+            DrawText3Ds(v[1], v[2], v[3]+0.2, "~g~[E]~w~ - Køb køretøjer tilbage", 3.0, 7)
+          if IsControlJustPressed(1, 38) then
+            TriggerServerEvent('Kian_impond:buycarsback')
+          end
+        end
+      end
+    end
+end)
+
+
+
+RegisterNetEvent('Kian_impound:impoundcar', function()
+	local spiller = GetPlayerPed(-1)
+	local veh = vRP.getNearestVehicle({10})
+	local model = GetVehiclePedIsIn(spiller)
+	local plate = GetVehicleNumberPlateText(veh)
+  local vehID = GetDisplayNameFromVehicleModel(GetEntityModel(model))
+  SetEntityAsMissionEntity( model, true, true )
+
+	if plate ~= nil then
+			exports['progressBars']:startUI(5000, "Impounder "..vehID)
+			Wait(5000)
+			TriggerServerEvent('Kian_impound:sv_impoundcar', plate, vehID)
+      Citizen.InvokeNative(0xEA386986E786A54F, Citizen.PointerValueIntInitialized(model))
+		else
+      TriggerEvent("pNotify:SendNotification", {text = "Ingen bil fundet",type = "info",timeout = (2000), layout = "bottomCenter",queue = "global", animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+		end
+end)
