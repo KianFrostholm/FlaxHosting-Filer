@@ -594,30 +594,11 @@ local choice_seize_items = {function(player, choice)
 	end
 end, lang.police.menu.seize.items.description()}
 
--- beslaglæg et køretøj
 local ch_confiscade_vehicle = {function(player,choice)
-	vRP.prompt(player,"Hvad er nummerpladen på køretøjet du vil beslaglægge?","",function(player, plate)
-		if plate ~= "" then
-			vRP.prompt(player,"Hvad er modellen på køretøjet du vil beslaglægge?","",function(player, vehicle)
-				if vehicle ~= "" then
-          MySQL.Async.fetchAll("SELECT vehicle FROM vrp_user_vehicles WHERE vehicle = @vehicle AND vehicle_plate = @plate", {plate = plate, vehicle = vehicle}, function(rows, affected)
-						if #rows > 0 then 
-							vRP.updateVehicleConfi(vehicle,plate,1)
-							TriggerClientEvent("pNotify:SendNotification", player,{text = "Køretøj Beslaglagt", type = "success", queue = "global", timeout = 4000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-						else
-							TriggerClientEvent("pNotify:SendNotification", player,{text = "Det indtastede køretøj eksistere ikke.", type = "error", queue = "global", timeout = 4000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-						end
-					end)
-				else
-					TriggerClientEvent("pNotify:SendNotification", player,{text = "Beslaglæggelsen er blevet annulleret da du ikke skrev nogen model", type = "error", queue = "global", timeout = 4000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-				end
-			end)
-		else
-			TriggerClientEvent("pNotify:SendNotification", player,{text = "Beslaglæggelsen er blevet annulleret da du ikke skrev nogen nummerplade", type = "error", queue = "global", timeout = 4000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-		end
-	end)
+  TriggerClientEvent('Kian_impound:impoundcar', player)
 end, "Beslaglæg en spillers køretøj"}
 
+-- beslaglæg et køretøj
 
 -- Frigiv et køretøj
 local ch_free_vehicle = {function(player,choice)
@@ -933,8 +914,8 @@ vRP.registerMenuBuilder("main", function(add, data)
 				if vRP.hasPermission(user_id,"police.cprsearch") then
 					menu[lang.police.menu.cprsearch.title()] = choice_cprsearch
 				end
-				if vRP.hasPermission(user_id,"police.seize.vehicles") then
-					menu["Beslaglæg Køretøj"] = ch_confiscade_vehicle
+				if vRP.hasPermission(user_id,"police.pc") then
+					menu["Impound køretøj"] = ch_confiscade_vehicle
 				end
 				if vRP.hasPermission(user_id,"police.seize.vehicles") then
 					menu["Frigiv Køretøj"] = ch_free_vehicle
