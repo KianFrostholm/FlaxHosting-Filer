@@ -12,6 +12,8 @@
 - Tilføjet en command til at revive alle, /revivealle
 - Tilføjet en command til at unbanne alle (kun id 1 kan) /unbanalle
 - Tilføjet impound system, så politiet kan impounde andres køretøjer
+- Tilføjet indbrud system hvor man kan modtage våben og andre ting
+- Optimeret vrp_lscutoms så den fungere bedre og fylder mindre i database
 
 
 
