@@ -4,6 +4,7 @@ local lasthouse = nil
 local curHouseCoords = {x = 0, y = 0, z = 0}
 local curExitCoords = {x = 0, y = 0, z = 0}
 local myrobbableItems = {}
+local antal = 0
 
 local HT = nil
 
@@ -65,13 +66,6 @@ RegisterNetEvent('kian-indburd:useItem', function()
          TriggerServerEvent("kian-indburd:givback2")
 		end
 	end)
-end)
-
-
-RegisterCommand('cooldown', function()
-   Cooldown = 500
-   print(Cooldown)
-
 end)
 
 CreateThread(function()
@@ -333,7 +327,7 @@ Citizen.CreateThread(function()
                      exports[Config.progress]:startUI(10000, Config.Lang['search_storage'])
                      Wait(10000)
 
-                     TriggerServerEvent('kian-indburd:searchItem')
+                     TriggerServerEvent('kian-indburd:searchItem', antal)
                      ClearPedTasks(PlayerPedId())
 
                      while IsControlPressed(1, 38) do
@@ -349,8 +343,6 @@ Citizen.CreateThread(function()
       end
    end
 end)
-
-
 
 RegisterNetEvent('kian-indburd:lockpickanim', function()
    isLockpicking = true
