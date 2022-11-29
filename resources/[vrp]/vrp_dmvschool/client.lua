@@ -27,7 +27,7 @@ local dmvschool_location = {232.054, -1389.98, 29.4812}
 
 local kmh = 3.6
 local VehSpeed = 0
-
+local antal = 0
 local speed_limit_resi = 53
 local speed_limit_town = 83
 local speed_limit_freeway = 133
@@ -183,7 +183,7 @@ end
 
 RegisterNetEvent('dmv:buylicense')
 AddEventHandler('dmv:buylicense', function()
-	TriggerServerEvent('dmv:success')
+	TriggerServerEvent('dmv:success', antal)
 	 TriggerEvent("pNotify:SendNotification",{text = "Du har hermed fået et kørekort, tillykke!",type = "success",timeout = (5000),layout = "center",queue = "global",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})			
 end)
 
@@ -197,7 +197,7 @@ function EndDTest()
 		EndTestTasks()
 	else
 		--local licID = 1
-		TriggerServerEvent('dmv:success')
+		TriggerServerEvent('dmv:success', antal)
 		onPtest = false
 		TestDone = true
 		theorylock = true
@@ -863,7 +863,7 @@ Citizen.CreateThread(function()
 		local pos = GetEntityCoords(GetPlayerPed(-1), false)
 		for k,v in ipairs(dmvpedpos) do
 			if(Vdist(v.x, v.y, v.z, pos.x, pos.y, pos.z) < 1.5)then
-				drawTxt('Tryk på [~g~E~s~] for at snakke med kørelæreren', 0, 1, 0.5, 0.8, 0.6, 255, 255, 255, 255)
+				drawTxt('Tryk på ~g~[E]~w~  for at snakke med kørelæreren', 0, 1, 0.5, 0.8, 0.6, 255, 255, 255, 255)
 					if(IsControlJustReleased(1, 38))then
 						if talktodmvped then
 						    Citizen.Wait(500)
