@@ -125,4 +125,10 @@ webhook.Gps = ''
 
 webhook.dmvsuccess = ''
 
+---------------------
+-- Inbrud Webhooks --
+---------------------
+
+webhook.Burglary = ''
+
 return webhook
