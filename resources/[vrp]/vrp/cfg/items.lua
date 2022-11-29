@@ -7,6 +7,7 @@ local cfg = {}
 cfg.items = {
 	-- farming
 	["kniv"] = {"Køkken kniv", "En normal køkken kniv købt i bilka.", nil, 0.01}, -- no choices
+	["lockpick"] = {"Lockpick", "Lockpick til at dirke låse", nil, 0.01}, -- no choices
 
 	["hampblade"] = {"Hampblade", "Ulovligt! Bruges til at fremstille skunk", nil, 0.05}, -- no choices
 	["skunk"] = {"Skunk", "Ulovligt! Kan sælges.", nil, 0.05}, -- no choices
