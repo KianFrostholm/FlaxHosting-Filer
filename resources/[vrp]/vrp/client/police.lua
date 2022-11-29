@@ -12,21 +12,16 @@ end
 
 -- HANDCUFF
 
+
 function tvRP.toggleHandcuff()
   handcuffed = not handcuffed
 
   SetEnableHandcuffs(GetPlayerPed(-1), handcuffed)
   if handcuffed then
-    tvRP.playAnim(true,{{"missminuteman_1ig_2","handsup_enter",1}},false)
-    Wait(550)
-    tvRP.playAnim(true,{{"mp_prison_break","handcuffed",1}},false)
-    Wait(1400)
-    tvRP.playAnim(true,{{"missmurder","idle",1}},true)
+    tvRP.playAnim(true,{{"mp_arresting","idle",1}},true)
     TriggerServerEvent("InteractSound_SV:PlayWithinDistance", 2, "handcuff", 0.4)
-  local flags = 16
   else
     tvRP.stopAnim(true)
-    SetPedStealthMovement(GetPlayerPed(-1),false,"") 
   end
 end
 
@@ -168,14 +163,15 @@ function tvRP.putInVehiclePositionAsPassenger(x,y,z)
 end
 
 -- keep handcuffed animation
-Citizen.CreateThread(function()
+CreateThread(function()
   while true do
-    Citizen.Wait(15000)
+    Citizen.Wait(5000)
     if handcuffed then
       tvRP.playAnim(true,{{"mp_arresting","idle",1}},true)
     end
   end
 end)
+
 
 -- force stealth movement while handcuffed (prevent use of fist and slow the player)
 Citizen.CreateThread(function()
@@ -287,4 +283,56 @@ Citizen.CreateThread(function()
       vRPserver.updateWantedLevel({wanted_level})
     end
   end
+end)
+
+
+
+
+RegisterNetEvent("vRPpolice-handcuff:Target")
+AddEventHandler("vRPpolice-handcuff:Target", function(source)
+  local playerPed = GetPlayerPed(-1)
+  local targetPed = GetPlayerPed(GetPlayerFromServerId(source))
+  RequestAnimDict("mp_arrest_paired")
+  while not HasAnimDictLoaded("mp_arrest_paired") do
+    Citizen.Wait(10)
+  end
+  AttachEntityToEntity(GetPlayerPed(-1), targetPed, 11816, -0.1, 0.45, 0.0, 0.0, 0.0, 20.0, false, false, false, false, 20, false)
+	TaskPlayAnim(playerPed, "mp_arrest_paired", "crook_p2_back_left", 8.0, -8.0, 5500, 33, 0, false, false, false)
+	Citizen.Wait(950)
+	DetachEntity(GetPlayerPed(-1), true, false)
+end)
+
+RegisterNetEvent("vRPpolice-handcuff:Player")
+AddEventHandler("vRPpolice-handcuff:Player", function()
+	local playerPed = GetPlayerPed(-1)
+	RequestAnimDict("mp_arrest_paired")
+	while not HasAnimDictLoaded("mp_arrest_paired") do
+		Citizen.Wait(10)
+	end
+	TaskPlayAnim(playerPed, "mp_arrest_paired", "cop_p2_back_left", 8.0, -8.0, 5500, 33, 0, false, false, false)
+end)
+
+RegisterNetEvent('vRPpolice-unhandcuff:Target')
+AddEventHandler('vRPpolice-unhandcuff:Target', function(source)
+  local playerPed = GetPlayerPed(-1)
+  local targetPed = GetPlayerPed(GetPlayerFromServerId(source))
+  RequestAnimDict("mp_arresting")
+  while not HasAnimDictLoaded("mp_arresting") do
+    Citizen.Wait(10)
+  end
+  AttachEntityToEntity(GetPlayerPed(-1), targetPed, 11816, -0.1, 0.45, 0.0, 0.0, 0.0, 20.0, false, false, false, false, 20, false)
+	TaskPlayAnim(playerPed, "mp_arresting", "b_uncuff", 8.0, -8.0, 5500, 33, 0, false, false, false)
+	Citizen.Wait(5500)
+	DetachEntity(GetPlayerPed(-1), true, false)
+  ClearPedTasks(GetPlayerPed(-1))
+end)
+
+RegisterNetEvent('vRPpolice-unhandcuff:Player')
+AddEventHandler('vRPpolice-unhandcuff:Player', function()
+  local playerPed = GetPlayerPed(-1)
+	RequestAnimDict('mp_arresting')
+	while not HasAnimDictLoaded('mp_arresting') do
+		Citizen.Wait(10)
+	end
+	TaskPlayAnim(playerPed, 'mp_arresting', "a_uncuff", 8.0, -8.0, 5500, 33, 0, false, false, false)
 end)
