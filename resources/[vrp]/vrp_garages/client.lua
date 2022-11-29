@@ -49,7 +49,8 @@ function vRPgt.spawnGarageVehicle(vtype, name, vehicle_plate, vehicle_colorprima
       SetVehicleOnGroundProperly(nveh)
       SetEntityInvincible(nveh,false)
       SetPedIntoVehicle(GetPlayerPed(-1),nveh,-1) -- put player inside
-      SetVehicleNumberPlateText(nveh, "P " .. vRP.getRegistrationNumber({}))
+      local plate = "P " .. vRP.getRegistrationNumber({})
+      SetVehicleNumberPlateText(nveh, plate)
       Citizen.InvokeNative(0xAD738C3085FE7E11, nveh, true, true) -- set as mission entity
       SetVehicleHasBeenOwnedByPlayer(nveh,true)
       vehicle_migration = false
@@ -59,125 +60,8 @@ function vRPgt.spawnGarageVehicle(vtype, name, vehicle_plate, vehicle_colorprima
       end
 
       TriggerEvent("vrp_garages:setVehicle", vtype, {vtype,name,nveh})
-
-
-      SetModelAsNoLongerNeeded(mhash)
-      local plate = plate
-      local primarycolor = tonumber(vehicle_colorprimary)
-      local secondarycolor = tonumber(vehicle_colorsecondary)
-      local pearlescentcolor = vehicle_pearlescentcolor
-      local wheelcolor = vehicle_wheelcolor
-      local plateindex = tonumber(vehicle_plateindex)
-      local neoncolor = {vehicle_neoncolor1,vehicle_neoncolor2,vehicle_neoncolor3}
-      local windowtint = vehicle_windowtint
-      local wheeltype = tonumber(vehicle_wheeltype)
-      local mods0 = tonumber(vehicle_mods0)
-      local mods1 = tonumber(vehicle_mods1)
-      local mods2 = tonumber(vehicle_mods2)
-      local mods3 = tonumber(vehicle_mods3)
-      local mods4 = tonumber(vehicle_mods4)
-      local mods5 = tonumber(vehicle_mods5)
-      local mods6 = tonumber(vehicle_mods6)
-      local mods7 = tonumber(vehicle_mods7)
-      local mods8 = tonumber(vehicle_mods8)
-      local mods9 = tonumber(vehicle_mods9)
-      local mods10 = tonumber(vehicle_mods10)
-      local mods11 = tonumber(vehicle_mods11)
-      local mods12 = tonumber(vehicle_mods12)
-      local mods13 = tonumber(vehicle_mods13)
-      local mods14 = tonumber(vehicle_mods14)
-      local mods15 = tonumber(vehicle_mods15)
-      local mods16 = tonumber(vehicle_mods16)
-      local turbo = vehicle_turbo
-      local tiresmoke = vehicle_tiresmoke
-      local xenon = vehicle_xenon
-      local mods23 = tonumber(vehicle_mods23)
-      local mods24 = tonumber(vehicle_mods24)
-      local neon0 = vehicle_neon0
-      local neon1 = vehicle_neon1
-      local neon2 = vehicle_neon2
-      local neon3 = vehicle_neon3
-      local bulletproof = vehicle_bulletproof
-      local smokecolor1 = vehicle_smokecolor1
-      local smokecolor2 = vehicle_smokecolor2
-      local smokecolor3 = vehicle_smokecolor3
-      local variation = vehicle_modvariation
-
-      --setting customization
-      SetVehicleColours(nveh, primarycolor, secondarycolor)
-      SetVehicleExtraColours(nveh, tonumber(pearlescentcolor), tonumber(wheelcolor))
-      SetVehicleNumberPlateTextIndex(nveh,plateindex)
-      SetVehicleNeonLightsColour(nveh,tonumber(neoncolor[1]),tonumber(neoncolor[2]),tonumber(neoncolor[3]))
-      SetVehicleTyreSmokeColor(nveh,tonumber(smokecolor1),tonumber(smokecolor2),tonumber(smokecolor3))
-      SetVehicleModKit(nveh,0)
-      SetVehicleMod(nveh, 0, mods0)
-      SetVehicleMod(nveh, 1, mods1)
-      SetVehicleMod(nveh, 2, mods2)
-      SetVehicleMod(nveh, 3, mods3)
-      SetVehicleMod(nveh, 4, mods4)
-      SetVehicleMod(nveh, 5, mods5)
-      SetVehicleMod(nveh, 6, mods6)
-      SetVehicleMod(nveh, 7, mods7)
-      SetVehicleMod(nveh, 8, mods8)
-      SetVehicleMod(nveh, 9, mods9)
-      SetVehicleMod(nveh, 10, mods10)
-      SetVehicleMod(nveh, 11, mods11)
-      SetVehicleMod(nveh, 12, mods12)
-      SetVehicleMod(nveh, 13, mods13)
-      SetVehicleMod(nveh, 14, mods14)
-      SetVehicleMod(nveh, 15, mods15)
-      SetVehicleMod(nveh, 16, mods16)
-      if turbo == "on" then
-        ToggleVehicleMod(nveh, 18, true)
-      else
-        ToggleVehicleMod(nveh, 18, false)
-      end
-      if tiresmoke == "on" then
-        ToggleVehicleMod(nveh, 20, true)
-      else
-        ToggleVehicleMod(nveh, 20, false)
-      end
-      if xenon == "on" then
-        ToggleVehicleMod(nveh, 22, true)
-      else
-        ToggleVehicleMod(nveh, 22, false)
-      end
-      SetVehicleWheelType(nveh, tonumber(wheeltype))
-      SetVehicleMod(nveh, 23, mods23)
-      SetVehicleMod(nveh, 24, mods24)
-      if neon0 == "on" then
-        SetVehicleNeonLightEnabled(nveh,0, true)
-      else
-        SetVehicleNeonLightEnabled(nveh,0, false)
-      end
-      if neon1 == "on" then
-        SetVehicleNeonLightEnabled(nveh,1, true)
-      else
-        SetVehicleNeonLightEnabled(nveh,1, false)
-      end
-      if neon2 == "on" then
-        SetVehicleNeonLightEnabled(nveh,2, true)
-      else
-        SetVehicleNeonLightEnabled(nveh,2, false)
-      end
-      if neon3 == "on" then
-        SetVehicleNeonLightEnabled(nveh,3, true)
-      else
-        SetVehicleNeonLightEnabled(nveh,3, false)
-      end
-      if bulletproof == "on" then
-        SetVehicleTyresCanBurst(nveh, false)
-      else
-        SetVehicleTyresCanBurst(nveh, true)
-      end
-      --if variation == "on" then
-      --  SetVehicleModVariation(nveh,23)
-      --else
-      --  SetVehicleModVariation(nveh,23, false)
-      --end
-      SetVehicleWindowTint(nveh,tonumber(windowtint))
+      TriggerServerEvent("LSC:applyModifications", mhash, nveh, plate)
     end
-    
   else
     vRP.notify({"Du kan kun have et køretøj ude."})
   end
@@ -293,11 +177,14 @@ function vRPgt.despawnGarageVehicle(vtype,max_range)
   end
 
 
+	
   function Gembil()
     Citizen.CreateThread(function()
     local user_id = vRP.getUserId(player)
     local ped = GetPlayerPed(-1)
     local caissei = GetVehiclePedIsIn(GetPlayerPed(-1), false)
+  	
+    
     SetEntityAsMissionEntity(caissei, true, true)
     local plate = GetVehicleNumberPlateText(caissei)
     local vtype = "car"
