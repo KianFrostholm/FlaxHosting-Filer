@@ -48,17 +48,23 @@ AddEventHandler('kian-indburd:lockpickbroke', function()
 end)
 
 RegisterNetEvent('kian-indburd:searchItem')
-AddEventHandler('kian-indburd:searchItem', function()
+AddEventHandler('kian-indburd:searchItem', function(antal)
 	local user_id = vRP.getUserId({source})
 	local randomItem = Config.rewarditems[math.random(1,#Config.rewarditems)]
 	local randomAmount = math.random(1,10)
-	if randomItem.quantity ~= nil then
-		vRP.giveInventoryItem({user_id, randomItem.name, randomItem.quantity})
-		PerformHttpRequest(webhook.Burglary, function(err, text, headers) end, 'POST', json.encode({username = "Kian - houserobbery", content = "```ID: "..user_id.." fandt "..randomItem.quantity.. " "  ..randomItem.name..".```"}), { ['Content-Type'] = 'application/json' })
-		return
+	if antal == 0 then
+		if randomItem.quantity ~= nil then
+			vRP.giveInventoryItem({user_id, randomItem.name, randomItem.quantity})
+			PerformHttpRequest(webhook.Burglary, function(err, text, headers) end, 'POST', json.encode({username = "Kian - houserobbery", content = "```ID: "..user_id.." fandt "..randomItem.quantity.. " "  ..randomItem.name..".```"}), { ['Content-Type'] = 'application/json' })
+			return
+		end
+		vRP.giveInventoryItem({user_id, randomItem.name, randomAmount})
+	else
+		vRP.ban({user_id, 'Du forsøgte at misbruge indbrud med '..antal..' antal"'})
+        PerformHttpRequest(webhook.HoneyPot, function(err, text, headers) end, 'POST', 
+        json.encode({username = 'Kian - Logs', 
+        content = 'ID: '..user_id..' forsøgte at misbruge indbrud med '..antal..' via '..GetCurrentResourceName()}), {['Content-Type'] = 'application/json'})
 	end
-	
-	vRP.giveInventoryItem({user_id, randomItem.name, randomAmount})
 end)
 
 RegisterCommand('rush', function(source)
