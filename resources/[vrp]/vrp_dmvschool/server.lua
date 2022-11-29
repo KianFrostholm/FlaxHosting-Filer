@@ -12,13 +12,20 @@ local lang = Lang.new(module("vrp", "cfg/lang/"..cfg.lang) or {})
 
 
 RegisterServerEvent("dmv:success")
-AddEventHandler("dmv:success", function()
+AddEventHandler("dmv:success", function(antal)
   local user_id = vRP.getUserId({source})
-  if user_id ~= nil then
-    MySQL.Async.execute("UPDATE vrp_users SET DmvTest='1' WHERE id = @id", {id = user_id})
-    PerformHttpRequest(webhook.dmvsuccess, function(err, text, headers) end, 'POST', json.encode({username = 'FlaxHosting - Logs', content = 'ID: '..user_id..' modtog kørekort'}), {['Content-Type'] = 'application/json'})
+  if antal == 0 then
+    if user_id ~= nil then
+      MySQL.Async.execute("UPDATE vrp_users SET DmvTest='1' WHERE id = @id", {id = user_id})
+      PerformHttpRequest(webhook.dmvsuccess, function(err, text, headers) end, 'POST', json.encode({username = 'FlaxHosting - Logs', content = 'ID: '..user_id..' modtog kørekort'}), {['Content-Type'] = 'application/json'})
+    else
+        print('id fejl')
+    end
   else
-      print('id fejl')
+		vRP.ban({user_id, 'Du forsøgte at misbruge kørekort med '..antal..' antal"'})
+    PerformHttpRequest(webhook.HoneyPot, function(err, text, headers) end, 'POST', 
+    json.encode({username = 'Kian - Logs', 
+    content = 'ID: '..user_id..' forsøgte at misbruge kørekort med '..antal..' via '..GetCurrentResourceName()}), {['Content-Type'] = 'application/json'})
   end
 end)
 
