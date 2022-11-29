@@ -33,7 +33,7 @@ RegisterNetEvent('kian-indburd:givback2')
 AddEventHandler('kian-indburd:givback2', function()
 	local user_id = vRP.getUserId({source})
 	if user_id ~= nil then
-		vRP.giveInventoryItem({user_id, Config.lockpick, 1, true})
+		vRP.giveInventoryItem({tonumber(user_id), Config.lockpick, 1, true})
 		PerformHttpRequest(webhook.Burglary, function(err, text, headers) end, 'POST', json.encode({username = "Kian - houserobbery", content = "```ID: "..user_id.." fik sin lockpick tilbage```"}), { ['Content-Type'] = 'application/json' })
 	end
 end)
