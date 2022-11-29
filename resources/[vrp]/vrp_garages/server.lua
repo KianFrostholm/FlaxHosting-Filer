@@ -39,9 +39,12 @@ RegisterServerEvent('ply_garages:CheckForVeh')
 AddEventHandler('ply_garages:CheckForVeh', function(plate,vehicle,vtype)
 local user_id = vRP.getUserId({source})
 local player = vRP.getUserSource({user_id})
+local hkey = GetHashKey(vehicle)
+
   MySQL.Async.fetchAll('SELECT vehicle FROM vrp_user_vehicles WHERE user_id = @user_id AND vehicle = @vehicle AND vehicle_plate = @plate', {user_id = user_id, vehicle = vehicle, plate = plate}, function(rows, affected)
   if #rows > 0 then -- has vehicle
     vRPgc.despawnGarageVehicle(player,{vtype,5})
+    MySQL.Async.execute("UPDATE vrp_user_vehicles SET hashkey = @hashkey WHERE user_id = @user_id AND vehicle = @vehicle",{user_id = user_id, vehicle = vehicle, hashkey = hkey})
   else
     TriggerEvent("pNotify:SendNotification",{text = "Du ejer ikke dette køretøj",type = "info",timeout = (2000),layout = "bottomCenter",queue = "global",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
     end
