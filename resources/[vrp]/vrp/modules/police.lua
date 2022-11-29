@@ -1,5 +1,6 @@
 local lang = vRP.lang
 local cfg = module("cfg/police")
+local webhook = module("cfg/webhooks")
 
 -- police records
 
@@ -22,10 +23,6 @@ end
 
 function vRP.updateVehicleConfi(vehicle,plate,confiscaded)
   print('DETTE ER IKKE SAT OP')
-	--MySQL.query("vRP/police_update_vehicle_confiscade", {
-	--plate = plate,  
-	--vehicle = vehicle,  
-	--confiscaded = confiscaded})
 end
 
 RegisterServerEvent('police:freeVehicle')
@@ -594,11 +591,11 @@ local choice_seize_items = {function(player, choice)
 	end
 end, lang.police.menu.seize.items.description()}
 
+-- beslaglæg et køretøj
 local ch_confiscade_vehicle = {function(player,choice)
   TriggerClientEvent('Kian_impound:impoundcar', player)
 end, "Beslaglæg en spillers køretøj"}
 
--- beslaglæg et køretøj
 
 -- Frigiv et køretøj
 local ch_free_vehicle = {function(player,choice)
@@ -788,8 +785,9 @@ local choice_store_weapons = {function(player, choice)
 						end
 					end
 					
-					PerformHttpRequest('DIT_WEBHOOK', function(err, text, headers) end, 'POST', json.encode({username = "DevoNetwork [POLITI]" .. GetConvar("servernumber","#1"), content = table.concat(stored_items)}), { ['Content-Type'] = 'application/json' })
-					-- clear all weapons
+					PerformHttpRequest(webhook.StoreWeapon, function(err, text, headers) end, 'POST', json.encode({username = "DevoNetwork [POLITI]" .. GetConvar("servernumber","#1"), content = table.concat(stored_items)}), { ['Content-Type'] = 'application/json' })
+					
+          -- clear all weapons
 					--vRPclient.giveWeapons(player,{{},true})
 					vRP.closeMenu(player)
 				end
@@ -870,6 +868,30 @@ local choice_heal = {function(player,choice)
   end
 end,lang.emergency.menu.heal.description()}
 
+---- handcuff
+local choice_handcuff = {function(player,choice)
+  vRPclient.getNearestPlayer(player,{10},function(nplayer)
+    local nuser_id = vRP.getUserId(nplayer)
+    if nuser_id ~= nil then
+      vRPclient.isHandcuffed(nplayer,{}, function(handcuffed)
+        if handcuffed then
+          TriggerClientEvent('vRPpolice-unhandcuff:Target', nplayer, player)
+          TriggerClientEvent('vRPpolice-unhandcuff:Player', player)
+          Citizen.Wait(5500)
+          vRPclient.toggleHandcuff(nplayer,{})
+        else
+          TriggerClientEvent('vRPpolice-handcuff:Target', nplayer, player)
+          TriggerClientEvent('vRPpolice-handcuff:Player', player)
+          Citizen.Wait(3000)
+          vRPclient.toggleHandcuff(nplayer,{})
+        end
+      end)
+    else
+      vRPclient.notify(player,{lang.common.no_player_near()})
+    end
+  end)
+end,lang.police.menu.handcuff.description()}
+
 -- add choices to the menu
 vRP.registerMenuBuilder("main", function(add, data)
   local player = data.player
@@ -884,9 +906,9 @@ vRP.registerMenuBuilder("main", function(add, data)
 				menu.name = lang.police.title()
 				menu.css = {top="75px",header_color="rgba(0,33,62,0.75)"}
 
-				--[[if vRP.hasPermission(user_id,"police.handcuff") then
+				if vRP.hasPermission(user_id,"police.pc") then
 					menu[lang.police.menu.handcuff.title()] = choice_handcuff
-				end]]--
+				end
 				if vRP.hasPermission(user_id,"police.putinveh") then
 					menu[lang.police.menu.putinveh.title()] = choice_putinveh
 				end
@@ -915,7 +937,7 @@ vRP.registerMenuBuilder("main", function(add, data)
 					menu[lang.police.menu.cprsearch.title()] = choice_cprsearch
 				end
 				if vRP.hasPermission(user_id,"police.pc") then
-					menu["Impound køretøj"] = ch_confiscade_vehicle
+					menu["Beslaglæg Køretøj"] = ch_confiscade_vehicle
 				end
 				if vRP.hasPermission(user_id,"police.seize.vehicles") then
 					menu["Frigiv Køretøj"] = ch_free_vehicle
@@ -1072,8 +1094,7 @@ AddEventHandler('handcuff:cuffHim', function()
 	end)
 end)
 
-RegisterCommand("håndjern", function() 
-        local source = source
+RegisterCommand("håndjern", function(source) 
 	      local user_id = vRP.getUserId({source})
   
         if vRP.hasPermission(user_id, "police.handcuff") then
@@ -1091,4 +1112,5 @@ RegisterCommand("håndjern", function()
        end
       end)
     end
-  end)
+end)
+
