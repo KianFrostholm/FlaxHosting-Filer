@@ -216,13 +216,13 @@ CREATE TABLE `vrp_user_vehicles` (
   `vehicle` varchar(100) NOT NULL,
   `veh_type` varchar(255) NOT NULL DEFAULT 'default',
   `vehicle_plate` varchar(255) NOT NULL,
-  `impound` int(11) NOT NULL DEFAULT 0
+  `impound` int(11) NOT NULL DEFAULT 0,
   `hashkey` varchar(255) DEFAULT NULL,
   `vehicle_colorprimary` varchar(255) DEFAULT NULL,
   `modifications` mediumtext NOT NULL,
-  `vehicle_colorsecondary` varchar(255) DEFAULT NULL
+  `vehicle_colorsecondary` varchar(255) DEFAULT NULL,
   `vehicle_fuel` varchar(50) DEFAULT '60.0',
-  `vehicle_damage` varchar(50) DEFAULT '1000.0',
+  `vehicle_damage` varchar(50) DEFAULT '1000.0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
