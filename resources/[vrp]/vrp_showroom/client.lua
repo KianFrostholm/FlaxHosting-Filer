@@ -11,7 +11,7 @@ end
 
 local vehshop = {
 	opened = false,
-	title = "BurgerRP Bilforhandler",
+	title = "Flax Hosting",
 	currentmenu = "Main",
 	lastmenu = nil,
 	currentpos = nil,
