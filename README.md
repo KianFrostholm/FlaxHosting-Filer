@@ -26,4 +26,4 @@
 
 
 # Fejl og Mangler
-- Hvis du finder en fejl eller mener der er noget som burde ændres er du velkommen til at oprette en issue så vi kan kigge nærmere på det
+- Hvis du finder en fejl eller mener der er noget som burde ændres er du velkommen til at oprette en issue så vi kan se nærmere på det
