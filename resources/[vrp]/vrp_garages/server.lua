@@ -72,7 +72,7 @@ RegisterNetEvent('Kian_impond:buycarsback', function()
   local user_id = vRP.getUserId({source})
   local xSource = vRP.getUserSource({user_id})
   count = 0
-  MySQL.Async.fetchAll("SELECT vehicle_name, vehicle FROM vrp_user_vehicles WHERE user_id = @user_id AND impound = 1", {user_id = user_id}, function(biler, affected)
+  MySQL.Async.fetchAll("SELECT vehicle FROM vrp_user_vehicles WHERE user_id = @user_id AND impound = 1", {user_id = user_id}, function(biler, affected)
     if biler ~= nil then
       for k, v in pairs(biler) do
         count = count+1
