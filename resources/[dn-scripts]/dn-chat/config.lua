@@ -5,7 +5,7 @@
 -- Time: 20:22
 -- Github: https://github.com/Apisathan/FiveM-Scripts
 --
-local cfg = {}
+cfg = {}
 
 cfg.ckCommand = false
 cfg.pkCommand = false
