@@ -11,9 +11,11 @@ RegisterServerCallback('kian-indburd:BetjenteOnline', function(source, cb)
 	for k,v in pairs(users) do
 		local player = vRP.getUserSource({k})
 	  	if player ~= nil then
-			local user_id = vRP.getUserId({player})
-			if vRP.hasPermission({user_id, Config.Permission}) then
-		  		Politionline = Politionline + 1
+			if user_id ~= nil then
+				local user_id = vRP.getUserId({player})
+				if vRP.hasPermission({user_id, Config.Permission}) then
+					Politionline = Politionline + 1
+				end
 			end
 	  	end
 	end
