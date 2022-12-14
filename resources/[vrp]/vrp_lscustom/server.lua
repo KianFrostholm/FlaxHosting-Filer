@@ -67,7 +67,6 @@ RegisterServerEvent("LSC:applyModifications")
 AddEventHandler("LSC:applyModifications", function (key, vehicle, plate)
 	local source = source
 	local user_id = vRP.getUserId({source})
-	print(key, vehicle, plate)
 	if user_id then
 		MySQL.Async.fetchAll("select modifications from vrp_user_vehicles where user_id = @user_id and hashkey = @hashkey and vehicle_plate = @plate", {user_id = user_id, hashkey = key, plate = plate}, function(rows, affected)
 			if #rows > 0 then
