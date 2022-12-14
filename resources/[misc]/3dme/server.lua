@@ -1,4 +1,4 @@
-local logEnabled = true
+local logEnabled = false
 
 RegisterServerEvent('3dme:shareDisplay')
 AddEventHandler('3dme:shareDisplay', function(text)
