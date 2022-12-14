@@ -376,7 +376,6 @@ vRP.registerMenuBuilder(
                                                 vRPclient.isHandcuffed(I, {}, function(K)
                                                         if K then
                                                             vRPclient.getWeapons(I, {}, function(L)
-                                                                    print(json.encode(L))
                                                                     for g, h in pairs(L) do
                                                                         vRP.giveInventoryItem({c, "wbody|" .. g, 1, true})
                                                                         if h.ammo > 0 then
@@ -384,8 +383,6 @@ vRP.registerMenuBuilder(
                                                                         end
                                                                     end
                                                                     vRPclient.giveWeapons(I, {{}, true})
-                                                                    print(I)
-                                                                    print(I)
                                                                     vRPclient.notify(I, {"Du fik frataget dine våben"})
                                                                 end)
                                                         else
