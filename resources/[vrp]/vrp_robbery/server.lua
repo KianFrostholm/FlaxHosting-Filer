@@ -33,7 +33,7 @@ AddEventHandler('es_bank:rob', function(robb)
 	local player = vRP.getUserSource({user_id})
 	local cops = vRP.getUsersByPermission({cfg.permission})
 	if vRP.hasPermission({user_id,cfg.permission}) then
-		TriggerClientEvent("pNotify:SendNotification", -1,{text = "Politiet kan ikke røve banke.", type = "warning", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+		TriggerClientEvent("pNotify:SendNotification", player, {text = "Politiet kan ikke røve banke.", type = "warning", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
 	else
 		local ncops = cfg.cops
 		if banks[robb].mincops ~= nil then
