@@ -4,10 +4,6 @@ local showsprite = false
 
 vRP = Proxy.getInterface("vRP")
 
-RegisterCommand('blips', function(source)
-	TriggerEvent('showSprites')
-end)
-
 RegisterNetEvent('showBlips')
 AddEventHandler('showBlips', function()
 	showblip = not showblip
