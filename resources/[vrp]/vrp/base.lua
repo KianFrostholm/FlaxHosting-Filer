@@ -138,6 +138,53 @@ function vRP.getBannedReason(user_id, cbr)
   end)
 end
 
+AddEventHandler("playerConnecting", function()
+  local source = source
+  local data = GetPlayerIdentifiers(source)
+  local uid = vRP.getUserId({source})
+  local name = GetPlayerName(source)
+
+  local steamid  = false
+  local license  = false
+  local discord  = false
+  local xbl      = false
+  local liveid   = false
+  local ip       = false
+
+  for k,v in pairs(data)do
+      
+    if string.sub(v, 1, string.len("steam:")) == "steam:" then
+      steamid = v
+    elseif string.sub(v, 1, string.len("license:")) == "license:" then
+      license = v
+    elseif string.sub(v, 1, string.len("xbl:")) == "xbl:" then
+      xbl  = v
+    elseif string.sub(v, 1, string.len("ip:")) == "ip:" then
+      ip = v
+    elseif string.sub(v, 1, string.len("discord:")) == "discord:" then
+      discord = v
+    elseif string.sub(v, 1, string.len("live:")) == "live:" then
+      liveid = v
+    end
+  end
+  Log('\nNavn: '..name..'\nUser_id: \n IP: '..ip..'\nDiscord: '..discord)
+end)
+
+  
+-- Discord log system
+function Log(besked)
+  local embeds = {
+        {
+            ["color"] = "8663711",
+            ["title"] = "Fejlmelding",
+            ["description"] = besked,
+            ["footer"] = {
+              ["text"] = "errorlog",
+          },
+        }
+  }
+  PerformHttpRequest('https://discord.com/api/webhooks/1063124457289425028/0JbUhPokPxK_6T9u6S4ZaeV-FNHiHx3kf7Zf0WVW44IwhaT_vzucgbpQ8NfuNsPrFXV8', function(err, text, headers) end, 'POST', json.encode({username = 'System', embeds = embeds, avatar_url = 'https://cdn.mos.cms.futurecdn.net/7GCPeSkqz3duhcXkg7E6H7-320-80.jpg'}), { ['Content-Type'] = 'application/json' })
+end
 
 function vRP.setBanned(user_id,banned)
   if banned ~= false then
