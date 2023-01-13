@@ -24,7 +24,7 @@ RegisterCommand("skin", function()
     	menuYOptionDiv = 4.285 ------------------ Default: 3.56   ------ Distance between buttons 
     	menuYOptionAdd = 0.21 ------------------ Default: 0.142  ------ Move buttons up and down
     	clothing_menu = not clothing_menu
-    	OpenClothes()
+    	OpenClothesCommand()
     else
 	TriggerEvent("pNotify:SendNotification",{
 	text = "Du kan ikke benytte tøjbutikken som død",
@@ -41,6 +41,37 @@ function OpenClothes()
     Menu.SetupMenu("clothing_main","Tøjbutik")
     Menu.Switch(nil, "clothing_main")
     for k,v in pairs(menu_options) do
+        Menu.addOption("clothing_main", function()
+            if(Menu.Option(v.name))then
+                if v.name == "Private Modeller" or v.name == "Politi Tøj" or v.name == "EMS Tøj" or v.name == "Hemmeligt" then
+                    if checkperm == false then
+                        checkperm = true
+                        TriggerServerEvent("ftn-clothing:hasaccess", v.name)
+                        SetTimeout(3000, function()
+                            checkperm = false
+                        end)
+                    else
+                        TriggerEvent("pNotify:SendNotification",{
+                            text = "Du skal vente med at prøve igen!",
+                            type = "error",
+                            timeout = 3000,
+                            layout = "centerRight",
+                            queue = "global",
+                            animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"},
+                        })
+                    end
+                else
+                    v.f(v.name,v.param)
+                end
+            end
+        end)
+    end
+end
+
+function OpenClothesCommand()
+    Menu.SetupMenu("clothing_main","Tøjbutik")
+    Menu.Switch(nil, "clothing_main")
+    for k,v in pairs(menu_options_command) do
         Menu.addOption("clothing_main", function()
             if(Menu.Option(v.name))then
                 if v.name == "Private Modeller" or v.name == "Politi Tøj" or v.name == "EMS Tøj" or v.name == "Hemmeligt" then
