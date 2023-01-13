@@ -331,17 +331,21 @@ local function ch_givemoney(player,choice)
                 local steamname = GetPlayerName(player)
                 vRP.prompt(player,"Beløb:","",function(player,amount)
                     vRP.prompt(player,"Formål ved spawn af penge:","",function(player,reason)
-                        if reason == " " or reason == "" or reason == null or reason == 0 or reason == nil then
-                            reason = "Ingen kommentar..."
-                        end
-                        amount = parseInt(amount)
-                        if amount == " " or amount == "" or amount == null or amount == 0 or amount == nil then
-                            TriggerClientEvent("pNotify:SendNotification",player,{text = "Ugyldigt pengebeløb.", type = "error", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                        if string.len(reason) > 100 then
+                            TriggerClientEvent("pNotify:SendNotification",player,{text = "Tror du selv du skal skrive så meget?", type = "error", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                         else
-                            vRP.giveMoney(user_id, amount)
-                            TriggerClientEvent("pNotify:SendNotification", player,{text = "Du spawnede " ..amount.. "DKK", type = "success", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                            if reason == " " or reason == "" or reason == null or reason == 0 or reason == nil then
+                                reason = "Ingen kommentar..."
+                            end
+                            amount = parseInt(amount)
+                            if amount == " " or amount == "" or amount == null or amount == 0 or amount == nil then
+                                TriggerClientEvent("pNotify:SendNotification",player,{text = "Ugyldigt pengebeløb.", type = "error", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                            else
+                                vRP.giveMoney(user_id, amount)
+                                TriggerClientEvent("pNotify:SendNotification", player,{text = "Du spawnede " ..amount.. "DKK", type = "success", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
 
-                            PerformHttpRequest(webhook.SpawnMoney, function(err, text, headers) end, 'POST', json.encode({username = "FlaxHosting - Logs", content = "**ID: "..user_id.." ("..identity.firstname.." "..identity.name..")** spawnede **"..amount.." DKK** - Kommentar: *"..reason.."*"}), { ['Content-Type'] = 'application/json' })
+                                PerformHttpRequest(webhook.SpawnMoney, function(err, text, headers) end, 'POST', json.encode({username = "FlaxHosting - Logs", content = "**ID: "..user_id.." ("..identity.firstname.." "..identity.name..")** spawnede **"..amount.." DKK** - Kommentar: *"..reason.."*"}), { ['Content-Type'] = 'application/json' })
+                            end
                         end
                     end)
                 end)
