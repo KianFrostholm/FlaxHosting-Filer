@@ -10,9 +10,19 @@ menu_options = {
     {name = "Ansigt", f = overlays, param = nil},
     {name = "Mande modeller", f = listModels, param = male_models},
     {name = "Pige modeller", f = listModels, param = female_models},
-    {name = "Bande Tøj", f = listModels, param = gang_models},
+    --{name = "Bande Tøj", f = listModels, param = gang_models},
     --{name = "Online Player modeller", f = listModels, param = mp_models},
     {name = "Tilpas din egen", f = listModels, param = freemode_models},
+}
+menu_options_command = {
+    {name = "Tøj", f = customise, param = nil},
+    {name = "Tilbehør", f = accessories, param = nil},
+    --{name = "Ansigt", f = overlays, param = nil},
+    --{name = "Mande modeller", f = listModels, param = male_models},
+    --{name = "Pige modeller", f = listModels, param = female_models},
+    --{name = "Bande Tøj", f = listModels, param = gang_models},
+    --{name = "Online Player modeller", f = listModels, param = mp_models},
+    --{name = "Tilpas din egen", f = listModels, param = freemode_models},
 }
 player_data  = {
     model = GetHashKey("mp_m_freemode_01"),
