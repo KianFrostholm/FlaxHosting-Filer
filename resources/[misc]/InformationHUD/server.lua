@@ -23,7 +23,7 @@ AddEventHandler("V1N_InformationHUD:updateHud", function()
         job = vRP.getUserGroupByType({user_id, "job"}),
         id = user_id
     })
-    Wait(500)
+    Wait(750)
     vRPc.updateHud(source, data)
 end)
 --===================================--
