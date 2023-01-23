@@ -6,6 +6,7 @@
 - Hele serverens SQL system er baseret på oxmysql istedet for det tidligere kendte og outdatede system vrp_mysql
 - Tilføjet et simpelt webhook system som giver mulighed for at man nemt kan gå ind og configurere sine webhook (vrp>cfg>webhooks)
 - Fjernet bugs og fejl som kunne misbruges af moddere herunder (vrp_trucker, vrp_bilskrot, vrp_mysql og andre små ting)
+- Fjernet duplikerings fejl med Tag Våben
 - Optimeret responsen mellem database og server så såkaldte "vrp fejl" ikke skulle ske for fremtiden
 - Tilføjet små ændringer til UI for at forbedrer oplevelse
 - Tilføjet advarsel system under admin menuen
