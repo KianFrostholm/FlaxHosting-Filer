@@ -69,7 +69,7 @@ AddEventHandler('es_bank:rob', function(robb)
 				end)
 			end
 		else
-			vRPclient.notify(player,{"~r~Ikke nok betjente i byen."})
+			TriggerClientEvent("pNotify:SendNotification", -1,{text = "Ikke nok betjente i byen.", type = "warning", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
 		end
 	end
 end)
