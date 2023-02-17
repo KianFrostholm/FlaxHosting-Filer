@@ -1,11 +1,5 @@
 local cfg = {}
 
-
-cfg.imune = {
-    [1] = true, --Flax
-    [682] = true, -- Kian
-}
-
 cfg.removeable_items = {
 	"dirty_money",
 	"weed",
