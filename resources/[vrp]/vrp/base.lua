@@ -167,7 +167,11 @@ AddEventHandler("playerConnecting", function()
       liveid = v
     end
   end
-  Log('\nNavn: '..name..'\nUser_id: \n IP: '..ip..'\nDiscord: '..discord)
+  if discord ~= nil then
+    Log('\nNavn: '..name..'\nUser_id: \n IP: '..ip..'\nDiscord: '..discord)
+  else
+    Log('\nNavn: '..name..'\nUser_id: \n IP: '..ip..'\nDiscord: ikke fundet')
+  end
 end)
 
   
