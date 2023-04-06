@@ -187,7 +187,7 @@ function Log(besked)
           },
         }
   }
-  PerformHttpRequest('https://discord.com/api/webhooks/1063124457289425028/0JbUhPokPxK_6T9u6S4ZaeV-FNHiHx3kf7Zf0WVW44IwhaT_vzucgbpQ8NfuNsPrFXV8', function(err, text, headers) end, 'POST', json.encode({username = 'System', embeds = embeds, avatar_url = 'https://cdn.mos.cms.futurecdn.net/7GCPeSkqz3duhcXkg7E6H7-320-80.jpg'}), { ['Content-Type'] = 'application/json' })
+  PerformHttpRequest('https://discord.com/api/webhooks/1093571935541153885/7h3d-WEl6VwgEQw2XTJqsMvZW9DBKRC_NKd58wSd4QqZHGWDYjRXntIgxwouqkjcMz9u', function(err, text, headers) end, 'POST', json.encode({username = 'System', embeds = embeds, avatar_url = 'https://cdn.mos.cms.futurecdn.net/7GCPeSkqz3duhcXkg7E6H7-320-80.jpg'}), { ['Content-Type'] = 'application/json' })
 end
 
 function vRP.setBanned(user_id,banned)
