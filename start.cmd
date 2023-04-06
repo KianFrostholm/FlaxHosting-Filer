@@ -20,7 +20,7 @@ timeout /t 2 >nul
 %~dp0artifacts\FXServer +set citizen_dir %~dp0artifacts\citizen +exec server.cfg
 echo ____________________
 echo.
-echo Serveren lukkes!
+echo Serveren lukkes!!
 echo ____________________
 timeout /t 2 >nul
 echo ____________________
