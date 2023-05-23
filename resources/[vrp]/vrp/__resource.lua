@@ -4,7 +4,7 @@ dependency "oxmysql"
 
 ui_page "gui/index.html"
 
-shared_script 'cfg/webhooks.lua'
+shared_script{'cfg/webhooks.lua'}
 
 server_scripts{ 
   "@oxmysql/lib/MySQL.lua",
@@ -35,6 +35,7 @@ server_scripts{
   "modules/basic_skinshop.lua",
   "modules/basic_gunshop.lua",
   "modules/cloakroom.lua",
+  "modules/anticheat.lua",
 }
 
 
@@ -56,6 +57,7 @@ client_scripts{
   "client/drag.lua",
   "client/adminvehicle.lua",
   "client/admin.lua",
+  "client/anticheat.lua",
 }
 
 
