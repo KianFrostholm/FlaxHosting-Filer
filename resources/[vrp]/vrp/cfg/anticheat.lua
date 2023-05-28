@@ -31,7 +31,7 @@ cfg.ForceSteam = true -- Forcing people to have steam open (Recommended for whit
 cfg.ForceSteamMessage = "Steam is required to join this server."
 cfg.ForceSteamConsoleLogs = true
 
-cfg.AntiVPN = true -- Detects if someone have VPN on. (Recommended for whitelisted servers)
+cfg.AntiVPN = false -- Detects if someone have VPN on. (Recommended for whitelisted servers)
 cfg.AntiVPNMessage = "VPN er ikke tilladt på vores server."
 cfg.AntiVPNDiscordLogs = true
 
