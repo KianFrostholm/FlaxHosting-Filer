@@ -18,7 +18,7 @@ cfg.AntiESX = true -- Only enable this on vrp servers!
 
 --// Custom //--
 cfg.ForceDiscord = false -- Forcing people to have fivem connected to discord (Highly Recommended because most of cheaters does not have fivem connected with discord)
-cfg.ForceDiscordMessage = "Discord is required to join this server."
+cfg.ForceDiscordMessage = "Discord er et krav for at tilslutte serveren."
 cfg.ForceDiscordConsoleLogs = true
 
 cfg.ForceSteam = true -- Forcing people to have steam open (Recommended for whitelisted servers)
