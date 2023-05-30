@@ -1,4 +1,5 @@
 local cfg = module("cfg/anticheat")
+local webhook = module("cfg/webhooks")
 
 RegisterServerEvent('aopkfgebjzhfpazf77')
 
