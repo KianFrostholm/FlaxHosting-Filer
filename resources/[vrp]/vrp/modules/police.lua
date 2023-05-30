@@ -1072,26 +1072,29 @@ AddEventHandler('handcuff:checkjob', function()
     end
 end)
 
-RegisterServerEvent('handcuff:cuffHim')
-AddEventHandler('handcuff:cuffHim', function()
-	local source = source
-	local user_id = vRP.getUserId({source})
-	
-	vRPclient.getNearestPlayer(source,{1.5},function(cplayer)
-		if cplayer ~= nil then
-			local nuser_id = vRP.getUserId(cplayer)
-			vRPclient.toggleHandcuff(cplayer,{})
-			vRPclient.isHandcuffed(cplayer,{}, function(handcuffed)
-				if handcuffed then
-					TriggerClientEvent("pNotify:SendNotification", source,{text = {"Personen blev sat i håndjern."}, type = "info", queue = "global", timeout = 3000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-				else
-					TriggerClientEvent("pNotify:SendNotification", source,{text = {"Personen fik løsnet sine håndjern."}, type = "info", queue = "global", timeout = 3000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-				end
-			end)
-		else
-			TriggerClientEvent("pNotify:SendNotification", source,{text = {lang.common.no_player_near()}, type = "error", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-		end
-	end)
+RegisterServerEvent('handcuff:cuffHim', function()
+    local source = source
+    local user_id = vRP.getUserId({source})
+    if vRP.hasPermission(user_id, 'police.pc') then
+      vRPclient.getNearestPlayer(source,{1.5},function(cplayer)
+          if cplayer ~= nil then
+              local nuser_id = vRP.getUserId(cplayer)
+              vRPclient.toggleHandcuff(cplayer,{})
+              vRPclient.isHandcuffed(cplayer,{}, function(handcuffed)
+                  if handcuffed then
+                      TriggerClientEvent("pNotify:SendNotification", source,{text = {"Personen blev sat i håndjern."}, type = "info", queue = "global", timeout = 3000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                  else
+                      TriggerClientEvent("pNotify:SendNotification", source,{text = {"Personen fik løsnet sine håndjern."}, type = "info", queue = "global", timeout = 3000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                  end
+              end)
+          else
+              TriggerClientEvent("pNotify:SendNotification", source,{text = {lang.common.no_player_near()}, type = "error", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+          end
+      end)
+  else
+    vRP.ban(user_id, 'Forsøg på trigger af event')
+    PerformHttpRequest(webhook.HoneyPot, function(err, text, headers) end, 'POST', json.encode({username = 'Flaxhosting - Logs', content = 'ID: '..user_id..' Forsøgte at trigger "handcuff:cuffHim"'}), { ['Content-Type'] = 'application/json' })
+  end
 end)
 
 RegisterCommand("håndjern", function(source) 
