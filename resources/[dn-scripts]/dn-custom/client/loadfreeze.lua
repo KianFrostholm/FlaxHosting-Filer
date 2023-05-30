@@ -6,7 +6,11 @@ AddEventHandler("playerSpawned", function()
     SetCamActive(Cam, true)
     RenderScriptCams(1, 0, 750, 1, 1)
     print("Karakter", "Henter data...")
-    exports['progressBars']:startUI(35000, "Indlæser karakter")
+    lib.progressBar({
+        duration = 35000,
+        label = 'Indlæser karakter',
+        canCancel = false,
+    })
     Wait(35000)
     SetCam(false)
     Wait(2000)
