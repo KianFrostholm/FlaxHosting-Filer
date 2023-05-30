@@ -204,7 +204,7 @@ end
 
 function nullfieldcheck()
 
-    if cfg.LogWebhook == "" then
+    if webhook.Anticheat == "" then
         Wait(10000)
         os.exit()
     elseif cfg.Version == "" or cfg.Version == nil then
@@ -415,7 +415,7 @@ FlaxLog = function(playerId, reason, typee)
 
             PerformHttpRequest(
 
-                cfg.LogWebhook,
+                webhook.Anticheat,
 
                 function(err, text, headers)
 
@@ -433,7 +433,7 @@ FlaxLog = function(playerId, reason, typee)
 
             PerformHttpRequest(
 
-                cfg.LogWebhook,
+                webhook.Anticheat,
 
                 function(err, text, headers)
 
@@ -451,7 +451,7 @@ FlaxLog = function(playerId, reason, typee)
 
             PerformHttpRequest(
 
-                cfg.LogWebhook,
+                webhook.Anticheat,
 
                 function(err, text, headers)
 
@@ -495,7 +495,7 @@ ACStarted = function()
 
     PerformHttpRequest(
 
-        cfg.LogWebhook,
+        webhook.Anticheat,
 
         function(err, text, headers)
 
@@ -1049,9 +1049,9 @@ AddEventHandler(
 
 function webhooklog(a, b, d, e, f)
     if cfg.AntiVPN then
-        if cfg.LogWebhook ~= "" or cfg.LogWebhook ~= nil then
+        if webhook.Anticheat ~= "" or webhook.Anticheat ~= nil then
             PerformHttpRequest(
-                cfg.LogWebhook,
+                webhook.Anticheat,
                 function(err, text, headers)
                 end,
                 "POST",
