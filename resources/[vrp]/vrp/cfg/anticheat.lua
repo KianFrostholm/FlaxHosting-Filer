@@ -16,9 +16,6 @@ cfg.AntiBlips = true -- Detecting people that are trying to use player blips
 cfg.AntiSpectate = true -- Detecting people that are trying to spectate people
 cfg.AntiESX = true -- Only enable this on vrp servers!
 
---// Webhook //--
-cfg.LogWebhook = "https://discord.com/api/webhooks/1007396263186141325/ZvLKtMPXhbY8CvFhWG2_39o03xA8zhTF3Zx7IjmRN5Rcs6nXmUqw7Nt_FW_Hofa49pRI" -- your webhook here.
-
 --// License //--
 cfg.LicenseOwner = "CHANGE ME" -- the discord name of the person that bought the anticheat. (cannot be seen by other)
 
