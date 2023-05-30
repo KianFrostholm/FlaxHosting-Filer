@@ -16,9 +16,6 @@ cfg.AntiBlips = true -- Detecting people that are trying to use player blips
 cfg.AntiSpectate = true -- Detecting people that are trying to spectate people
 cfg.AntiESX = true -- Only enable this on vrp servers!
 
---// License //--
-cfg.LicenseOwner = "CHANGE ME" -- the discord name of the person that bought the anticheat. (cannot be seen by other)
-
 --// Custom //--
 cfg.ForceDiscord = false -- Forcing people to have fivem connected to discord (Highly Recommended because most of cheaters does not have fivem connected with discord)
 cfg.ForceDiscordMessage = "Discord is required to join this server."
