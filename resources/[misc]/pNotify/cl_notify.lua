@@ -144,7 +144,11 @@ end
 
 RegisterNetEvent("pNotify:SendNotification")
 AddEventHandler("pNotify:SendNotification", function(options)
-    SendNotification(options)
+    lib.notify({
+        title = 'Meddelse',
+        description = options.text or "Empty Notification",
+        type = options.type
+    })
 end)
 
 RegisterNetEvent("pNotify:SetQueueMax")
