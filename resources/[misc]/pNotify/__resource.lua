@@ -1,4 +1,7 @@
 resource_manifest '44febabe-d386-4d18-afbe-5e627f4af937'
+lua54 'yes'
+
+shared_script '@ox_lib/init.lua'
 
 description "Simple Notification Script using https://notifyjs.com/"
 
