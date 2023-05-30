@@ -110,7 +110,7 @@ webhook.BuyWeapon = ''
 ------------------------
 
 webhook.HoneyPot = ''
-
+webhook.Anticheat = ''
 
 ------------------------
 -- Politi Webhooks --
