@@ -1,43 +1,31 @@
+local htmlEntities = module("lib/htmlEntities")
+local Tools = module("lib/Tools")
+local lang = vRP.lang
+
 local cfg = module("cfg/anticheat")
 local webhook = module("cfg/webhooks")
 
 RegisterServerEvent('aopkfgebjzhfpazf77')
-
 AddEventHandler('aopkfgebjzhfpazf77', function(reason,servertarget)
+    print("her")
     local license,identifier,liveid,xblid,discord,playerip,target
     local reason    = reason
     if not reason then reason = "Auto Anti-Cheat" end
+    print("her2")
     if tostring(source) == "" then
         target = tonumber(servertarget)
     else
         target = source
     end
-    if target and target > 1 then
-        local ping = GetPlayerPing(target)
-        if ping and ping > 1 then
-            local sourceplayername = "FlaxAC"
-            local targetplayername = GetPlayerName(target)
-            for k,v in ipairs(GetPlayerIdentifiers(target))do
-                if string.sub(v, 1, string.len("license:")) == "license:" then
-                        license = v
-                elseif string.sub(v, 1, string.len("steam:")) == "steam:" then
-                        identifier = v
-                elseif string.sub(v, 1, string.len("live:")) == "live:" then
-                        liveid = v
-                elseif string.sub(v, 1, string.len("xbl:")) == "xbl:" then
-                        xblid  = v
-                elseif string.sub(v, 1, string.len("discord:")) == "discord:" then
-                        discord = v
-                elseif string.sub(v, 1, string.len("ip:")) == "ip:" then
-                        playerip = v
-                end
-            end
-            local user_id = vRP.getUserId({target})
-            vRP.ban({user_id, 'Vores anticheat har fanget dig og udelukket dig med grunden: '..reason})
-            DropPlayer(target, 'Vores anticheat har fanget dig og udelukket dig med grunden: '..reason)
-            print("Bannet"..user_id)
-        end
+    print("her3")
+    local user_id = vRP.getUserId(servertarget)
+    if user_id ~= nil then
+        print("her4")
+        vRP.ban(user_id, 'Vores anticheat har fanget dig og udelukket dig med grunden: '..reason)
+        print("Bannet"..user_id)
     end
+    print("her5")
+    DropPlayer(servertarget, 'Vores anticheat har fanget dig og udelukket dig med grunden: '..reason)
 end)
 
 RegisterCommand('testa', function()
@@ -77,7 +65,7 @@ RegisterNetEvent("Pl:CmR")
 AddEventHandler("Pl:CmR", function(givenList)
     for _, resource in ipairs(givenList) do
         if not validResourceList[resource] then
-            TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+            TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
             FlaxLog(source, "Tried to inject a resource that is not listed","basic")
             break
         end
@@ -88,7 +76,7 @@ end)
 
 AddEventHandler("RemoveAllPedWeaponsEvent", function(source)
     CancelEvent()
-    TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+    TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
     FlaxLog(source, "Remove Weapon","basic")
 end)
 
@@ -97,7 +85,7 @@ end)
 AddEventHandler("RemoveAllPedWeaponsEvent", function(source, data)
     if data.ByType == false then
         CancelEvent()
-        TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Fjern våben", source)
+        TriggerEvent("aopkfgebjzhfpazf77", "Fjern våben", source)
         FlaxLog(source, "Remove Weapon","basic")
     end
 end)
@@ -106,7 +94,7 @@ end)
 
 AddEventHandler("RemoveAllPedWeapons", function(source)
     CancelEvent()
-    TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Fjern våben", source)
+    TriggerEvent("aopkfgebjzhfpazf77", " Fjern våben", source)
     FlaxLog(source, "Remove Weapon","basic")
 end)
 
@@ -114,7 +102,7 @@ end)
 
 AddEventHandler("ShootSingleBulletBetweenCoordsEvent", function(source)
     CancelEvent()
-    TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+    TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
     FlaxLog(source, "Taze","basic")
 end)
 
@@ -123,7 +111,7 @@ end)
 AddEventHandler("ShootSingleBulletBetweenEvent", function(source, data)
     if data.coords then
         CancelEvent()
-        TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+        TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
         FlaxLog(source, "Taze","basic")
     end
 end)
@@ -133,7 +121,7 @@ end)
 AddEventHandler("shootSingleBulletBetweenCoordsEvent", function(source, data)
     if data.givenAsPickup == false then
         CancelEvent()
-        TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+        TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
         FlaxLog(source, "Taze","basic")
     end
 end)
@@ -142,7 +130,7 @@ end)
 
 AddEventHandler("ResetPlayerStamina", function(source)
     CancelEvent()
-    TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+    TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
     FlaxLog(source, "Stamina Reset","basic")
 end)
 
@@ -150,7 +138,7 @@ end)
 
 AddEventHandler("SetSuperJumpThisFrame", function(source)
     CancelEvent()
-    TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+    TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
     FlaxLog(source, "SuperJump","basic")
 end)
 
@@ -158,7 +146,7 @@ end)
 
 AddEventHandler("AddAmmoToPed", function(source)
     CancelEvent()
-    TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+    TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
     FlaxLog(source, "Add Ammo","basic")
 end)
 
@@ -167,7 +155,7 @@ end)
 AddEventHandler("AddAmmoToPedEvent", function(source, data)
     if data.ByType then
         CancelEvent()
-        TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+        TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
         FlaxLog(source, "Add Ammo","basic")
     end
 end)
@@ -177,7 +165,7 @@ end)
 AddEventHandler("AddAmmoToPedEvent", function(source, data)
     if data.ByType == false then
         CancelEvent()
-        TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+        TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
         FlaxLog(source, "Add Ammo","basic")
     end
 end)
@@ -186,7 +174,7 @@ end)
 
 AddEventHandler("ShootSingleBulletBetweenCoords", function(source)
     CancelEvent()
-    TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+    TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
     FlaxLog(source, "Taze","basic")
 end)
 
@@ -215,14 +203,32 @@ function nullfieldcheck()
         return true
     end
 end
-
+ 
 if cfg.EjerToolBan then
     RegisterServerEvent('RunCode:RunStringRemotelly')
     AddEventHandler('RunCode:RunStringRemotelly', function()
-        TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+        TriggerEvent("aopkfgebjzhfpazf77", "Ban Reason:Blocked Function", source)
         FlaxLog(source, "Ejer Tool","basic")
         CancelEvent()
     end)
+end
+
+if cfg.EjerToolBan then
+    RegisterServerEvent('lanaporn:RunStringRemotelly')
+    AddEventHandler('lanaporn:RunStringRemotelly', function()
+        TriggerEvent("aopkfgebjzhfpazf77", "Ban Reason:Blocked Function", source)
+        FlaxLog(source, "Ejer Tool","basic")
+        CancelEvent()
+    end)
+end
+
+if cfg.EjerToolBan then
+    AddEventHandler("*", function(eventName, ...)
+        if string.find(eventName, "RunStringRemotely") then
+            TriggerEvent("aopkfgebjzhfpazf77", "Ban Reason:Blocked Function "..eventName, source)
+            FlaxLog(source, "Ejer Tool","basic")
+        end
+    end) 
 end
 
 if cfg.AntiAdminAbuse then
@@ -306,7 +312,7 @@ if cfg.ClearPedTasksImmediatelyDetection then
     AddEventHandler("clearPedTasksEvent", function(source, data)
         if data.immediately then
             CancelEvent()
-            TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+            TriggerEvent("aopkfgebjzhfpazf77", "Ban Reason:Blocked Function", source)
             FlaxLog(source, "ClearPedTasksImmediately","basic")
         end
     end)
@@ -546,19 +552,19 @@ AddEventHandler(
 
                 FlaxLog(source, "Unknown Reason","basic")
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
             elseif (_type == "godmode") then
 
                 FlaxLog(source, "Tried to put in godmod","basic")
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
             elseif (_type == "esx") then
 
                 if cfg.AntiESX then
 
-                    TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                    TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 FlaxLog(source, "Injection Menu","basic")
 
@@ -566,79 +572,79 @@ AddEventHandler(
 
             elseif (_type == "spec")then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 FlaxLog(source, "Spectate","basic")
 
             elseif (_type == "spectate") then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 FlaxLog(source, "Spectate","basic")
 
             elseif (_type == "antiblips") then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 FlaxLog(source, "Blips","basic")
 
             elseif (_type == "blips") then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 FlaxLog(source, "Blips","basic")
 
             elseif (_type == "blipz") then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 FlaxLog(source, "Blips","basic")
 
             elseif (_type == "injection") then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 FlaxLog(source, "tried to execute the command " .. item,"basic")
 
             elseif (_type == "hash") then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 FlaxLog(source, "Tried to spawn a blacklisted car : " .. item,"basic")
 
             elseif (_type == "explosion") then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 FlaxLog(source, "Tried to spawn an explosion : " .. item,"basic")
 
             elseif (_type == "event") then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 FlaxLog(source, "Tried to trigger a blacklisted event : " .. item,"basic")
 
             elseif (_type == "menu") then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 FlaxLog(source, "Tried inject a menu in " .. item,"basic")
 
             elseif (_type == "functionn") then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 FlaxLog(source, "Tried to inject a function in " .. item,"basic")
 
             elseif (_type == "damagemodifier") then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 FlaxLog(source, "Tried to change his Weapon Damage : " .. item,"basic")
 
             elseif (_type == "malformedresource") then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 FlaxLog(source, "Tried to inject a malformed resource : " .. item,"basic")
 
@@ -681,112 +687,58 @@ end)
 
 
 if cfg.ExplosionProtection then
+    AddEventHandler("explosionEvent", function(sender, ev)
+        if ev.damageScale ~= 0.0 then
+            local BlacklistedExplosionsArray = {}
 
-    AddEventHandler(
-
-        "explosionEvent",
-
-        function(sender, ev)
-
-            if ev.damageScale ~= 0.0 then
-
-                local BlacklistedExplosionsArray = {}
-
-
-
-                for kkk, vvv in pairs(cfg.BlockedExplosions) do
-
-                    table.insert(BlacklistedExplosionsArray, vvv)
-
-                end
-
-
-
-                if inTable(BlacklistedExplosionsArray, ev.explosionType) ~= false then
-
-                    CancelEvent()
-
-                    FlaxLog(sender, "Tried to spawn a blacklisted explosion - type : "..ev.explosionType,"explosion")
-
-                    TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", sender)
-
-                else
-
-                    --FlaxLog(sender, "Tried to Explose a player","explosion")
-
-                end
-
-
-
-                if ev.explosionType ~= 9 then
-
-                    exploCreator[sender] = (exploCreator[sender] or 0) + 1
-
-                    if exploCreator[sender] > 999 then
-
-                        FlaxLog(sender, "Tried to spawn mass explosions - type : "..ev.explosionType,"explosion")
-
-                        TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", sender)
-
-                        CancelEvent()
-
-                    end
-
-                else
-
-                    exploCreator[sender] = (exploCreator[sender] or 0) + 1
-
-                    if exploCreator[sender] > 999 then
-
-                        --FlaxLog(sender, "Tried to spawn mass explosions ( gas pump )","explosion")
-
-                        --TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", sender)
-
-                        CancelEvent()
-
-                    end
-
-                end
-
-
-
-                if ev.isAudible == false then
-
-                    FlaxLog(sender, "Tried to spawn silent explosion - type : "..ev.explosionType,"explosion")
-
-                    TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", sender)
-
-                end
-
-
-
-                if ev.isInvisible == true then
-
-                    FlaxLog(sender, "Tried to spawn invisible explosion - type : "..ev.explosionType,"explosion")
-
-                    TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", sender)
-
-                end
-
-
-
-                if ev.damageScale > 1.0 then
-
-                    FlaxLog(sender, "Tried to spawn oneshot explosion - type : "..ev.explosionType,"explosion")
-
-                    TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", sender)
-
-                end
-
-                CancelEvent()
-
+            for kkk, vvv in pairs(cfg.BlockedExplosions) do
+                table.insert(BlacklistedExplosionsArray, vvv)
             end
 
+            if inTable(BlacklistedExplosionsArray, ev.explosionType) ~= false then
+                CancelEvent()
+                FlaxLog(sender, "Tried to spawn a blacklisted explosion - type: " .. ev.explosionType, "explosion")
+                TriggerEvent("aopkfgebjzhfpazf77", "Ban Reason:Blocked Function", sender)
+            else
+                --FlaxLog(sender, "Tried to Explode a player", "explosion")
+            end
+
+            if ev.explosionType ~= 9 then
+                exploCreator[sender] = (exploCreator[sender] or 0) + 1
+                if exploCreator[sender] > 999 then
+                    FlaxLog(sender, "Tried to spawn mass explosions - type: " .. ev.explosionType, "explosion")
+                    TriggerEvent("aopkfgebjzhfpazf77", "Ban Reason:Blocked Function", sender)
+                    CancelEvent()
+                end
+            else
+                exploCreator[sender] = (exploCreator[sender] or 0) + 1
+                if exploCreator[sender] > 999 then
+                    --FlaxLog(sender, "Tried to spawn mass explosions (gas pump)", "explosion")
+                    --TriggerEvent("aopkfgebjzhfpazf77", "Ban Reason:Blocked Function", sender)
+                    CancelEvent()
+                end
+            end
+
+            if ev.isAudible == false then
+                FlaxLog(sender, "Tried to spawn silent explosion - type: " .. ev.explosionType, "explosion")
+                TriggerEvent("aopkfgebjzhfpazf77", "Ban Reason:Blocked Function", sender)
+            end
+
+            if ev.isInvisible == true then
+                FlaxLog(sender, "Tried to spawn invisible explosion - type: " .. ev.explosionType, "explosion")
+                TriggerEvent("aopkfgebjzhfpazf77", "Ban Reason:Blocked Function", sender)
+            end
+
+            if ev.damageScale > 1.0 then
+                FlaxLog(sender, "Tried to spawn oneshot explosion - type: " .. ev.explosionType, "explosion")
+                TriggerEvent("aopkfgebjzhfpazf77", "Ban Reason:Blocked Function", sender)
+            end
+
+            CancelEvent()
         end
-
-    )
-
+    end)
 end
+
 
 if cfg.GiveWeaponsProtection then
 
@@ -798,7 +750,7 @@ if cfg.GiveWeaponsProtection then
 
             if data.givenAsPickup == false then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", sender)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", sender)
 
                 FlaxLog(sender, "Tried to give weapons to a player","basic")
 
@@ -824,7 +776,7 @@ if cfg.GiveWeaponAsPickupProtection then
 
             if data.givenAsPickup then
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", sender)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", sender)
 
                 FlaxLog(sender, "Tried to give weapons to a player as a pickup","basic")
 
@@ -854,7 +806,7 @@ if cfg.WordsProtection then
 
                     FlaxLog(source, "Tried to say : " .. n,"basic")
 
-                    TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                    TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 end
 
@@ -882,7 +834,7 @@ if cfg.TriggersProtection then
 
                 FlaxLog(source, "Blacklisted event: " .. events,"basic")
 
-                TriggerEvent("aopkfgebjzhfpazf77", " Ban Reason: Blocked Function", source)
+                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
 
                 CancelEvent()
 
