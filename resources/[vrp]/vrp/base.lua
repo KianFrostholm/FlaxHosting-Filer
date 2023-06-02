@@ -387,7 +387,7 @@ AddEventHandler("playerConnecting",function(name,setMessage, deferrals)
   if isStopped == false then
     local ids = GetPlayerIdentifiers(source)
     if antispam[ids[1]] == nil then
-      antispam[ids[1]] = 5
+      --antispam[ids[1]] = 5
       if ids ~= nil and #ids > 0 then
         deferrals.update("[FlaxHosting] Indlæser karakter.")
         vRP.getUserIdByIdentifiers(ids, function(user_id)
@@ -467,7 +467,7 @@ AddEventHandler("playerConnecting",function(name,setMessage, deferrals)
         sendToDiscord(webhook.Errorlog, "```Serveren kunne ikke finde identifiers```")
       end
     else
-      print("["..user_id.."] Forsøgte at joine for hurtigt igen")
+      print("["..name.."] Forsøgte at joine for hurtigt igen")
       deferrals.done("Du prøvet at joine for hurtigt prøv igen om ["..antispam[ids[1]].."] sekunder!")
     end
   else
