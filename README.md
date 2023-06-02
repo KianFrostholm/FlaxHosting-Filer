@@ -15,7 +15,7 @@
 - Tilføjet impound system, så politiet kan impounde andres køretøjer
 - Tilføjet indbrud system hvor man kan modtage våben og andre ting
 - Optimeret vrp_lscutoms så den fungere bedre og fylder mindre i database
-
+- Tilføjet anticheat for at stoppe modders
 
 
 # FlaxHosting
