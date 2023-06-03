@@ -19,7 +19,7 @@ for i=0,19 do
 end
 
 cfg.clear_phone_directory_on_death = false
-cfg.lose_aptitudes_on_death = true
+cfg.lose_aptitudes_on_death = false
 cfg.lose_inventory_on_death = true
 
 
