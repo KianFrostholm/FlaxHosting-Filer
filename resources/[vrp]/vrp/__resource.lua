@@ -35,7 +35,7 @@ server_scripts{
   "modules/basic_skinshop.lua",
   "modules/basic_gunshop.lua",
   "modules/cloakroom.lua",
-  --"modules/anticheat.lua",
+  "modules/anticheat.lua",
 }
 
 
@@ -56,7 +56,7 @@ client_scripts{
   "client/drag.lua",
   "client/adminvehicle.lua",
   "client/admin.lua",
-  --"client/anticheat.lua",
+  "client/anticheat.lua",
 }
 
 
