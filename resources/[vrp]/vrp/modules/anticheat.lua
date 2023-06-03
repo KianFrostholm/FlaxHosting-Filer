@@ -7,25 +7,20 @@ local webhook = module("cfg/webhooks")
 
 RegisterServerEvent('aopkfgebjzhfpazf77')
 AddEventHandler('aopkfgebjzhfpazf77', function(reason,servertarget)
-    print("her")
     local license,identifier,liveid,xblid,discord,playerip,target
     local reason    = reason
     if not reason then reason = "Auto Anti-Cheat" end
-    print("her2")
     if tostring(source) == "" then
         target = tonumber(servertarget)
     else
         target = source
     end
-    print("her3")
     local user_id = vRP.getUserId(servertarget)
     if user_id ~= nil then
-        print("her4")
-        vRP.ban(user_id, 'Vores anticheat har fanget dig og udelukket dig med grunden: '..reason)
+        vRP.ban(user_id, 'Vores anticheat har udelukket dig med grunden: '..reason)
         print("Bannet"..user_id)
     end
-    print("her5")
-    DropPlayer(servertarget, 'Vores anticheat har fanget dig og udelukket dig med grunden: '..reason)
+    DropPlayer(servertarget, 'Vores anticheat har udelukket dig med grunden: '..reason)
 end)
 
 
@@ -479,143 +474,71 @@ ACStarted = function()
 
 end
 
-
-
 ACFailed = function()
 
 end
 
-
-
 --=====================================================--
 
-
-
 RegisterServerEvent("fuhjizofzf4z5fza")
-
-AddEventHandler(
-
-    "fuhjizofzf4z5fza",
-
-    function(type, item)
-
-        local _type = type or "default"
-
-        local _item = item or "none"
-
-        _type = string.lower(_type)
-
-
-
-        if not IsPlayerAceAllowed(source, "Flaxacbypass") then
-
-            if (_type == "default") then
-
-                FlaxLog(source, "Unknown Reason","basic")
-
+AddEventHandler("fuhjizofzf4z5fza", function(type, item)
+    local _type = type or "default"
+    local _item = item or "none"
+    _type = string.lower(_type)
+    if not IsPlayerAceAllowed(source, "Flaxacbypass") then
+        if (_type == "default") then
+            FlaxLog(source, "Unknown Reason","basic")
+            TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
+        elseif (_type == "godmode") then
+            FlaxLog(source, "Tried to put in godmod","basic")
+            TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
+        elseif (_type == "esx") then
+            if cfg.AntiESX then
                 TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-            elseif (_type == "godmode") then
-
-                FlaxLog(source, "Tried to put in godmod","basic")
-
-                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-            elseif (_type == "esx") then
-
-                if cfg.AntiESX then
-
-                    TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-                FlaxLog(source, "Injection Menu","basic")
-
-            end
-
-            elseif (_type == "spec")then
-
-                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-                FlaxLog(source, "Spectate","basic")
-
-            elseif (_type == "spectate") then
-
-                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-                FlaxLog(source, "Spectate","basic")
-
-            elseif (_type == "antiblips") then
-
-                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-                FlaxLog(source, "Blips","basic")
-
-            elseif (_type == "blips") then
-
-                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-                FlaxLog(source, "Blips","basic")
-
-            elseif (_type == "blipz") then
-
-                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-                FlaxLog(source, "Blips","basic")
-
-            elseif (_type == "injection") then
-
-                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-                FlaxLog(source, "tried to execute the command " .. item,"basic")
-
-            elseif (_type == "hash") then
-
-                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-                FlaxLog(source, "Tried to spawn a blacklisted car : " .. item,"basic")
-
-            elseif (_type == "explosion") then
-
-                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-                FlaxLog(source, "Tried to spawn an explosion : " .. item,"basic")
-
-            elseif (_type == "event") then
-
-                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-                FlaxLog(source, "Tried to trigger a blacklisted event : " .. item,"basic")
-
-            elseif (_type == "menu") then
-
-                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-                FlaxLog(source, "Tried inject a menu in " .. item,"basic")
-
-            elseif (_type == "functionn") then
-
-                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-                FlaxLog(source, "Tried to inject a function in " .. item,"basic")
-
-            elseif (_type == "damagemodifier") then
-
-                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-                FlaxLog(source, "Tried to change his Weapon Damage : " .. item,"basic")
-
-            elseif (_type == "malformedresource") then
-
-                TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
-
-                FlaxLog(source, "Tried to inject a malformed resource : " .. item,"basic")
-
-            end
-
+            FlaxLog(source, "Injection Menu","basic")
         end
-
+        elseif (_type == "spec")then
+            TriggerEvent("aopkfgebjzhfpazf77", "Spectate", source)
+            FlaxLog(source, "Spectate","basic")
+        elseif (_type == "spectate") then
+            TriggerEvent("aopkfgebjzhfpazf77", "Spectate", source)
+            FlaxLog(source, "Spectate","basic")
+        elseif (_type == "antiblips") then
+            TriggerEvent("aopkfgebjzhfpazf77", "Blips", source)
+            FlaxLog(source, "Blips","basic")
+        elseif (_type == "blips") then
+            TriggerEvent("aopkfgebjzhfpazf77", "Blips", source)
+            FlaxLog(source, "Blips","basic")
+        elseif (_type == "blipz") then
+            TriggerEvent("aopkfgebjzhfpazf77", "Blips", source)
+            FlaxLog(source, "Blips","basic")
+        elseif (_type == "injection") then
+            TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
+            FlaxLog(source, "tried to execute the command " .. item,"basic")
+        elseif (_type == "hash") then
+            TriggerEvent("aopkfgebjzhfpazf77", "blacklisted køretøj", source)
+            FlaxLog(source, "Tried to spawn a blacklisted car : " .. item,"basic")
+        elseif (_type == "explosion") then
+            TriggerEvent("aopkfgebjzhfpazf77", "explosion", source)
+            FlaxLog(source, "Tried to spawn an explosion : " .. item,"basic")
+        elseif (_type == "event") then
+            TriggerEvent("aopkfgebjzhfpazf77", "blacklisted event", source)
+            FlaxLog(source, "Tried to trigger a blacklisted event : " .. item,"basic")
+        elseif (_type == "menu") then
+            TriggerEvent("aopkfgebjzhfpazf77", "Indsat menu", source)
+            FlaxLog(source, "Tried inject a menu in " .. item,"basic")
+        elseif (_type == "functionn") then
+            TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
+            FlaxLog(source, "Tried to inject a function in " .. item,"basic")
+        elseif (_type == "damagemodifier") then
+            TriggerEvent("aopkfgebjzhfpazf77", "Våben skade", source)
+            FlaxLog(source, "Tried to change his Weapon Damage : " .. item,"basic")
+        elseif (_type == "malformedresource") then
+            TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
+            FlaxLog(source, "Tried to inject a malformed resource : " .. item,"basic")
+        end
     end
-
-)
+end)
 
 
 
