@@ -35,7 +35,7 @@ server_scripts{
   "modules/basic_skinshop.lua",
   "modules/basic_gunshop.lua",
   "modules/cloakroom.lua",
-  "modules/anticheat.lua",
+  --"modules/anticheat.lua",
 }
 
 
@@ -51,13 +51,12 @@ client_scripts{
   "client/map.lua",
   "client/identity.lua",
   "client/basic_garage.lua",
-  "client/gunshop.lua",
   "client/police.lua",
   "client/policespikes.lua",
   "client/drag.lua",
   "client/adminvehicle.lua",
   "client/admin.lua",
-  "client/anticheat.lua",
+  --"client/anticheat.lua",
 }
 
 
