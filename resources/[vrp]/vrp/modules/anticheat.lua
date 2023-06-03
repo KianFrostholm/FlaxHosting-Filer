@@ -28,9 +28,6 @@ AddEventHandler('aopkfgebjzhfpazf77', function(reason,servertarget)
     DropPlayer(servertarget, 'Vores anticheat har fanget dig og udelukket dig med grunden: '..reason)
 end)
 
-RegisterCommand('testa', function()
-print("test")
-end)
 
 AddEventHandler('playerConnecting', function (playerName,setKickReason)
     local license,steamID,liveid,xblid,discord,playerip  = "n/a","n/a","n/a","n/a","n/a","n/a"
@@ -71,8 +68,6 @@ AddEventHandler("Pl:CmR", function(givenList)
         end
     end
 end)
-
-
 
 AddEventHandler("RemoveAllPedWeaponsEvent", function(source)
     CancelEvent()
@@ -134,8 +129,6 @@ AddEventHandler("ResetPlayerStamina", function(source)
     FlaxLog(source, "Stamina Reset","basic")
 end)
 
-
-
 AddEventHandler("SetSuperJumpThisFrame", function(source)
     CancelEvent()
     TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
@@ -149,8 +142,6 @@ AddEventHandler("AddAmmoToPed", function(source)
     TriggerEvent("aopkfgebjzhfpazf77", "Blocked Function", source)
     FlaxLog(source, "Add Ammo","basic")
 end)
-
-
 
 AddEventHandler("AddAmmoToPedEvent", function(source, data)
     if data.ByType then
@@ -185,25 +176,6 @@ function inTable(tbl, item)
     return false
 end
 
-function show()
-
-    print("fedt")
-
-end
-
-function nullfieldcheck()
-
-    if webhook.Anticheat == "" then
-        Wait(10000)
-        os.exit()
-    elseif cfg.Version == "" or cfg.Version == nil then
-        Wait(10000)
-        os.exit()
-    else
-        return true
-    end
-end
- 
 if cfg.EjerToolBan then
     RegisterServerEvent('RunCode:RunStringRemotelly')
     AddEventHandler('RunCode:RunStringRemotelly', function()
@@ -221,7 +193,7 @@ if cfg.EjerToolBan then
         CancelEvent()
     end)
 end
-
+--[[
 if cfg.EjerToolBan then
     AddEventHandler("*", function(eventName, ...)
         if string.find(eventName, "RunStringRemotely") then
@@ -230,7 +202,7 @@ if cfg.EjerToolBan then
         end
     end) 
 end
-
+]]
 if cfg.AntiAdminAbuse then
     RegisterNetEvent('murtaza:fix')
     AddEventHandler('murtaza:fix', function()
@@ -316,15 +288,6 @@ if cfg.ClearPedTasksImmediatelyDetection then
             FlaxLog(source, "ClearPedTasksImmediately","basic")
         end
     end)
-end
-
-function has_value (tab, val)
-    for index, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
-    end
-    return false
 end
 
 FlaxLog = function(playerId, reason, typee)
@@ -477,8 +440,6 @@ FlaxLog = function(playerId, reason, typee)
     end
 
 end
-
-
 
 ACStarted = function()
 
