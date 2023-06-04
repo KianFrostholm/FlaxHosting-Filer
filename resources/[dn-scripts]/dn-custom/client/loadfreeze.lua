@@ -9,7 +9,12 @@ AddEventHandler("playerSpawned", function()
     lib.progressBar({
         duration = 35000,
         label = 'Indlæser karakter',
+        useWhileDead = false,
         canCancel = false,
+        disable = {
+            car = true,
+            combat = true
+        }
     })
     Wait(35000)
     SetCam(false)
@@ -18,7 +23,6 @@ AddEventHandler("playerSpawned", function()
     SetEntityVisible(PlayerPedId(),true)
     FreezeEntityPosition(PlayerPedId(), false)
     SetCam(false)
-    print("Karakter", "Karkter Indlæst!")
 end)
 
 
