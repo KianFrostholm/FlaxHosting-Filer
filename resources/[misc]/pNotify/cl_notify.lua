@@ -144,6 +144,14 @@ end
 
 RegisterNetEvent("pNotify:SendNotification")
 AddEventHandler("pNotify:SendNotification", function(options)
+    if options.type == 'alert' then
+		options.type = 'warning'
+	elseif options.type == 'info' then
+		option.type = 'inform'
+	end
+                
+	Wait(100)
+
     lib.notify({
         title = 'Meddelse',
         description = options.text or "Empty Notification",
