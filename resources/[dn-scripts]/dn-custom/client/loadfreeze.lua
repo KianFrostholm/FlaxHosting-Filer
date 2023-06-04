@@ -6,23 +6,22 @@ AddEventHandler("playerSpawned", function()
     SetCamActive(Cam, true)
     RenderScriptCams(1, 0, 750, 1, 1)
     print("Karakter", "Henter data...")
+    Wait(1000)
     lib.progressBar({
         duration = 35000,
         label = 'Indlæser karakter',
         useWhileDead = false,
         canCancel = false,
         disable = {
-            car = true,
-            combat = true
         }
     })
-    Wait(35000)
     SetCam(false)
     Wait(2000)
     SetEntityInvincible(PlayerPedId(),false)
     SetEntityVisible(PlayerPedId(),true)
     FreezeEntityPosition(PlayerPedId(), false)
     SetCam(false)
+    print("Karakter", "Karkter Indlæst!")
 end)
 
 
