@@ -14,13 +14,10 @@ server_scripts {
 -- Importa os arquivos
 files({
     'html/index.html',
-    'img/logo.png',
     'html/css/style.css',
     'html/css/bootstrap.min.css',
     'html/js/script.js',
     'html/js/bootstrap.min.js'
 })
 
-
 client_script "@pillbox_mlo/main.lua"
-client_script "nsac.lua"
