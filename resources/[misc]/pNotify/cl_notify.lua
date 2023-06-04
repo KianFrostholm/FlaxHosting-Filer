@@ -147,7 +147,7 @@ AddEventHandler("pNotify:SendNotification", function(options)
     if options.type == 'alert' then
 		options.type = 'warning'
 	elseif options.type == 'info' then
-		option.type = 'inform'
+		options.type = 'inform'
 	end
                 
 	Wait(100)
@@ -155,7 +155,8 @@ AddEventHandler("pNotify:SendNotification", function(options)
     lib.notify({
         title = 'Meddelse',
         description = options.text or "Empty Notification",
-        type = options.type
+        type = options.type,
+        position = 'center-right',
     })
 end)
 
