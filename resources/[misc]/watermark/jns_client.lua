@@ -1,21 +1,3 @@
-HT = nil
-
-Citizen.CreateThread(function()
-    while HT == nil do
-        HT = {}
-        Citizen.Wait(0)
-    end
-
-    HT.TriggerServerCallback('getPlayers', function(playerCount)
-        while not NetworkIsSessionActive() do
-            Citizen.Wait(0)
-            print("Waiting")
-        end
-        print(playerCount)
-        SendNUIMessage({action = "setPlayerCount", count = playerCount})
-    end)
-end)
-
 RegisterNetEvent('vrp:playerLoaded')
 AddEventHandler('vrp:playerLoaded', function()
 TriggerServerEvent("getPlayers:check")
