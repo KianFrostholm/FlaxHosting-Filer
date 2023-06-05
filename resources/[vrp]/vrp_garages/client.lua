@@ -39,7 +39,7 @@ function vRPgt.spawnGarageVehicle(vtype, name, vehicle_plate, vehicle_colorprima
 
     notgenerating = false
     exports['progressBars']:startUI(Config.Timer*1000, "Henter køretøj")
-    Wait(Config.Timer*1000)
+    --Wait(Config.Timer*1000)
     notgenerating = true
 
     -- spawn car
@@ -353,7 +353,7 @@ Citizen.CreateThread(function()
           local bil = GetVehiclePedIsIn(GetPlayerPed(-1), false)
           FreezeEntityPosition(bil, true)
           exports['progressBars']:startUI(Config.Timer*1000, "Parkere køretøj")
-          Wait(Config.Timer*1000)
+          --Wait(Config.Timer*1000)
           FreezeEntityPosition(bil, false)
           garageSelected.x = garage.x
           garageSelected.y = garage.y
@@ -471,7 +471,7 @@ RegisterNetEvent('Kian_impound:impoundcar', function()
 
 	if plate ~= nil then
 			exports['progressBars']:startUI(5000, "Impounder "..vehID)
-			Wait(5000)
+			--Wait(5000)
 			TriggerServerEvent('Kian_impound:sv_impoundcar', plate, vehID)
       Citizen.InvokeNative(0xEA386986E786A54F, Citizen.PointerValueIntInitialized(model))
 		else
