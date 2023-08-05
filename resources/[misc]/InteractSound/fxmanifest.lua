@@ -1,6 +1,12 @@
 fx_version 'adamant'
-game 'gta5'
+games {"gta5"}
 
-client_scripts {
-	'client.lua'
+ui_page "client/html/index.html"
+
+client_script 'client/main.lua'
+server_script 'server/main.lua'
+
+files {
+    'client/html/index.html',
+    'client/html/sounds/*.ogg'
 }
