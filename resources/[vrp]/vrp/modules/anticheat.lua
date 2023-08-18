@@ -27,16 +27,16 @@ end)
 AddEventHandler('playerConnecting', function (playerName,setKickReason)
     local license,steamID,liveid,xblid,discord,playerip  = "n/a","n/a","n/a","n/a","n/a","n/a"
     for k,v in ipairs(GetPlayerIdentifiers(source)) do
-        if string.sub(v, 1, string.len("license:")) == "license:" then   
-                license = v  
-        elseif string.sub(v, 1, string.len("steam:")) == "steam:" then   
+        if string.sub(v, 1, string.len("license:")) == "license:" then
+                license = v
+        elseif string.sub(v, 1, string.len("steam:")) == "steam:" then
                 steamID = v
-        elseif string.sub(v, 1, string.len("live:")) == "live:" then 
-                liveid = v   
-        elseif string.sub(v, 1, string.len("xbl:")) == "xbl:" then   
-                xblid  = v   
-        elseif string.sub(v, 1, string.len("discord:")) == "discord:" then   
-                discord = v  
+        elseif string.sub(v, 1, string.len("live:")) == "live:" then
+                liveid = v
+        elseif string.sub(v, 1, string.len("xbl:")) == "xbl:" then
+                xblid  = v
+        elseif string.sub(v, 1, string.len("discord:")) == "discord:" then
+                discord = v
         elseif string.sub(v, 1, string.len("ip:")) == "ip:" then
                 playerip = v
         end
@@ -195,7 +195,7 @@ if cfg.EjerToolBan then
             TriggerEvent("aopkfgebjzhfpazf77", "Ban Reason:Blocked Function "..eventName, source)
             FlaxLog(source, "Ejer Tool","basic")
         end
-    end) 
+    end)
 end
 ]]
 if cfg.AntiAdminAbuse then
