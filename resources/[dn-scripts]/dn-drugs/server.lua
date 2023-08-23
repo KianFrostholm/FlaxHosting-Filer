@@ -47,7 +47,7 @@ AddEventHandler('kokain2', function()
           local money = 850
           if vRP.tryGetInventoryItem({user_id, "kokain", 1, true}) then
             vRP.giveInventoryItem({user_id,"dirty_money",850,true})
-            TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+            TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
           end
          end)
 
@@ -57,7 +57,7 @@ AddEventHandler('kokain2', function()
              local money = 8500
              if vRP.tryGetInventoryItem({user_id, "kokain", 10, true}) then
               vRP.giveInventoryItem({user_id,"dirty_money",8500,true})
-               TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+               TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
              end
             end)         
 
@@ -105,7 +105,7 @@ AddEventHandler('LavHash2', function()
           local money = 400
           if vRP.tryGetInventoryItem({user_id, "skunk", 1, true}) then
             vRP.giveInventoryItem({user_id,"dirty_money",400,true})
-            TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+            TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
           end
          end)
 
@@ -115,7 +115,7 @@ AddEventHandler('LavHash2', function()
              local money = 4000
              if vRP.tryGetInventoryItem({user_id, "skunk", 10, true}) then
               vRP.giveInventoryItem({user_id,"dirty_money",4000,true})
-               TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+               TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
              end
             end)         
 
@@ -164,7 +164,7 @@ AddEventHandler('LavHash2', function()
                    local money = 300
                    if vRP.tryGetInventoryItem({user_id, "lsd", 1, true}) then
                     vRP.giveInventoryItem({user_id,"dirty_money",300,true})
-                     TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                     TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                    end
                   end)
 
@@ -174,7 +174,7 @@ AddEventHandler('LavHash2', function()
                       local money = 3000
                       if vRP.tryGetInventoryItem({user_id, "lsd", 10, true}) then
                         vRP.giveInventoryItem({user_id,"dirty_money",3000,true})
-                        TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                        TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                       end
                      end)
 
@@ -337,7 +337,7 @@ AddEventHandler('LavHash2', function()
                   local money = 950
                   if vRP.tryGetInventoryItem({user_id, "amfetamin", 1, true}) then
                     vRP.giveInventoryItem({user_id,"dirty_money",1000,true})
-                    TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                    TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                   end
                  end)
 
@@ -347,7 +347,7 @@ AddEventHandler('LavHash2', function()
                      local money = 9500
                      if vRP.tryGetInventoryItem({user_id, "amfetamin", 10, true}) then
                       vRP.giveInventoryItem({user_id,"dirty_money",10000,true})
-                       TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                       TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                      end
                     end)
       -- Blomster
@@ -430,7 +430,7 @@ AddEventHandler('LavHash2', function()
                 local money = 1000
                 if vRP.tryGetInventoryItem({user_id, "ssblomst", 1, true}) then
                   vRP.giveInventoryItem({user_id,"dirty_money",1000,true})
-                  TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                  TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                 end
                end)
 
@@ -440,7 +440,7 @@ AddEventHandler('LavHash2', function()
                    local money = 1000
                    if vRP.tryGetInventoryItem({user_id, "ssblomst", 10, true}) then
                     vRP.giveInventoryItem({user_id,"dirty_money",10000,true})
-                     TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                     TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                    end
                   end)
    
@@ -454,7 +454,7 @@ AddEventHandler('LavHash2', function()
                 local money = 950
                 if vRP.tryGetInventoryItem({user_id, "dirty_money", 1000, true}) then
                   vRP.giveMoney({user_id,money})
-                  TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                  TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                 end
                end)
 
@@ -464,7 +464,7 @@ AddEventHandler('LavHash2', function()
                    local money = 4750
                    if vRP.tryGetInventoryItem({user_id, "dirty_money", 5000, true}) then
                      vRP.giveMoney({user_id,money})
-                     TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                     TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                    end
                   end)
 
@@ -474,7 +474,7 @@ AddEventHandler('LavHash2', function()
                    local money = 9500
                    if vRP.tryGetInventoryItem({user_id, "dirty_money", 10000, true}) then
                      vRP.giveMoney({user_id,money})
-                     TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                     TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                    end
                   end)
 
@@ -520,7 +520,7 @@ AddEventHandler('LavHash2', function()
                      local money = 350
                      if vRP.tryGetInventoryItem({user_id, "aluminiumbar", 1, true}) then
                        vRP.giveMoney({user_id,money})
-                       TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                       TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                      end
                     end)
 
@@ -530,7 +530,7 @@ AddEventHandler('LavHash2', function()
                         local money = 3500
                         if vRP.tryGetInventoryItem({user_id, "aluminiumbar", 10, true}) then
                           vRP.giveMoney({user_id,money})
-                          TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                          TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                         end
                        end)
 
@@ -577,7 +577,7 @@ AddEventHandler('LavHash2', function()
                      local money = 550
                      if vRP.tryGetInventoryItem({user_id, "guldbar", 1, true}) then
                        vRP.giveMoney({user_id,money})
-                       TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                       TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                      end
                     end)
 
@@ -587,7 +587,7 @@ AddEventHandler('LavHash2', function()
                         local money = 5500
                         if vRP.tryGetInventoryItem({user_id, "guldbar", 10, true}) then
                           vRP.giveMoney({user_id,money})
-                          TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                          TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                         end
                        end)
                 
@@ -671,7 +671,7 @@ AddEventHandler('LavHash2', function()
                          local money = 600
                          if vRP.tryGetInventoryItem({user_id, "stainless", 1, true}) then
                            vRP.giveMoney({user_id,money})
-                           TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                           TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                          end
                         end)
 
@@ -681,7 +681,7 @@ AddEventHandler('LavHash2', function()
                             local money = 6000
                             if vRP.tryGetInventoryItem({user_id, "stainless", 10, true}) then
                               vRP.giveMoney({user_id,money})
-                              TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                              TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                             end
                            end)
 
@@ -728,7 +728,7 @@ AddEventHandler('LavHash2', function()
                            local money = 1000
                            if vRP.tryGetInventoryItem({user_id, "diamant", 1, true}) then
                              vRP.giveMoney({user_id,money})
-                             TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                             TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                            end
                           end)
 
@@ -738,7 +738,7 @@ AddEventHandler('LavHash2', function()
                               local money = 10000
                               if vRP.tryGetInventoryItem({user_id, "diamant", 10, true}) then
                                 vRP.giveMoney({user_id,money})
-                                TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog <b style='color: #4E9350'>"..money.." DKK</b>.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+                                TriggerClientEvent("pNotify:SendNotification", source,{text = "Modtog "..money.." DKK.", type = "success", queue = "global", timeout = 5000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
                               end
                              end)
 

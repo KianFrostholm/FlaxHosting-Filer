@@ -29,7 +29,7 @@ AddEventHandler('trucker:success', function(amount)
     
     if amount < 7000 then
         vRP.giveBankMoney({user_id,toPay})
-        TriggerClientEvent("pNotify:SendNotification", source,{text = "Du modtog <b style='color: #4E9350'>" .. toPay.." DKK</b>.",type = "success",timeout = (5000),layout = "centerRight",queue = "global",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+        TriggerClientEvent("pNotify:SendNotification", source,{text = "Du modtog " .. toPay.." DKK.",type = "success",timeout = (5000),layout = "centerRight",queue = "global",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
     else
         vRP.ban({user_id, 'Du forsøgte og spawne '..amount..' via "vrp_trucker"'})
         PerformHttpRequest(webhook.HoneyPot, function(err, text, headers) end, 'POST', 

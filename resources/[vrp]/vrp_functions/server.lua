@@ -126,7 +126,7 @@ vRP.registerMenuBuilder(
                                                             "pNotify:SendNotification",
                                                             F,
                                                             {
-                                                                text = {"Spilleren er ikke i håndjern eller strips."},
+                                                                text = {"Personen er ikke i håndjern eller strips."},
                                                                 type = "error",
                                                                 queue = "global",
                                                                 timeout = 4000,
@@ -145,7 +145,7 @@ vRP.registerMenuBuilder(
                                                 "pNotify:SendNotification",
                                                 F,
                                                 {
-                                                    text = {"Ingen spiller fundet."},
+                                                    text = {"Ingen erson fundet."},
                                                     type = "error",
                                                     queue = "global",
                                                     timeout = 4000,

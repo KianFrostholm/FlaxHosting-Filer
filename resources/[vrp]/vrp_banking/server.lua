@@ -62,8 +62,8 @@ function transfer(fPlayer, tPlayer, amount)
     end})
 
 
-    TriggerClientEvent("pNotify:SendNotification", source,{text = "Du overførte <b style='color: #4E9350'>"..math.floor(amount).." DKK</b>", type = "success", queue = "global", timeout = 5000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-    TriggerClientEvent("pNotify:SendNotification", source,{text = "Nyt indestående beløb: <b style='color: #4E9350'>"..math.floor((new_balance)).." DKK</b>", type = "info", queue = "global", timeout = 5000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+    TriggerClientEvent("pNotify:SendNotification", source,{text = "Du overførte "..math.floor(amount).." DKK", type = "success", queue = "global", timeout = 5000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+    TriggerClientEvent("pNotify:SendNotification", source,{text = "Nyt indestående beløb: "..math.floor((new_balance)).." DKK", type = "info", queue = "global", timeout = 5000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
 
     vRP.getUserIdentity({user_id, function(identity)
         local name2 = identity.firstname.." "..identity.name
@@ -72,8 +72,8 @@ function transfer(fPlayer, tPlayer, amount)
 
 
 
-    TriggerClientEvent("pNotify:SendNotification", source2,{text = "Du modtog <b style='color: #4E9350'>"..math.floor((amount))" DKK</b>", type = "success", queue = "global", timeout = 5000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
-    TriggerClientEvent("pNotify:SendNotification", source2,{text = "Nyt indestående beløb: <b style='color: #4E9350'>"..math.floor((new_balance2))" DKK</b>", type = "success", queue = "global", timeout = 5000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+    TriggerClientEvent("pNotify:SendNotification", source2,{text = "Du modtog "..math.floor((amount))" DKK", type = "success", queue = "global", timeout = 5000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+    TriggerClientEvent("pNotify:SendNotification", source2,{text = "Nyt indestående beløb: "..math.floor((new_balance2))" DKK", type = "success", queue = "global", timeout = 5000, layout = "bottomCenter",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
 
 end
 
@@ -137,7 +137,7 @@ AddEventHandler('bank:depositAll', function()
     if(wallet > 0) then
         deposit(source, wallet)
         TriggerClientEvent("pNotify:SendNotification", source, {
-            text = "Du indsatte <b style='color: #4E9350'>"..format_thousand(math.floor(rounded)).." DKK</b>.",
+            text = "Du indsatte "..format_thousand(math.floor(rounded)).." DKK.",
             type = "success",
             timeout = (4000),
             layout = "bottomCenter",
@@ -161,7 +161,7 @@ AddEventHandler('bank:deposit', function(amount)
     if(rounded <= wallet) then
         deposit(source, rounded)
         TriggerClientEvent("pNotify:SendNotification", source, {
-            text = "Du indsatte <b style='color: #4E9350'>"..format_thousand(math.floor(rounded)).." DKK</b>.",
+            text = "Du indsatte "..format_thousand(math.floor(rounded)).." DKK.",
             type = "success",
             timeout = (4000),
             layout = "bottomCenter",
@@ -190,7 +190,7 @@ AddEventHandler('bank:withdraw', function(amount)
     if(tonumber(rounded) <= tonumber(bankbalance)) then
         withdraw(source, rounded)
         TriggerClientEvent("pNotify:SendNotification", source, {
-            text = "Du hævede <b style='color: #4E9350'>"..format_thousand(math.floor(rounded)).." DKK</b>.",
+            text = "Du hævede "..format_thousand(math.floor(rounded)).." DKK.",
             type = "success",
             timeout = (4000),
             layout = "bottomCenter",
