@@ -6,6 +6,8 @@ local curExitCoords = {x = 0, y = 0, z = 0}
 local myrobbableItems = {}
 local antal = 0
 
+local Cooldown = 0
+
 local HT = nil
 
 Citizen.CreateThread(function()
@@ -16,8 +18,6 @@ Citizen.CreateThread(function()
 end)
 
 
-local Cooldown = 0
-
 RegisterNetEvent('kian-indburd:useItem', function()
    TriggerServerCallback('kian-indburd:BetjenteOnline', function(onlinebetjente)
       local vedhus = false
@@ -27,29 +27,31 @@ RegisterNetEvent('kian-indburd:useItem', function()
                if GetDistanceBetweenCoords(GetEntityCoords(PlayerPedId()), v.x, v.y, v.z) < 3 then
                   vedhus = true
                   TriggerEvent('kian-indburd:lockpickanim')
-                  print("Indbrud", Config.Lang['lockpick_door_notify'])
+                  --print("Indbrud", Config.Lang['lockpick_door_notify'])
                   TriggerEvent('s_lockpick:client:openLockpick', lockpick)
 
                   exports[Config.progress]:startUI(10000, Config.Lang['lockpick_door'])
                   Wait(10000)
                   isLockpicking = false
          
-                  local chance = math.random(1,10)
-                  if chance >= 1 then
+                  local chance = math.random(1, 100) 
+                  if chance <= Config.burglarySuccessChance then
                      lasthouse = k
                      createHouse(k, false)
-                     if chance >= 1 then
+                     if chance >= Config.burglarySuccessChance then
                         local ped = PlayerPedId()
                         local x,y,z = table.unpack(GetEntityCoords(ped, false))
                         local playerCoords = GetEntityCoords(PlayerPedId())
-                        print('add politi notify')
+                        --print('add politi notify')
                         Wait(5000)
                         Cooldown = Config.Cooldown
                         TriggerServerEvent('dispatch2', playerCoords.x, playerCoords.y, playerCoords.z, "Indbrud igang ved")
+                        TriggerEvent("pNotify:SendNotification", {text = "Burglary successful!", type = "success", timeout = 1400, layout = "bottomCenter"})
                      end
                   else
-                     print("Indbrud", Config.Lang['lockpick_broke'])
+                     --print("Indbrud", Config.Lang['lockpick_broke'])
                      TriggerServerEvent('kian-indburd:lockpickbroke')
+                     TriggerEvent("pNotify:SendNotification", {text = "Burglary failed.", type = "error", timeout = 1400, layout = "bottomCenter"})
                      return
                   end
                end
@@ -58,15 +60,17 @@ RegisterNetEvent('kian-indburd:useItem', function()
                TriggerServerEvent("kian-indburd:givback")
             end
          else
-            print("Indbrud", Config.Lang['cooldown_message'])
+            --print("Indbrud", Config.Lang['cooldown_message'])
             TriggerServerEvent("kian-indburd:givback2")
          end
       else
-         print("Indbrud", Config.Lang['police_nearby'])
+         --print("Indbrud", Config.Lang['police_nearby'])
          TriggerServerEvent("kian-indburd:givback2")
 		end
 	end)
 end)
+
+
 
 CreateThread(function()
    while true do
@@ -413,8 +417,6 @@ function DrawText3Ds(x,y,z, text)
 end
 
 
-
-
 robbableItems = {
    [1] = {x = 1.90339700, y = -3.80026800, z = 1.29917900, name = "Fridge", isSearched = false},
    [2] = {x = -3.50363200, y = -6.55289400, z = 1.30625800, name = "Drawers", isSearched = false},
@@ -430,13 +432,6 @@ robbableItems = {
    [12] = {x = -1.24716200, y = 1.07820500, z = 1.69089300, name = "Coffee Table", isSearched = false},
    [13] = {x = 2.91325400, y = -4.2783510, z = 1.82746400, name = "Table", isSearched = false},
 }
-
-
-
-
-
-
-
 
 
 function lockpick(success)

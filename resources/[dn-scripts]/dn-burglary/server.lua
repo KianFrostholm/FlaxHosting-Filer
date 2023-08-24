@@ -27,7 +27,7 @@ AddEventHandler('kian-indburd:givback', function()
 	local user_id = vRP.getUserId({source})
 	if user_id ~= nil then
 		vRP.giveInventoryItem({user_id,Config.Lockpick,1,false})
-		PerformHttpRequest(webhook.Burglary, function(err, text, headers) end, 'POST', json.encode({username = "Kian - houserobbery", content = "```ID: "..user_id.." fik sin lockpick tilbage```"}), { ['Content-Type'] = 'application/json' })
+		PerformHttpRequest(webhook.Burglary, function(err, text, headers) end, 'POST', json.encode({username = Config.Discordbotname, content = "```ID: "..user_id.." fik sin lockpick tilbage```"}), { ['Content-Type'] = 'application/json' })
 	end
 end)
 
@@ -36,7 +36,7 @@ AddEventHandler('kian-indburd:givback2', function()
 	local user_id = vRP.getUserId({source})
 	if user_id ~= nil then
 		vRP.giveInventoryItem({tonumber(user_id), Config.lockpick, 1, true})
-		PerformHttpRequest(webhook.Burglary, function(err, text, headers) end, 'POST', json.encode({username = "Kian - houserobbery", content = "```ID: "..user_id.." fik sin lockpick tilbage```"}), { ['Content-Type'] = 'application/json' })
+		PerformHttpRequest(webhook.Burglary, function(err, text, headers) end, 'POST', json.encode({username = Config.Discordbotname, content = "```ID: "..user_id.." fik sin lockpick tilbage```"}), { ['Content-Type'] = 'application/json' })
 	end
 end)
 
@@ -45,7 +45,7 @@ AddEventHandler('kian-indburd:lockpickbroke', function()
 	local user_id = vRP.getUserId({source})
 	if user_id ~= nil then
 		vRP.tryGetInventoryItem({user_id, Config.lockpick, 1})
-		PerformHttpRequest(webhook.Burglary, function(err, text, headers) end, 'POST', json.encode({username = "Kian - houserobbery", content = "```ID: "..user_id.." fejlede et indbrud.```"}), { ['Content-Type'] = 'application/json' })
+		PerformHttpRequest(webhook.Burglary, function(err, text, headers) end, 'POST', json.encode({username = Config.Discordbotname, content = "```ID: "..user_id.." fejlede et indbrud.```"}), { ['Content-Type'] = 'application/json' })
 	end
 end)
 
