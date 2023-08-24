@@ -112,7 +112,6 @@ function vRPgt.spawnBoughtVehicle(vtype, name)
       SetModelAsNoLongerNeeded(mhash)
     end
   else
-    -- vRP.notify({"You can only have one "..vtype.." vehicule out."})
     TriggerEvent("pNotify:SendNotification",{
       text = "Du kan kun have en "..vtype.." ude ad gangen.",
       type = "info",
@@ -125,46 +124,53 @@ function vRPgt.spawnBoughtVehicle(vtype, name)
   end
 end
 
-function vRPgt.despawnGarageVehicle(vtype,max_range)
+function vRPgt.despawnGarageVehicle(vtype, max_range)
   local vehicle = vehicles[vtype]
   local user_id = vRP.getUserId({source})
   local vehicle1 = GetVehiclePedIsIn(GetPlayerPed(-1), false)
- -- local pris = math.ceil(((1000 - GetVehicleBodyHealth(vehicle1)) * 5) + (1000 - GetVehicleEngineHealth(vehicle1)) * 7.5)
+  -- local pris = math.ceil(((1000 - GetVehicleBodyHealth(vehicle1)) * 5) + (1000 - GetVehicleEngineHealth(vehicle1)) * 7.5)
   if vehicle then
-    local x,y,z = table.unpack(GetEntityCoords(vehicle[3],true))
-    local px,py,pz = vRP.getPosition()
+      local x, y, z = table.unpack(GetEntityCoords(vehicle[3], true))
+      local px, py, pz = vRP.getPosition()
 
-    if GetDistanceBetweenCoords(x,y,z,px,py,pz,true) < max_range then -- check distance with the vehicule
-      -- remove vehicle
-      SetVehicleHasBeenOwnedByPlayer(vehicle[3],false)
-      Citizen.InvokeNative(0xAD738C3085FE7E11, vehicle[3], false, true) -- set not as mission entity
-      SetVehicleAsNoLongerNeeded(Citizen.PointerValueIntInitialized(vehicle[3]))
-      Citizen.InvokeNative(0xEA386986E786A54F, Citizen.PointerValueIntInitialized(vehicle[3]))
-      TriggerEvent("vrp_garages:setVehicle", vtype, nil)
-  
-        TriggerEvent("pNotify:SendNotification",{
-        text = "køretøjet er gemt!",
-         -- text = "Køretøjet er gemt",
-          type = "info",
-          timeout = (2000),
-          layout = "bottomCenter",
-          queue = "global",
-          animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"},
-          killer = false
-        })
+      if GetDistanceBetweenCoords(x, y, z, px, py, pz, true) < max_range then -- check distance with the vehicle
+          local playerPed = GetPlayerPed(-1)
+          local vehiclePed = GetPedInVehicleSeat(vehicle[3], -1)
+          if DoesEntityExist(vehiclePed) and vehiclePed == playerPed then
+              TaskLeaveVehicle(playerPed, vehicle[3], 4160) -- 4160 is flag for exiting quickly
+              Citizen.Wait(1000) -- Wait for the ped to exit the vehicle
+          end
+
+          -- Remove the vehicle after ped exits
+          SetVehicleHasBeenOwnedByPlayer(vehicle[3], false)
+          Citizen.InvokeNative(0xAD738C3085FE7E11, vehicle[3], false, true) -- set not as mission entity
+          SetVehicleAsNoLongerNeeded(Citizen.PointerValueIntInitialized(vehicle[3]))
+          Citizen.InvokeNative(0xEA386986E786A54F, Citizen.PointerValueIntInitialized(vehicle[3]))
+          TriggerEvent("vrp_garages:setVehicle", vtype, nil)
+
+          TriggerEvent("pNotify:SendNotification", {
+              text = "Køretøjet er gemt!",
+              type = "info",
+              timeout = 2000,
+              layout = "bottomCenter",
+              queue = "global",
+              animation = { open = "gta_effects_fade_in", close = "gta_effects_fade_out" },
+              killer = false
+          })
       else
-        TriggerEvent("pNotify:SendNotification",{
-          text = "Du er ikke i nærheden af et køretøj",
-          type = "error",
-          timeout = (2000),
-          layout = "bottomCenter",
-          queue = "global",
-          animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"},
-          killer = false
-        })
+          TriggerEvent("pNotify:SendNotification", {
+              text = "Du er ikke i nærheden af et køretøj",
+              type = "error",
+              timeout = 2000,
+              layout = "bottomCenter",
+              queue = "global",
+              animation = { open = "gta_effects_fade_in", close = "gta_effects_fade_out" },
+              killer = false
+          })
       end
-    end
   end
+end
+
 
   function MenuGarage()
     ped = GetPlayerPed(-1)
