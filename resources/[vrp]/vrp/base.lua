@@ -62,7 +62,7 @@ function vRP.getUserIdByIdentifiers(ids, cbr)
           else
               next_id = result[1].id+1
           end
-        MySQL.Async.execute("INSERT INTO vrp_users (id, whitelisted, banned) VALUES (@id, 'false', 'false')", {id = next_id}, function(rows, affected)
+        MySQL.Async.execute("INSERT INTO vrp_users (id, whitelisted, banned) VALUES (@id, 0, 0)", {id = next_id}, function(rows, affected)
         if next_id then
             local user_id = next_id
             for l,w in pairs(ids) do
