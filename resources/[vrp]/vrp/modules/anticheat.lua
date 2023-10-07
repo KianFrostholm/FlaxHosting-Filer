@@ -6,37 +6,37 @@ local cfg = module("cfg/anticheat")
 local webhook = module("cfg/webhooks")
 
 RegisterServerEvent('aopkfgebjzhfpazf77')
-AddEventHandler('aopkfgebjzhfpazf77', function(reason,servertarget)
-    local license,identifier,liveid,xblid,discord,playerip,target
-    local reason    = reason
-    if not reason then reason = "Auto Anti-Cheat" end
-    if tostring(source) == "" then
-        target = tonumber(servertarget)
-    else
-        target = source
+AddEventHandler('aopkfgebjzhfpazf77', function(reason,_)
+    local source = source
+    if source == nil then
+        print("[aopkfgebjzhfpazf77] - Player source was nil.")
     end
-    local user_id = vRP.getUserId(servertarget)
+
+    if not reason then reason = "Auto Anti-Cheat" end
+
+
+    local user_id = vRP.getUserId(source)
     if user_id ~= nil then
         vRP.ban(user_id, 'Vores anticheat har udelukket dig med grunden: '..reason)
         print("Bannet"..user_id)
     end
-    DropPlayer(servertarget, 'Vores anticheat har udelukket dig med grunden: '..reason)
+    DropPlayer(source, 'Vores anticheat har udelukket dig med grunden: '..reason)
 end)
 
 
 AddEventHandler('playerConnecting', function (playerName,setKickReason)
     local license,steamID,liveid,xblid,discord,playerip  = "n/a","n/a","n/a","n/a","n/a","n/a"
     for k,v in ipairs(GetPlayerIdentifiers(source)) do
-        if string.sub(v, 1, string.len("license:")) == "license:" then   
-                license = v  
-        elseif string.sub(v, 1, string.len("steam:")) == "steam:" then   
+        if string.sub(v, 1, string.len("license:")) == "license:" then
+                license = v
+        elseif string.sub(v, 1, string.len("steam:")) == "steam:" then
                 steamID = v
-        elseif string.sub(v, 1, string.len("live:")) == "live:" then 
-                liveid = v   
-        elseif string.sub(v, 1, string.len("xbl:")) == "xbl:" then   
-                xblid  = v   
-        elseif string.sub(v, 1, string.len("discord:")) == "discord:" then   
-                discord = v  
+        elseif string.sub(v, 1, string.len("live:")) == "live:" then
+                liveid = v
+        elseif string.sub(v, 1, string.len("xbl:")) == "xbl:" then
+                xblid  = v
+        elseif string.sub(v, 1, string.len("discord:")) == "discord:" then
+                discord = v
         elseif string.sub(v, 1, string.len("ip:")) == "ip:" then
                 playerip = v
         end
@@ -195,7 +195,7 @@ if cfg.EjerToolBan then
             TriggerEvent("aopkfgebjzhfpazf77", "Ban Reason:Blocked Function "..eventName, source)
             FlaxLog(source, "Ejer Tool","basic")
         end
-    end) 
+    end)
 end
 ]]
 if cfg.AntiAdminAbuse then
