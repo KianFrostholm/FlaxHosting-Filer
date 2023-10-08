@@ -1,9 +1,8 @@
--- Kian houserobbery
--- Kodet af Kian Frostholm
-
 Config = {
 
-Webhook = '', -- Webhook til logs
+Discordbotname = '' -- Navnet på discord bot(Det navn der er i logs)
+
+PickingChances = 50, -- Chances få at pick låsen
 
 Lockpick = 'lockpick', -- Spawnkode til lockpick
 
@@ -27,10 +26,6 @@ Lang = {
     ['rob_house']               = '~g~[E]~w~ - Røv hus',
     ['cooldown']                = '~r~Nedkøling',
 },
-
-
-
-
 
 
 robbableItems = {

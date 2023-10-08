@@ -69,14 +69,14 @@ Citizen.CreateThread(function()
         
       if IsControlJustReleased(0, 48) and GetLastInputMethod(0) then
         beltOn = not beltOn 
-        if beltOn then TriggerEvent("pNotify:SendNotification", {text = "✅ Sikkerhedssele <b style='color: #5DB6E5'>spændt</b>.", type = "success", timeout = 1400, layout = "bottomCenter"})
+        if beltOn then TriggerEvent("pNotify:SendNotification", {text = "✅ Sikkerhedssele spændt.", type = "success", timeout = 1400, layout = "bottomCenter"})
 		TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 0.1, 'buckle', 0.3)	
 			SendNUIMessage({
 			   displayWindow = 'false'
 			   })
 			isUiOpen = true 
 		else 
-		TriggerEvent("pNotify:SendNotification", {text = "⛔️ Sikkerhedssele <b style='color: #DB4646'>løsnet</b>.", type = "error", timeout = 1400, layout = "bottomCenter"}) 
+		TriggerEvent("pNotify:SendNotification", {text = "⛔️ Sikkerhedssele løsnet.", type = "error", timeout = 1400, layout = "bottomCenter"}) 
         TriggerServerEvent('InteractSound_SV:PlayWithinDistance', 0.1, 'unbuckle', 0.3)
 			SendNUIMessage({
 			   displayWindow = 'true'

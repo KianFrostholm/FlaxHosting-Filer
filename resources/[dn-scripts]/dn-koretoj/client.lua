@@ -124,7 +124,7 @@ function limiter(vit)
         TriggerEvent("pNotify:SendNotification",{text = "Fartbegrænser deaktiveret",type = "success",timeout = (3000),layout = "bottomRight",queue = "global",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
     else
         SetEntityMaxSpeed(vehicle, speed)
-        TriggerEvent("pNotify:SendNotification",{text = "Fartbegrænser aktiveret til | <b style='color: #4E9350'>"..vit.. "</b> KM/T",type = "success",timeout = (3000),layout = "bottomRight",queue = "global",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+        TriggerEvent("pNotify:SendNotification",{text = "Fartbegrænser aktiveret til |"..vit.. "KM/T",type = "success",timeout = (3000),layout = "bottomRight",queue = "global",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
     end
 end
 

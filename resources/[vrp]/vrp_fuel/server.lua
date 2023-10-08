@@ -109,7 +109,7 @@ AddEventHandler("essence:buyCan", function()
 	local user_id = vRP.getUserId({_source})
 	if(vRP.tryFullPayment({user_id,toPay})) then
 		TriggerClientEvent("essence:buyCan", _source)
-		TriggerClientEvent("pNotify:SendNotification", source,{text = "Du har købt en benzindunk for <b style='color: #DB4646'>"..toPay.." DKK</b>.", type = "success", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+		TriggerClientEvent("pNotify:SendNotification", source,{text = "Du har købt en benzindunk for"..toPay.." DKK.", type = "success", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
 	else
 		TriggerClientEvent("pNotify:SendNotification", source,{text = "Du har ikke penge nok.", type = "error", queue = "global", timeout = 4000, layout = "centerRight",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
 	end

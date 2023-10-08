@@ -28,5 +28,5 @@ local money = vRP.getMoney({user_id})
 local toPay = amount + math.random(0,1000)
  -- update player money amount
 vRP.giveBankMoney({user_id,toPay})
-TriggerClientEvent("pNotify:SendNotification", source,{text = "Du modtog <b style='color: #4E9350'>" .. toPay.." DKK</b>.",type = "success",timeout = (5000),layout = "centerRight",queue = "global",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
+TriggerClientEvent("pNotify:SendNotification", source,{text = "Du modtog " .. toPay.." DKK.",type = "success",timeout = (5000),layout = "centerRight",queue = "global",animation = {open = "gta_effects_fade_in", close = "gta_effects_fade_out"}})
 end)

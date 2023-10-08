@@ -62,7 +62,7 @@ if enableTaxiGui then
       Citizen.Wait(0)
       if(IsInTaxi()) then
         if (inTaxi == false) then
-          TriggerEvent("pNotify:SendNotification",{text = "Tryk <b>E</b> for at starte taxameteret",type ="info",timeout=(2000),layout ="bottomCenter",queue ="taxi",animation ={open ="gta_effects_fade_in",close ="gta_effects_fade_out"}})
+          TriggerEvent("pNotify:SendNotification",{text = "Tryk E for at starte taxameteret",type ="info",timeout=(2000),layout ="bottomCenter",queue ="taxi",animation ={open ="gta_effects_fade_in",close ="gta_effects_fade_out"}})
         end
         inTaxi = true
         local ped = GetPlayerPed(-1)
