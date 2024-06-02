@@ -28,7 +28,7 @@ h3 { font-weight: 500; }
 
 .bars-container > .wallet-bar, .bars-container > .bank-bar, .bars-container > .dirtymoney-bar, .identity-bar {
     display: flex;
-    background-color: rgba(153, 136, 59, 0.7);
+    background-color: rgba(0, 89, 255, 0.7);
     
 	border: 2px solid black;
     width: 98.5%;

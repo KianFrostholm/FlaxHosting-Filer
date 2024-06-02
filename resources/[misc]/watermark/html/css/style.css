@@ -33,10 +33,10 @@ h1{
   height: 30px;
 }
 
-#horario h3, #players h3 {
+#horario h3{
   text-shadow: 2px 2px 4px #000000;
   -webkit-font-smoothing: antialiased;
-  font-size: 14px;
+  font-size: 1px; /* Change font-size to 14 if you want time and date to be written along with the watermarn. And change the order of players and horario in the html */
   font-weight: 500 !important;
   color: white;
   font-family: 'Arial', sans-serif;
@@ -44,9 +44,19 @@ h1{
   padding: 0 !important;
   margin-top: 8px !important;
 }
-
+#players h3 {
+  text-shadow: 2px 2px 4px #000000;
+  -webkit-font-smoothing: antialiased;
+  font-size: 18px;
+  font-weight: 500 !important;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  margin: 0 !important;
+  padding: 0 !important;
+  margin-top: 8px !important;
+}
 #logoer span {
-  color: #99883b !important;
+  color: #0553fd !important;
   font-weight: 700 !important;
 }
 
@@ -54,8 +64,8 @@ h1{
   text-shadow: 2px 2px 4px #000000;
   margin: 0 !important;
   padding: 0 !important;
-  font-size: 26px;
-  font-family: 'Roboto', sans-serif;
+  font-size: 28px;
+  font-family: 'Oswald', sans-serif;
   font-weight: 400 !important;
   color: white !important;
   text-align: center;
@@ -77,4 +87,10 @@ h1{
   -webkit-animation-duration: 2.0s;
   animation-name: fade;
   animation-duration: 2.0s;
+}
+.oswald-1 {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
 }
