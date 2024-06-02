@@ -1,6 +1,6 @@
 # FlaxHosting-Filer
  Dette er nogle simple clean server filer med henblik på at optimere måden danske vRP servere køre på
-
+## Det her er en udvidet version af FlaxHostingfiler som jeg arbejder på og som evt. kommer til main repo
 
 # Optimering
 - Hele serverens SQL system er baseret på oxmysql istedet for det tidligere kendte og outdatede system vrp_mysql
