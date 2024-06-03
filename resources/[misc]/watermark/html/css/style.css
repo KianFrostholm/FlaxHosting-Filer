@@ -36,7 +36,7 @@ h1{
 #horario h3{
   text-shadow: 2px 2px 4px #000000;
   -webkit-font-smoothing: antialiased;
-  font-size: 1px; /* Change font-size to 14 if you want time and date to be written along with the watermarn. And change the order of players and horario in the html */
+  font-size: 0px; /* Change font-size to 14 if you want time and date to be written along with the watermarn. And change the order of players and horario in the html */
   font-weight: 500 !important;
   color: white;
   font-family: 'Arial', sans-serif;
