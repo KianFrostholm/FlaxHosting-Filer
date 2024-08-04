@@ -302,24 +302,6 @@ CREATE TABLE `vrp_wanted` (
 --
 
 --
--- Indeks for tabel `phone_calls`
---
-ALTER TABLE `phone_calls`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeks for tabel `phone_messages`
---
-ALTER TABLE `phone_messages`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeks for tabel `phone_twitter`
---
-ALTER TABLE `phone_twitter`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indeks for tabel `vrp_srv_data`
 --
 ALTER TABLE `vrp_srv_data`
@@ -371,24 +353,6 @@ ALTER TABLE `vrp_user_vehicles`
 --
 -- Brug ikke AUTO_INCREMENT for slettede tabeller
 --
-
---
--- Tilføj AUTO_INCREMENT i tabel `phone_calls`
---
-ALTER TABLE `phone_calls`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Tilføj AUTO_INCREMENT i tabel `phone_messages`
---
-ALTER TABLE `phone_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Tilføj AUTO_INCREMENT i tabel `phone_twitter`
---
-ALTER TABLE `phone_twitter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Tilføj AUTO_INCREMENT i tabel `vrp_users`
