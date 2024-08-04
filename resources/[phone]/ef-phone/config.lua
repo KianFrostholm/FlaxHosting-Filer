@@ -3,7 +3,7 @@ Config.BillingCommissions = { -- This is a percentage (0.10) == 10%
     mechanic = 0.10
 }
 
-Config.Webhook = 'https://discord.com/api/webhooks/1217802733239664730/A8FxGNVdhNAJd_dVfUbNh2vsWuj1WPhHtMY6KYmbNNXuNTuB3_FqLEFrfJuRtEzBIv6_'
+Config.Webhook = ''
 
 Config.Item = 'iphone' -- Spawnkoden til telefon
 

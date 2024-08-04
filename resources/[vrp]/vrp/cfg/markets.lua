@@ -170,8 +170,6 @@ cfg.market_types = {
 
 	["Telefon shoppen"] = {
 		_config = {blipid=606, blipcolor=77}, --
-		["oneplus"] = 4499,
-		["samsung"] = 4999,
 		["iphone"] = 6999
 	},
 
