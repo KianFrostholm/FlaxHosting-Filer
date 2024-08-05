@@ -236,12 +236,6 @@ lib.callback.register('qb-phone:server:GetPhoneData', function(src)
             PhoneData.Invoices = invoices
         end
 
-        local garageresult = MySQL.query.await('SELECT * FROM player_vehicles WHERE citizenid = ?', {user_id})
-        
-        if garageresult[1] ~= nil then
-            PhoneData.Garage = garageresult
-        end
-
         local messages = MySQL.query.await('SELECT * FROM phone_messages WHERE citizenid = ?', {user_id})
         if messages ~= nil and next(messages) ~= nil then
             PhoneData.Chats = messages
