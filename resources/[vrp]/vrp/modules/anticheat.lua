@@ -542,29 +542,18 @@ end)
 
 
 Citizen.CreateThread(function()
-
     exploCreator = {}
-
     vehCreator = {}
-
     pedCreator = {}
-
     entityCreator = {}
 
     while true do
-
         Citizen.Wait(2500)
-
         exploCreator = {}
-
         vehCreator = {}
-
         pedCreator = {}
-
         entityCreator = {}
-
     end
-
 end)
 
 
