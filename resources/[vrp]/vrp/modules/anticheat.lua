@@ -732,148 +732,117 @@ end
 
 
 AddEventHandler(
-
     "entityCreating",
-
     function(entity)
-
         if DoesEntityExist(entity) then
-
             local src = NetworkGetEntityOwner(entity)
-
             local model = GetEntityModel(entity)
-
             local blacklistedPropsArray = {}
-
             local WhitelistedPropsArray = {}
-
             local eType = GetEntityPopulationType(entity)
 
-
-
             if src == nil then
-
                 CancelEvent()
-
+                return
             end
-
-
 
             for bl_k, bl_v in pairs(cfg.BlacklistedModels) do
-
                 table.insert(blacklistedPropsArray, GetHashKey(bl_v))
-
             end
-
-
 
             for wl_k, wl_v in pairs(cfg.WhitelistedProps) do
-
                 table.insert(WhitelistedPropsArray, GetHashKey(wl_v))
-
             end
-
-
 
             if eType == 0 then
-
                 CancelEvent()
-
+                return
             end
 
+            print("Entity type:", GetEntityType(entity))
+            print("Entity model:", model)
+            print("Whitelisted props array:", WhitelistedPropsArray)
+            print("Is model whitelisted?", inTable(WhitelistedPropsArray, model))
 
-
-            if GetEntityType(entity) == 3 then
-
+            if GetEntityType(entity) == 3 then -- Prop
                 if eType == 6 or eType == 7 then
-
-                    if inTable(WhitelistedPropsArray, model) == false then
-
+                    if not inTable(WhitelistedPropsArray, model) then
                         if model ~= 0 then
-
-                            FlaxLog(src, "Tried to spawn a blacklisted prop : " .. model,"model")
-
+                            FlaxLog(src, "Tried to spawn a blacklisted prop: " .. model, "model")
                             TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Prop", src)
-
                             CancelEvent()
-
-
-
                             entityCreator[src] = (entityCreator[src] or 0) + 1
-
                             if entityCreator[src] > 15 then
-
-                                FlaxLog(src, "Tried to spawn "..entityCreator[src].." entities","model")
-
+                                FlaxLog(src, "Tried to spawn " .. entityCreator[src] .. " entities", "model")
                                 TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Mass Entities", src)
                             end
                         end
                     end
                 end
-            else
-                if GetEntityType(entity) == 2 then
-                    if eType == 6 or eType == 7 then
-                        if inTable(blacklistedPropsArray, model) ~= false then
-                            if model ~= 0 then
-                                FlaxLog(src, "Tried to spawn a blacklisted vehicle : " .. model,"model")
-                                TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Blacklisted Vehicle", src)
-                                CancelEvent()
-                            end
-                        end
-                        vehCreator[src] = (vehCreator[src] or 0) + 1
-                        if vehCreator[src] > 999 then
-                            FlaxLog(src, "Tried to spawn "..vehCreator[src].." vehs","model")
-                            TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Mass Vehs", src)
-                        end
-                    end
-                elseif GetEntityType(entity) == 1 then
-                    if eType == 6 or eType == 7 then
-                        if inTable(blacklistedPropsArray, model) ~= false then
-                            if model ~= 0 or model ~= 225514697 then
-                                FlaxLog(src, "Tried to spawn a blacklisted ped : " .. model,"model")
-                                TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Blacklisted Ped", src)
-                                CancelEvent()
-                            end
-                        end
-                        pedCreator[src] = (pedCreator[src] or 0) + 1
-                        if pedCreator[src] > 999 then
-                            FlaxLog(src, "Tried to spawn "..pedCreator[src].." peds","model")
-                            TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Mass Peds", src)
-                        end
-                    end
-                else
-                    if inTable(blacklistedPropsArray, GetHashKey(entity)) ~= false then
-                        if model ~= 0 or model ~= 225514697 then
-                            FlaxLog(src, "Tried to spawn a model : " .. model,"model")
-                            TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Blacklisted Model", src)
+            elseif GetEntityType(entity) == 2 then -- Vehicle
+                if eType == 6 or eType == 7 then
+                    if inTable(blacklistedPropsArray, model) then
+                        if model ~= 0 then
+                            FlaxLog(src, "Tried to spawn a blacklisted vehicle: " .. model, "model")
+                            TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Blacklisted Vehicle", src)
                             CancelEvent()
                         end
                     end
+                    vehCreator[src] = (vehCreator[src] or 0) + 1
+                    if vehCreator[src] > 999 then
+                        FlaxLog(src, "Tried to spawn " .. vehCreator[src] .. " vehicles", "model")
+                        TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Mass Vehicles", src)
+                    end
+                end
+            elseif GetEntityType(entity) == 1 then -- Ped
+                if eType == 6 or eType == 7 then
+                    if inTable(blacklistedPropsArray, model) then
+                        if model ~= 0 and model ~= 225514697 then
+                            FlaxLog(src, "Tried to spawn a blacklisted ped: " .. model, "model")
+                            TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Blacklisted Ped", src)
+                            CancelEvent()
+                        end
+                    end
+                    pedCreator[src] = (pedCreator[src] or 0) + 1
+                    if pedCreator[src] > 999 then
+                        FlaxLog(src, "Tried to spawn " .. pedCreator[src] .. " peds", "model")
+                        TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Mass Peds", src)
+                    end
+                end
+            else
+                if inTable(blacklistedPropsArray, GetHashKey(entity)) then
+                    if model ~= 0 and model ~= 225514697 then
+                        FlaxLog(src, "Tried to spawn a model: " .. model, "model")
+                        TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Blacklisted Model", src)
+                        CancelEvent()
+                    end
                 end
             end
+
+            -- Additional checks for entity limits
             if GetEntityType(entity) == 1 then
                 if eType == 6 or eType == 7 or eType == 0 then
                     pedCreator[src] = (pedCreator[src] or 0) + 1
                     if pedCreator[src] > 15 then
-                        FlaxLog(src, "Tried to spawn "..pedCreator[src].." peds","model")
+                        FlaxLog(src, "Tried to spawn " .. pedCreator[src] .. " peds", "model")
                         TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Mass Peds", src)
                         CancelEvent()
                     end
                 end
-                elseif GetEntityType(entity) == 2 then
+            elseif GetEntityType(entity) == 2 then
                 if eType == 6 or eType == 7 or eType == 0 then
                     vehCreator[src] = (vehCreator[src] or 0) + 1
                     if vehCreator[src] > 999 then
-                        FlaxLog(src, "Tried to spawn "..vehCreator[src].." vehs","model")
-                        TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Mass Vehs", src)
+                        FlaxLog(src, "Tried to spawn " .. vehCreator[src] .. " vehicles", "model")
+                        TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Mass Vehicles", src)
                         CancelEvent()
                     end
                 end
-                elseif GetEntityType(entity) == 3 then
+            elseif GetEntityType(entity) == 3 then
                 if eType == 6 or eType == 7 or eType == 0 then
                     entityCreator[src] = (entityCreator[src] or 0) + 1
                     if entityCreator[src] > 100 then
-                        FlaxLog(src, "Tried to spawn "..entityCreator[src].." entities","model")
+                        FlaxLog(src, "Tried to spawn " .. entityCreator[src] .. " entities", "model")
                         TriggerEvent("aopkfgebjzhfpazf77", " ❓Ban Reason: Spawned Mass Entities", src)
                         CancelEvent()
                     end
