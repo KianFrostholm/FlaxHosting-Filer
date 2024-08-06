@@ -761,7 +761,10 @@ AddEventHandler(
 
             print("Entity type:", GetEntityType(entity))
             print("Entity model:", model)
-            print("Whitelisted props array:", WhitelistedPropsArray)
+            print("Whitelisted props array:")
+            for _, value in ipairs(WhitelistedPropsArray) do
+                print(value)
+            end
             print("Is model whitelisted?", inTable(WhitelistedPropsArray, model))
 
             if GetEntityType(entity) == 3 then -- Prop
@@ -851,7 +854,6 @@ AddEventHandler(
         end
     end
 )
-
 function webhooklog(a, b, d, e, f)
     if cfg.AntiVPN then
         if webhook.Anticheat ~= "" or webhook.Anticheat ~= nil then
