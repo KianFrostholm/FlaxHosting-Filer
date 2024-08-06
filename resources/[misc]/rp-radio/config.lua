@@ -1,5 +1,5 @@
 Scully = {
-    Framework = 'qbcore', -- Server Core = scully_core, ESX = es_extended, QBCore = qb-core, Standalone = none
+    Framework = 'none', -- Server Core = scully_core, ESX = es_extended, QBCore = qb-core, Standalone = none
     RadioColour = 'default', -- Options are default, blue, brown, cherry, coral, cyan, green, mint, orange, pink, purple, red, white and yellow
     AllowColours = false, -- Disable if you don't want people to be able to change their radio colour in-game
     ColourCommand = '', -- Set to '' if you don't want to allow changing with a command, command is /rcolour 1-11
@@ -9,7 +9,7 @@ Scully = {
     EnableEditing = true, -- Disable if you don't want to allow players to change their names and callsigns on the radio
     MicClicks = true, -- Disable if you don't want mic clicks
     RadioAnims = true, -- Disable if you don't want to use radio animations for holding the radio
-    UseItem = true, -- Enable if you want to use the radio as an item, will only work for QBCore and ESX
+    UseItem = false, -- Enable if you want to use the radio as an item, will only work for QBCore and ESX
     UseItemColours = true, -- Enable if you want to use different itEMS-Job for each colour, this will disable the command also
     UseKeybind = '', -- Set to '' if you don't want to use the radio as a keybind, can be changed here for first use only or in your fivem keybind settings
     UseCustomChannelNames = true, -- Enable if you want custom channel names to be displayed on the radio
