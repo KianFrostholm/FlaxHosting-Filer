@@ -1,29 +1,17 @@
---[[
-    FiveM Scripts
-    Copyright C 2018  Sighmir
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as published
-    by the Free Software Foundation, either version 3 of the License, or
-    at your option any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-]]
-
 vRPidd = {}
 Tunnel.bindInterface("vrp_id_display",vRPidd)
 users = {}
 blips = {}
 myteam = nil
 
+Citizen.CreateThread(function()
+    while not NetworkIsSessionStarted() do Citizen.Wait(250) end
+    TriggerServerEvent("vrp_id_display:requestSync")
+end)
+
 function vRPidd.insertUser(user_id,source)
-	users[user_id] = GetPlayerFromServerId(source)
+	-- Local player indices change as players enter and leave Infinity scope.
+	users[user_id] = tonumber(source)
 end
 
 function vRPidd.removeUser(user_id)
@@ -31,17 +19,23 @@ function vRPidd.removeUser(user_id)
 end
 
 function vRPidd.insertBlip(user_id,source,group,btype)
-	blips[user_id] = {player = GetPlayerFromServerId(source), job = group, team = btype}
-	if GetPlayerPed( blips[user_id].player ) == GetPlayerPed( -1 ) then
+	blips[user_id] = {player = tonumber(source), job = group, team = btype}
+	if tonumber(source) == GetPlayerServerId(PlayerId()) then
 	  myteam = btype
 	end
 end
 
 function vRPidd.removeBlip(user_id)
-	local blip = GetBlipFromEntity(ped)
-	RemoveBlip(blip)
-	blips[user_id] = {player = nil, job = nil, team = nil}
-	if ped == GetPlayerPed( -1 ) then
+	local entry = blips[user_id]
+	if entry and entry.player then
+	  local player = GetPlayerFromServerId(entry.player)
+	  if player ~= -1 then
+	    local blip = GetBlipFromEntity(GetPlayerPed(player))
+	    if DoesBlipExist(blip) then RemoveBlip(blip) end
+	  end
+	end
+	blips[user_id] = nil
+	if entry and entry.player == GetPlayerServerId(PlayerId()) then
 	  myteam = nil
 	end
 end
@@ -91,28 +85,22 @@ end
 
 Citizen.CreateThread(function()
     while true do
-        for i=0,255 do
+        for _, i in ipairs(GetActivePlayers()) do
             N_0x31698aa80e0223f8(i)
         end
-        for k,v in pairs(users) do
-		  if v ~= nil then
+        local showID = IsControlPressed(0,173) -- Hold arrow down.
+        for k,serverId in pairs(users) do
+          local v = GetPlayerFromServerId(serverId)
+		  if v ~= -1 and NetworkIsPlayerActive(v) and DoesEntityExist(GetPlayerPed(v)) then
 			if  ((GetPlayerPed( v ) ~= GetPlayerPed( -1 )) or cfg.showself) then -- disable your own
 				x1, y1, z1 = table.unpack( GetEntityCoords( GetPlayerPed( -1 ), true ) )
 				x2, y2, z2 = table.unpack( GetEntityCoords( GetPlayerPed( v ), true ) )
 				distance = math.floor(GetDistanceBetweenCoords(x1,  y1,  z1,  x2,  y2,  z2,  true))
 				
-			if IsControlPressed(0,173) then -- MOVE UP
-				showID = true
-			end
-
-			if IsControlReleased(0,173) then -- MOVE UP
-				showID = false
-			end
-
 				if ((distance < cfg.distance)) and showID == true then
 					if NetworkIsPlayerTalking( v ) then
 						DrawText3D(x2, y2, z2+1, k, cfg.talker.r, cfg.talker.g, cfg.talker.b) -- talker color
-					elseif blips[k].team ~= nil and (blips[k].team == myteam or cfg.showteam) and not cfg.hideteam then
+					elseif blips[k] and blips[k].team ~= nil and cfg.blips[blips[k].job] and (blips[k].team == myteam or cfg.showteam) and not cfg.hideteam then
 						DrawText3D(x2, y2, z2+1, k, cfg.blips[blips[k].job].id.r, cfg.blips[blips[k].job].id.g, cfg.blips[blips[k].job].id.b)
 					else
 						DrawText3D(x2, y2, z2+1, k, cfg.default.r, cfg.default.g, cfg.default.b)
@@ -128,8 +116,9 @@ end)
 Citizen.CreateThread(function()
     while true do
         for k,v in pairs(blips) do
-		  if v.player ~= nil then
-			local ped = GetPlayerPed( v.player )
+          local player = v.player and GetPlayerFromServerId(v.player) or -1
+		  if player ~= -1 and NetworkIsPlayerActive(player) and DoesEntityExist(GetPlayerPed(player)) then
+			local ped = GetPlayerPed( player )
 		    if ((ped ~= GetPlayerPed( -1 )) or cfg.showself) then
 			  local blip = GetBlipFromEntity(ped)
 			  x1, y1, z1 = table.unpack( GetEntityCoords( GetPlayerPed( -1 ), true ) )
@@ -141,9 +130,9 @@ Citizen.CreateThread(function()
 				    local alpha = 255 - (255*(distance/cfg.blips[v.job].distance))
 			        if not DoesBlipExist( blip ) then
 				      blip = AddBlipForEntity( ped )
-				      UpdateBlip(v.player, blip, cfg.blips[v.job].sprite, cfg.blips[v.job].colour, alpha)
+				      UpdateBlip(player, blip, cfg.blips[v.job].sprite, cfg.blips[v.job].colour, alpha)
 			        else
-				      UpdateBlip(v.player, blip, cfg.blips[v.job].sprite, cfg.blips[v.job].colour, alpha)
+				      UpdateBlip(player, blip, cfg.blips[v.job].sprite, cfg.blips[v.job].colour, alpha)
 			        end
 			      else
 			        if DoesBlipExist( blip ) then
