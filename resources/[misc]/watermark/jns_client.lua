@@ -3,19 +3,17 @@ AddEventHandler('vrp:playerLoaded', function()
 TriggerServerEvent("getPlayers:check")
 end)
 
-
-
 RegisterNetEvent('getPlayers:done')
 AddEventHandler('getPlayers:done', function(playerCount)
     SendNUIMessage({action = "setPlayerId", id = GetPlayerServerId(PlayerId())})
     SendNUIMessage({action = "setPlayerCount", count = playerCount})
 end)
 
-
 Citizen.CreateThread(function()
     while true do
-        SendNUIMessage({action = "setPlayerCount", count = #GetActivePlayers()}) 
-    Wait(600)
+        -- OneSync Infinity only exposes nearby players on the client.
+        TriggerServerEvent("getPlayers:check")
+    Wait(5000)
     end
 end)
 Citizen.CreateThread(function()
