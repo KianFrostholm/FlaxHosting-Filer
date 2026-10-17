@@ -1,21 +1,3 @@
---[[
-    FiveM Scripts
-    Copyright C 2018  Sighmir
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as published
-    by the Free Software Foundation, either version 3 of the License, or
-    at your option any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-]]
-
 local Tunnel = module("vrp", "lib/Tunnel")
 local Proxy = module("vrp", "lib/Proxy")
 local cfg = module("vrp_id_display", "cfg/blips")
@@ -25,6 +7,19 @@ vRPclient = Tunnel.getInterface("vRP","vrp_id_display")
 Tunnel.bindInterface("vrp_id_display",vRPidd)
 Proxy.addInterface("vrp_id_display",vRPidd)
 vRP = Proxy.getInterface("vRP")
+
+-- Populate clients that start this resource after players have already spawned.
+RegisterNetEvent("vrp_id_display:requestSync")
+AddEventHandler("vrp_id_display:requestSync", function()
+    local playerSource = source
+    if not vRP.getUserId({playerSource}) then return end
+    for user_id, userSource in pairs(vRP.getUsers({})) do
+        local job = vRP.getUserGroupByType({user_id, "job"})
+        local team = vRPidd.getUserTeamByGroup(user_id, job)
+        IDDclient.insertUser(playerSource, {user_id, userSource})
+        IDDclient.insertBlip(playerSource, {user_id, userSource, job, team})
+    end
+end)
 
 AddEventHandler("vRP:playerLeave",function(user_id, source) 
 	local users = vRP.getUsers({})
