@@ -28,6 +28,14 @@ vRP.user_tmp_tables = {} -- user tmp data tables (logger storage, not saved)
 vRP.user_sources = {} -- user sources
 local iprion = 'steam:11000010f7659e3'
 
+local function getLicense(ids)
+  for _, id in ipairs(ids or {}) do
+    if id:sub(1, 8) == "license:" then
+      return id
+    end
+  end
+  return nil
+end
 
 function vRP.getUserIdByIdentifiers(ids, cbr)
   local task = Task(cbr)
@@ -281,13 +289,29 @@ function vRP.isFirstSpawn(user_id)
 end
 
 function vRP.getUserId(source)
-  if source ~= nil then
-    local ids = GetPlayerIdentifiers(source)
-    if ids ~= nil and #ids > 0 then
-      return vRP.users[ids[1]]
+    if type(source) == "table" then
+        source = source[1]
     end
-  end
-  return nil
+
+    source = tonumber(source)
+
+    if not source then
+        return nil
+    end
+
+    local ids = GetPlayerIdentifiers(source)
+
+    if type(ids) ~= "table" then
+        return nil
+    end
+
+    for _, identifier in ipairs(ids) do
+        if vRP.users[identifier] then
+            return vRP.users[identifier]
+        end
+    end
+
+    return nil
 end
 
 
